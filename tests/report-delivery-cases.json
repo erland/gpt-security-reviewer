@@ -1,0 +1,70 @@
+{
+  "cases": [
+    {
+      "id": "quick-default",
+      "mode": "quick",
+      "formats": null,
+      "expected": []
+    },
+    {
+      "id": "standard-default",
+      "mode": "standard",
+      "formats": null,
+      "expected": [
+        "markdown"
+      ]
+    },
+    {
+      "id": "deep-default",
+      "mode": "deep",
+      "formats": null,
+      "expected": [
+        "markdown"
+      ]
+    },
+    {
+      "id": "quick-pdf",
+      "mode": "quick",
+      "formats": "pdf",
+      "expected": [
+        "pdf"
+      ]
+    },
+    {
+      "id": "standard-word-pdf",
+      "mode": "standard",
+      "formats": "word,pdf",
+      "expected": [
+        "word",
+        "pdf"
+      ]
+    },
+    {
+      "id": "deep-all",
+      "mode": "deep",
+      "formats": "markdown,confluence,word,pdf",
+      "expected": [
+        "markdown",
+        "confluence",
+        "word",
+        "pdf"
+      ]
+    },
+    {
+      "id": "alias-docx",
+      "mode": "standard",
+      "formats": "docx",
+      "expected": [
+        "word"
+      ]
+    },
+    {
+      "id": "alias-md",
+      "mode": "deep",
+      "formats": "md",
+      "expected": [
+        "markdown"
+      ]
+    }
+  ]
+}

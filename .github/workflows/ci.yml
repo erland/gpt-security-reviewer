@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install report dependencies
+        run: pip install -r requirements-reporting.txt
+
+      - name: Install LibreOffice for PDF tests
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libreoffice-writer
+
+      - name: Validate project
+        run: python3 scripts/validate_project.py
+
+      - name: Validate workflows
+        run: python3 scripts/validate_workflows.py
+
+      - name: Validate RC readiness
+        run: python3 scripts/validate_rc_readiness.py
+
+      - name: Validate report model
+        run: python3 scripts/validate_report_model.py
+
+      - name: Validate report exports
+        run: python3 scripts/validate_report_exports.py
+
+      - name: Validate Word/PDF exports
+        run: python3 scripts/validate_binary_report_exports.py
+
+      - name: Validate report workflow
+        run: python3 scripts/validate_report_workflow.py
+
+      - name: Validate report semantic parity
+        run: python3 scripts/validate_report_semantic_parity.py
+
+      - name: Validate test suite
+        run: python3 scripts/validate_tests.py
+
+      - name: Build Chat ZIP
+        run: python3 scripts/build_chat_zip.py
+
+      - name: Build Custom GPT bundle
+        run: python3 scripts/build_custom_gpt.py
+
+      - name: Validate Custom GPT bundle
+        run: python3 scripts/validate_custom_gpt.py
+
+      - name: Package Custom GPT bundle
+        run: python3 scripts/package_custom_gpt.py
+
+      - name: Validate distribution
+        run: python3 scripts/validate_distribution.py
+
+  release-smoke:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: v0.0.0-ci
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build Chat ZIP
+        run: python3 scripts/build_chat_zip.py
+
+      - name: Build Custom GPT bundle
+        run: python3 scripts/build_custom_gpt.py
+
+      - name: Validate Custom GPT bundle
+        run: python3 scripts/validate_custom_gpt.py
+
+      - name: Package Custom GPT bundle
+        run: python3 scripts/package_custom_gpt.py
+
+      - name: Validate distribution
+        run: python3 scripts/validate_distribution.py
+
+      - name: Validate synthetic release artifacts
+        run: python3 scripts/validate_release.py
+
+      - name: Generate synthetic checksums
+        run: python3 scripts/generate_checksums.py

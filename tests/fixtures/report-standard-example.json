@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "title": "Säkerhetsgranskning",
+    "system_name": "Exempelsystem",
+    "review_date": null,
+    "review_mode": "standard",
+    "version": "0.1.0-dev",
+    "source_reference": null
+  },
+  "executive_summary": {
+    "overall_assessment": "Exempelbedömning.",
+    "key_findings": [],
+    "key_uncertainties": [
+      "Produktions-IAM ej verifierbar."
+    ],
+    "next_steps": [
+      "Verifiera IAM."
+    ]
+  },
+  "scope": {
+    "requested_scope": "Kod och arkitektur.",
+    "reviewed_material": [
+      "Backend"
+    ],
+    "limitations": [
+      "Runtime-IAM saknas."
+    ]
+  },
+  "system_overview": {
+    "frontend": [],
+    "backend": [
+      "Jakarta EE"
+    ],
+    "data_stores": [
+      "PostgreSQL"
+    ],
+    "integrations": [],
+    "deployment": []
+  },
+  "architecture_security": {
+    "trust_boundaries": [],
+    "authentication_points": [],
+    "authorization_points": [],
+    "administrative_interfaces": [],
+    "sensitive_data_flows": [],
+    "observations": []
+  },
+  "findings": [],
+  "coverage": {
+    "reviewed": [
+      "Backend"
+    ],
+    "not_reviewed": [],
+    "not_verifiable": [
+      "Produktions-IAM"
+    ]
+  },
+  "recommended_actions": [
+    {
+      "priority": "normal",
+      "action": "Verifiera IAM.",
+      "reason": "Runtimekonfiguration saknas.",
+      "related_findings": []
+    }
+  ],
+  "follow_up_review": [
+    {
+      "type": "configuration-review",
+      "priority": "normal",
+      "reason": "IAM ligger utanför repo.",
+      "scope": "Produktions-IAM",
+      "verification_goal": "Verifiera roller och policyer."
+    }
+  ],
+  "residual_risk": {
+    "summary": "IAM kan inte bedömas fullt ut.",
+    "from_findings": [],
+    "from_unverified": [
+      "IAM"
+    ],
+    "from_out_of_scope": []
+  },
+  "appendix": {
+    "method": [
+      "Standard review"
+    ],
+    "evidence_register": [],
+    "profiles_used": [
+      "java-jakarta"
+    ],
+    "references": []
+  }
+}

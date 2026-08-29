@@ -1,0 +1,256 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SecurityReviewFinding",
+  "type": "object",
+  "required": [
+    "id",
+    "title",
+    "category",
+    "severity",
+    "confidence",
+    "status",
+    "observation",
+    "recommendation",
+    "manual_verification"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "severity": {
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "informational"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "status": {
+      "enum": [
+        "confirmed",
+        "probable",
+        "review-point"
+      ]
+    },
+    "component": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "observation": {
+      "type": "string"
+    },
+    "impact": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reasoning": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recommendation": {
+      "type": "string"
+    },
+    "manual_verification": {
+      "enum": [
+        "none",
+        "spot-check",
+        "recommended",
+        "required",
+        "tool-based"
+      ]
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "severity_factors": {
+      "type": "object",
+      "properties": {
+        "confidentiality": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "integrity": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "availability": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "data_sensitivity": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        },
+        "exposure": {
+          "enum": [
+            "internal",
+            "authenticated",
+            "external",
+            "unknown"
+          ]
+        },
+        "required_privileges": {
+          "enum": [
+            "none",
+            "low",
+            "high",
+            "unknown"
+          ]
+        },
+        "exploit_complexity": {
+          "enum": [
+            "low",
+            "medium",
+            "high",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "follow_up": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "priority",
+          "reason",
+          "verification_goal"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "none",
+              "spot-check",
+              "manual-review",
+              "SAST",
+              "SCA",
+              "secrets-scan",
+              "DAST",
+              "penetration-test",
+              "configuration-review",
+              "specialist-review"
+            ]
+          },
+          "priority": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "verification_goal": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "priority": {
+      "enum": [
+        "immediate",
+        "high",
+        "normal",
+        "low"
+      ]
+    },
+    "evidence_details": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "description"
+        ],
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "location": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "affected_assets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "remediation_effort": {
+      "enum": [
+        "small",
+        "medium",
+        "large",
+        "unknown"
+      ]
+    },
+    "verification_goal": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

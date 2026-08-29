@@ -1,0 +1,377 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SecurityReviewReport",
+  "type": "object",
+  "required": [
+    "metadata",
+    "executive_summary",
+    "scope",
+    "system_overview",
+    "architecture_security",
+    "findings",
+    "coverage",
+    "recommended_actions",
+    "follow_up_review",
+    "residual_risk"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "title",
+        "review_mode",
+        "version"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "system_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "review_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "review_mode": {
+          "enum": [
+            "quick",
+            "standard",
+            "deep"
+          ]
+        },
+        "version": {
+          "type": "string"
+        },
+        "source_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "executive_summary": {
+      "type": "object",
+      "required": [
+        "overall_assessment",
+        "key_findings",
+        "key_uncertainties",
+        "next_steps"
+      ],
+      "properties": {
+        "overall_assessment": {
+          "type": "string"
+        },
+        "key_findings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "key_uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "next_steps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "requested_scope",
+        "reviewed_material",
+        "limitations"
+      ],
+      "properties": {
+        "requested_scope": {
+          "type": "string"
+        },
+        "reviewed_material": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "system_overview": {
+      "type": "object",
+      "properties": {
+        "frontend": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "backend": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "data_stores": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "integrations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deployment": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "architecture_security": {
+      "type": "object",
+      "properties": {
+        "trust_boundaries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authentication_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorization_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "administrative_interfaces": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sensitive_data_flows": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "observations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "finding.schema.json"
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "required": [
+        "reviewed",
+        "not_reviewed",
+        "not_verifiable"
+      ],
+      "properties": {
+        "reviewed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "not_reviewed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "not_verifiable": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "recommended_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "priority",
+          "action",
+          "reason"
+        ],
+        "properties": {
+          "priority": {
+            "enum": [
+              "immediate",
+              "high",
+              "normal",
+              "low"
+            ]
+          },
+          "action": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "related_findings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "follow_up_review": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "priority",
+          "reason",
+          "scope",
+          "verification_goal"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "none",
+              "spot-check",
+              "manual-review",
+              "configuration-review",
+              "SAST",
+              "SCA",
+              "secrets-scan",
+              "DAST",
+              "penetration-test",
+              "specialist-review"
+            ]
+          },
+          "priority": {
+            "enum": [
+              "high",
+              "normal",
+              "low"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "verification_goal": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "residual_risk": {
+      "type": "object",
+      "required": [
+        "summary",
+        "from_findings",
+        "from_unverified",
+        "from_out_of_scope"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "from_findings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "from_unverified": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "from_out_of_scope": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "appendix": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "evidence_register": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "profiles_used": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,349 @@
+{
+  "scenarios": [
+    {
+      "id": "authz-backend-enforced",
+      "class": "negative",
+      "title": "Frontend guard + verifierad backendkontroll",
+      "file": "tests/scenarios/authz-backend-enforced.md",
+      "tags": [
+        "authz",
+        "react",
+        "jakarta",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "authz-object-filter-external",
+      "class": "uncertainty",
+      "title": "Objektbehörighet i shared bibliotek",
+      "file": "tests/scenarios/authz-object-filter-external.md",
+      "tags": [
+        "authz",
+        "bola",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "xss-react-sanitized-html",
+      "class": "negative",
+      "title": "React raw HTML efter verifierad sanering",
+      "file": "tests/scenarios/xss-react-sanitized-html.md",
+      "tags": [
+        "react",
+        "xss",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "xss-angular-bypass-static",
+      "class": "negative",
+      "title": "Angular bypass med statiskt innehåll",
+      "file": "tests/scenarios/xss-angular-bypass-static.md",
+      "tags": [
+        "angular",
+        "xss",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "sql-jpa-safe-native",
+      "class": "negative",
+      "title": "Native SQL med bind parameters",
+      "file": "tests/scenarios/sql-jpa-safe-native.md",
+      "tags": [
+        "java",
+        "sql",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "sql-dynamic-identifier-allowlist",
+      "class": "negative",
+      "title": "Dynamiskt sorteringsfält med allowlist",
+      "file": "tests/scenarios/sql-dynamic-identifier-allowlist.md",
+      "tags": [
+        "sql",
+        "allowlist",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "secrets-example-placeholder",
+      "class": "negative",
+      "title": "Exempelcredential i dokumentation",
+      "file": "tests/scenarios/secrets-example-placeholder.md",
+      "tags": [
+        "secrets",
+        "docs",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "secrets-real-private-key",
+      "class": "positive",
+      "title": "Privat nyckel i repo",
+      "file": "tests/scenarios/secrets-real-private-key.md",
+      "tags": [
+        "secrets",
+        "positive"
+      ]
+    },
+    {
+      "id": "logging-user-id",
+      "class": "negative",
+      "title": "Normal identifierare i logg",
+      "file": "tests/scenarios/logging-user-id.md",
+      "tags": [
+        "logging",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "logging-access-token",
+      "class": "positive",
+      "title": "Access token loggas",
+      "file": "tests/scenarios/logging-access-token.md",
+      "tags": [
+        "logging",
+        "token",
+        "positive"
+      ]
+    },
+    {
+      "id": "crypto-standard-library",
+      "class": "negative",
+      "title": "Standard TLS via plattform",
+      "file": "tests/scenarios/crypto-standard-library.md",
+      "tags": [
+        "crypto",
+        "tls",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "crypto-trust-all",
+      "class": "positive",
+      "title": "Trust-all TLS",
+      "file": "tests/scenarios/crypto-trust-all.md",
+      "tags": [
+        "crypto",
+        "tls",
+        "positive"
+      ]
+    },
+    {
+      "id": "api-public-health",
+      "class": "negative",
+      "title": "Publik health endpoint",
+      "file": "tests/scenarios/api-public-health.md",
+      "tags": [
+        "api",
+        "health",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "api-management-info",
+      "class": "positive",
+      "title": "Oskyddad management endpoint",
+      "file": "tests/scenarios/api-management-info.md",
+      "tags": [
+        "api",
+        "management",
+        "positive"
+      ]
+    },
+    {
+      "id": "dependency-version-only",
+      "class": "uncertainty",
+      "title": "Beroendeversion utan aktuell CVE-data",
+      "file": "tests/scenarios/dependency-version-only.md",
+      "tags": [
+        "sca",
+        "dependency",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "dependency-verified-cve",
+      "class": "positive",
+      "title": "Verifierad sårbar dependency",
+      "file": "tests/scenarios/dependency-verified-cve.md",
+      "tags": [
+        "sca",
+        "dependency",
+        "positive"
+      ]
+    },
+    {
+      "id": "oracle-definer-safe",
+      "class": "negative",
+      "title": "Oracle definer rights med säkert API",
+      "file": "tests/scenarios/oracle-definer-safe.md",
+      "tags": [
+        "oracle",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "postgres-public-no-risk",
+      "class": "negative",
+      "title": "PostgreSQL PUBLIC utan relevant grant",
+      "file": "tests/scenarios/postgres-public-no-risk.md",
+      "tags": [
+        "postgresql",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "elastic-user-value",
+      "class": "negative",
+      "title": "Elasticsearch användartext i fast query",
+      "file": "tests/scenarios/elastic-user-value.md",
+      "tags": [
+        "elasticsearch",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "elastic-index-from-user",
+      "class": "positive",
+      "title": "Elasticsearch index från klient",
+      "file": "tests/scenarios/elastic-index-from-user.md",
+      "tags": [
+        "elasticsearch",
+        "positive"
+      ]
+    },
+    {
+      "id": "k8s-secret-base64",
+      "class": "uncertainty",
+      "title": "Kubernetes Secret manifest med base64",
+      "file": "tests/scenarios/k8s-secret-base64.md",
+      "tags": [
+        "kubernetes",
+        "secrets",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "k8s-restricted-policy",
+      "class": "negative",
+      "title": "Plattform tvingar restricted policy",
+      "file": "tests/scenarios/k8s-restricted-policy.md",
+      "tags": [
+        "kubernetes",
+        "openshift",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "architecture-old-doc",
+      "class": "uncertainty",
+      "title": "Föråldrad arkitekturdokumentation",
+      "file": "tests/scenarios/architecture-old-doc.md",
+      "tags": [
+        "architecture",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "architecture-doc-code-match",
+      "class": "architecture",
+      "title": "Arkitektur och implementation stämmer",
+      "file": "tests/scenarios/architecture-doc-code-match.md",
+      "tags": [
+        "architecture",
+        "authz",
+        "negative"
+      ]
+    },
+    {
+      "id": "recommend-no-pentest",
+      "class": "recommendation",
+      "title": "Låg risk och god coverage",
+      "file": "tests/scenarios/recommend-no-pentest.md",
+      "tags": [
+        "recommendation",
+        "pentest",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "recommend-pentest",
+      "class": "recommendation",
+      "title": "Internetexponerad känslig tjänst",
+      "file": "tests/scenarios/recommend-pentest.md",
+      "tags": [
+        "recommendation",
+        "pentest",
+        "positive"
+      ]
+    },
+    {
+      "id": "recommend-sast-not-manual-deep",
+      "class": "recommendation",
+      "title": "Bred kodbas utan specifika signaler",
+      "file": "tests/scenarios/recommend-sast-not-manual-deep.md",
+      "tags": [
+        "recommendation",
+        "sast"
+      ]
+    },
+    {
+      "id": "input-prompt-injection",
+      "class": "negative",
+      "title": "Prompt injection i README",
+      "file": "tests/scenarios/input-prompt-injection.md",
+      "tags": [
+        "input-security",
+        "prompt-injection",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "input-vendor-node-modules",
+      "class": "negative",
+      "title": "node_modules innehåller riskmönster",
+      "file": "tests/scenarios/input-vendor-node-modules.md",
+      "tags": [
+        "repository",
+        "vendor",
+        "false-positive"
+      ]
+    },
+    {
+      "id": "input-partial-repository",
+      "class": "uncertainty",
+      "title": "Ofullständigt repository",
+      "file": "tests/scenarios/input-partial-repository.md",
+      "tags": [
+        "coverage",
+        "partial-input",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "no-findings-good-coverage",
+      "class": "recommendation",
+      "title": "Inga fynd med god coverage",
+      "file": "tests/scenarios/no-findings-good-coverage.md",
+      "tags": [
+        "no-findings",
+        "coverage",
+        "recommendation"
+      ]
+    },
+    {
+      "id": "architecture-trust-boundary-header",
+      "class": "architecture",
+      "title": "Spoofbar identity-header över trust boundary",
+      "file": "tests/scenarios/architecture-trust-boundary-header.md",
+      "tags": [
+        "architecture",
+        "trust-boundary",
+        "authn"
+      ]
+    }
+  ]
+}
