@@ -1,0 +1,175 @@
+{
+  "metadata": {
+    "title": "Säkerhetsgranskning av Exempelsystem",
+    "system_name": "Exempelsystem",
+    "review_date": "2026-08-29",
+    "review_mode": "standard",
+    "version": "0.1.0-dev",
+    "source_reference": "example-fixture"
+  },
+  "executive_summary": {
+    "overall_assessment": "Systemet har en verifierad högriskbrist i objektbehörighet. Produktions-IAM kan inte verifieras från materialet.",
+    "key_findings": [
+      "F-001 – Saknad objektbehörighetskontroll"
+    ],
+    "key_uncertainties": [
+      "Produktions-IAM ligger utanför analyserat repo."
+    ],
+    "next_steps": [
+      "Åtgärda F-001.",
+      "Verifiera produktions-IAM."
+    ]
+  },
+  "scope": {
+    "requested_scope": "Standardgranskning av backend och arkitektur.",
+    "reviewed_material": [
+      "JAX-RS backend",
+      "Arkitekturbeskrivning",
+      "PostgreSQL-access"
+    ],
+    "limitations": [
+      "Produktions-IAM-konfiguration saknas."
+    ]
+  },
+  "system_overview": {
+    "frontend": [
+      "React"
+    ],
+    "backend": [
+      "Jakarta EE / JAX-RS"
+    ],
+    "data_stores": [
+      "PostgreSQL"
+    ],
+    "integrations": [
+      "Extern IdP"
+    ],
+    "deployment": [
+      "OpenShift"
+    ]
+  },
+  "architecture_security": {
+    "trust_boundaries": [
+      "Webbläsare → backend API",
+      "Backend → PostgreSQL"
+    ],
+    "authentication_points": [
+      "Extern IdP före backend"
+    ],
+    "authorization_points": [
+      "Backend-endpoints"
+    ],
+    "administrative_interfaces": [],
+    "sensitive_data_flows": [
+      "Orderdata från backend till klient"
+    ],
+    "observations": [
+      "Objektbehörighet måste verifieras i backend."
+    ]
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "title": "Saknad objektbehörighetskontroll",
+      "category": "authorization",
+      "severity": "high",
+      "confidence": "high",
+      "status": "confirmed",
+      "component": "OrderResource",
+      "evidence": [
+        "OrderResource.java:87-104"
+      ],
+      "observation": "Endpoint hämtar order via klientstyrt ID utan verifiering mot aktuell principal.",
+      "impact": "Autentiserad användare kan potentiellt läsa annan användares order.",
+      "reasoning": "Funktionsbehörighet finns men objektägarskap kontrolleras inte.",
+      "recommendation": "Verifiera ownership eller motsvarande behörighetsregel före retur av objekt.",
+      "manual_verification": "recommended",
+      "references": [
+        "OWASP API Security – BOLA"
+      ],
+      "priority": "high",
+      "evidence_details": [
+        {
+          "source": "OrderResource.java",
+          "location": "87-104",
+          "description": "Order hämtas via path-ID och returneras utan ownership-kontroll."
+        }
+      ],
+      "affected_assets": [
+        "Orderdata"
+      ],
+      "remediation_effort": "medium",
+      "verification_goal": "Verifiera att användare endast kan läsa behöriga order."
+    }
+  ],
+  "coverage": {
+    "reviewed": [
+      "Backend authorization",
+      "JPA-access",
+      "Arkitekturdokumentation"
+    ],
+    "not_reviewed": [
+      "Aktiv penetrationstestning"
+    ],
+    "not_verifiable": [
+      "Produktions-IAM",
+      "Extern gatewaykonfiguration"
+    ]
+  },
+  "recommended_actions": [
+    {
+      "priority": "high",
+      "action": "Inför server-side objektbehörighetskontroll.",
+      "reason": "F-001 kan exponera annan användares data.",
+      "related_findings": [
+        "F-001"
+      ]
+    }
+  ],
+  "follow_up_review": [
+    {
+      "type": "manual-review",
+      "priority": "high",
+      "reason": "Objektbehörighetslogiken är säkerhetskritisk.",
+      "scope": "Order- och kundendpoints",
+      "verification_goal": "Verifiera konsekvent ownership/role enforcement."
+    },
+    {
+      "type": "configuration-review",
+      "priority": "normal",
+      "reason": "Produktions-IAM saknas i underlaget.",
+      "scope": "IdP/gateway/runtime IAM",
+      "verification_goal": "Verifiera roller, claims och policyer."
+    }
+  ],
+  "residual_risk": {
+    "summary": "Kvarvarande risk är främst kopplad till objektbehörighet och ej verifierad produktions-IAM.",
+    "from_findings": [
+      "F-001 tills åtgärdad."
+    ],
+    "from_unverified": [
+      "Produktions-IAM."
+    ],
+    "from_out_of_scope": [
+      "Dynamisk penetrationstestning."
+    ]
+  },
+  "appendix": {
+    "method": [
+      "Standard review",
+      "Riskdriven kod- och arkitekturgranskning"
+    ],
+    "evidence_register": [
+      "F-001 → OrderResource.java:87-104"
+    ],
+    "profiles_used": [
+      "application-security",
+      "java-jakarta",
+      "architecture-security"
+    ],
+    "references": [
+      "OWASP ASVS",
+      "OWASP API Security"
+    ]
+  }
+}

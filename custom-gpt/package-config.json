@@ -1,0 +1,14 @@
+{
+  "name": "Säkerhetsgranskaren för IT-stöd",
+  "instructions_max_chars": 8000,
+  "knowledge_max_files": 20,
+  "output_files": {
+    "instructions": "instructions.md",
+    "core": "knowledge-core.md",
+    "common": "knowledge-common.md",
+    "frontend": "knowledge-frontend.md",
+    "backend": "knowledge-backend.md",
+    "data": "knowledge-data.md",
+    "architecture_deployment": "knowledge-architecture-deployment.md"
+  }
+}

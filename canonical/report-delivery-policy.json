@@ -1,0 +1,36 @@
+{
+  "quick": {
+    "default_chat": true,
+    "default_artifacts": [],
+    "available_formats": [
+      "markdown",
+      "confluence",
+      "word",
+      "pdf"
+    ]
+  },
+  "standard": {
+    "default_chat": true,
+    "default_artifacts": [
+      "markdown"
+    ],
+    "available_formats": [
+      "markdown",
+      "confluence",
+      "word",
+      "pdf"
+    ]
+  },
+  "deep": {
+    "default_chat": true,
+    "default_artifacts": [
+      "markdown"
+    ],
+    "available_formats": [
+      "markdown",
+      "confluence",
+      "word",
+      "pdf"
+    ]
+  }
+}

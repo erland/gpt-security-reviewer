@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SecurityReviewSummary",
+  "type": "object",
+  "required": [
+    "scope",
+    "reviewed",
+    "not_reviewed",
+    "not_verifiable",
+    "technology_stack",
+    "findings_summary",
+    "manual_review_recommendations",
+    "residual_risk",
+    "overall_assessment"
+  ],
+  "properties": {
+    "scope": {
+      "type": "string"
+    },
+    "reviewed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "not_reviewed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "not_verifiable": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "technology_stack": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "architecture_observations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "findings_summary": {
+      "type": "object"
+    },
+    "critical_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "high_findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "manual_review_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tool_based_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "residual_risk": {
+      "type": "string"
+    },
+    "overall_assessment": {
+      "type": "string"
+    },
+    "review_mode": {
+      "enum": [
+        "quick",
+        "standard",
+        "deep"
+      ]
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "area",
+          "status"
+        ],
+        "properties": {
+          "area": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "reviewed",
+              "not_reviewed",
+              "not_verifiable"
+            ]
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "needed_for_verification": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "follow_up_recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "area",
+          "type",
+          "priority",
+          "reason",
+          "verification_goal"
+        ],
+        "properties": {
+          "area": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "none",
+              "spot-check",
+              "manual-review",
+              "SAST",
+              "SCA",
+              "secrets-scan",
+              "DAST",
+              "penetration-test",
+              "configuration-review",
+              "specialist-review"
+            ]
+          },
+          "priority": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "verification_goal": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "report_artifact_recommended": {
+      "type": "boolean"
+    },
+    "default_report_format": {
+      "enum": [
+        "chat",
+        "markdown"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

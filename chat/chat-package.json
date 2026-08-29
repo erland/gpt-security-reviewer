@@ -1,0 +1,19 @@
+{
+  "name": "Säkerhetsgranskaren för IT-stöd",
+  "distribution": "chat",
+  "start_file": "START-HERE.md",
+  "runtime_files": [
+    "runtime/instructions.md",
+    "runtime/workflow.md",
+    "runtime/review-framework.md",
+    "runtime/reporting-contract.md"
+  ],
+  "knowledge_roots": [
+    "knowledge/common",
+    "knowledge/technologies"
+  ],
+  "schema_files": [
+    "schemas/finding.schema.json",
+    "schemas/review-summary.schema.json"
+  ]
+}

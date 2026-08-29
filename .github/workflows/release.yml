@@ -1,0 +1,89 @@
+name: Release distribution
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Resolve release version
+        run: echo "RELEASE_VERSION=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
+
+      - name: Install report dependencies
+        run: pip install -r requirements-reporting.txt
+
+      - name: Install LibreOffice for PDF tests
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libreoffice-writer
+
+      - name: Validate project
+        run: python3 scripts/validate_project.py
+
+      - name: Validate workflows
+        run: python3 scripts/validate_workflows.py
+
+      - name: Validate RC readiness
+        run: python3 scripts/validate_rc_readiness.py
+
+      - name: Validate report model
+        run: python3 scripts/validate_report_model.py
+
+      - name: Validate report exports
+        run: python3 scripts/validate_report_exports.py
+
+      - name: Validate Word/PDF exports
+        run: python3 scripts/validate_binary_report_exports.py
+
+      - name: Validate report workflow
+        run: python3 scripts/validate_report_workflow.py
+
+      - name: Validate report semantic parity
+        run: python3 scripts/validate_report_semantic_parity.py
+
+      - name: Validate test suite
+        run: python3 scripts/validate_tests.py
+
+      - name: Build Chat ZIP
+        run: python3 scripts/build_chat_zip.py
+
+      - name: Build Custom GPT bundle
+        run: python3 scripts/build_custom_gpt.py
+
+      - name: Validate Custom GPT bundle
+        run: python3 scripts/validate_custom_gpt.py
+
+      - name: Package Custom GPT bundle
+        run: python3 scripts/package_custom_gpt.py
+
+      - name: Validate Chat distribution
+        run: python3 scripts/validate_distribution.py
+
+      - name: Validate release artifacts
+        run: python3 scripts/validate_release.py
+
+      - name: Generate SHA-256 checksums
+        run: python3 scripts/generate_checksums.py
+
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload "$GITHUB_REF_NAME" \
+            "dist/sakerhetsgranskaren-it-stod-chat-${RELEASE_VERSION#v}.zip" \
+            "dist/sakerhetsgranskaren-it-stod-custom-gpt-${RELEASE_VERSION#v}.zip" \
+            "dist/sakerhetsgranskaren-it-stod-${RELEASE_VERSION#v}-SHA256SUMS.txt" \
+            --clobber
