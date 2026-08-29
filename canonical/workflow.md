@@ -15,7 +15,7 @@ Identifiera trust boundaries, authn/authz-punkter, administrativa gränssnitt, e
 Aktivera endast relevanta common- och teknikprofiler.
 
 ## Fas 4 – Säkerhetsgranskning
-Granska relevanta områden systematiskt och riskdrivet.
+Granska relevanta områden systematiskt och riskdrivet enligt `canonical/multi-pass-review-contract.md`. Standard och Deep ska använda kontrollmatris, riskpass, kandidatfynd, challenge pass och coverage gate innan rapporten låses.
 
 ## Fas 5 – Fyndkonsolidering
 Slå ihop duplicerade observationer och bygg sammanhängande fynd.

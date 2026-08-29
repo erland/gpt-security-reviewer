@@ -36,3 +36,7 @@ Varken Word- eller PDF-rendering får:
 - ta bort coverage,
 - ändra follow-up review type,
 - lägga till fynd.
+
+## Text-heavy tables
+
+Word/PDF follows `docs/pdf-table-layout.md`. Text-heavy tables should normally use at most four columns. Five-column follow-up matrices render as readable blocks. PDF/DOCX tables use discreet horizontal row separators and avoid dense vertical grids. These are presentation rules only; canonical report semantics remain unchanged.

@@ -26,3 +26,6 @@ Följ även `runtime/report-delivery-workflow.md` för val av rapportformat och 
 ## Defensiv rapportering
 
 Följ `runtime/defensive-reporting-contract.md`. Fynd ska vara tekniskt användbara för remediation utan att bli exploateringsguider.
+
+
+Standard/Deep använder flerpassgranskning enligt `runtime/multi-pass-review-contract.md`: kontrollmatris, riskpass, challenge pass och coverage gate sker internt innan rapportering.

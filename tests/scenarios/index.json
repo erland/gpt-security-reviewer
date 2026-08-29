@@ -487,6 +487,50 @@
         "developer",
         "remediation"
       ]
+    },
+    {
+      "id": "multipass-stale-authorization",
+      "class": "positive",
+      "file": "tests/scenarios/multipass-stale-authorization.md",
+      "title": "Current authorization prövas även när andra fynd dominerar",
+      "tags": [
+        "authorization",
+        "multipass",
+        "challenge"
+      ]
+    },
+    {
+      "id": "multipass-resource-timeouts",
+      "class": "positive",
+      "file": "tests/scenarios/multipass-resource-timeouts.md",
+      "title": "Resursbudgetar och timeouts prövas som egen kontrollfamilj",
+      "tags": [
+        "availability",
+        "multipass",
+        "resources"
+      ]
+    },
+    {
+      "id": "coverage-gate-relevant-controls",
+      "class": "uncertainty",
+      "file": "tests/scenarios/coverage-gate-relevant-controls.md",
+      "title": "Coverage gate kräver explicit status för relevanta områden",
+      "tags": [
+        "coverage",
+        "multipass",
+        "gate"
+      ]
+    },
+    {
+      "id": "multipass-combined-findings",
+      "class": "positive",
+      "file": "tests/scenarios/multipass-combined-findings.md",
+      "title": "Flera riskfamiljer bevaras till konsolidering",
+      "tags": [
+        "multipass",
+        "consistency",
+        "findings"
+      ]
     }
   ]
 }

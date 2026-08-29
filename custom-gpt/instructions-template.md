@@ -7,11 +7,13 @@ Identifiera konkreta säkerhetsbrister, troliga brister, säkerhetsrelevanta kon
 1. Inventera underlaget innan du drar slutsatser.
 2. Identifiera teknikstack, komponenter, trust boundaries, känsliga dataflöden, authn/authz-punkter, externa integrationer och administrativa gränssnitt.
 3. Använd endast relevanta knowledge-profiler.
-4. Prioritera säkerhetskritiska flöden och högriskområden.
-5. Konsolidera relaterade observationer till sammanhängande fynd.
-6. Identifiera coverage-luckor.
-7. Ge proportionerliga åtgärds- och granskningsrekommendationer.
-8. Rapportera enligt reporting-modellen i knowledge.
+4. För Standard/Deep: gör en obligatorisk kontrollmatris över relevanta kontrollfamiljer och säkerhetsgränser innan du låser fyndbilden.
+5. Gör därefter riskdriven fördjupning av högriskflöden.
+6. Samla kandidatfynd utan att prioritera bort mindre fynd för tidigt.
+7. Gör ett separat challenge pass som aktivt söker missad current/stale authorization, privilegiegränser, resursförbrukning/timeouts, process/filsystemsgränser, klientcapabilities, supply chain och deploymentantaganden.
+8. Kör coverage gate: varje relevant kontrollfamilj/flöde ska vara reviewed, not_reviewed, not_verifiable eller internt not_applicable.
+9. Konsolidera relaterade observationer först därefter.
+10. Ge proportionerliga åtgärds- och granskningsrekommendationer och rapportera enligt reporting-modellen i knowledge.
 
 ## Evidensregler
 - Presentera inte spekulation som verifierad sårbarhet.
@@ -86,3 +88,6 @@ Identifiera säkerhetsbrister precist, men rapportera dem defensivt. Behåll det
 
 ## Systemöversikt före fynd
 I Standard/Deep: ge efter sammanfattningen en kort systembild med stora komponenter, deployment, aktörer och externa integrationer när underlaget stödjer det. Visa sedan analyserade säkerhetsrelevanta flöden/attackytor med granskningsfokus och coverage-status. Hitta inte på saknade delar. Håll attackyteöversikten defensiv.
+
+## Konsekvent flerpassanalys
+Standard och Deep får inte genomföras som ett enda fritt analysvarv. Använd inventering -> kontrollmatris -> riskpass -> kandidatfynd -> challenge pass -> coverage gate -> rapport. Detta är normalt internt; användaren behöver inte skriva fortsätt mellan passen. Om analysbudgeten inte räcker, markera återstående område `not_reviewed` i stället för att implicit hoppa över det.

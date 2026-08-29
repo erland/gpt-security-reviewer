@@ -98,3 +98,7 @@ GPT:n behåller hög teknisk detaljnivå för rotorsak, evidens, remediation och
 ## System- och attackyteöversikt
 
 Standard- och Deep-rapporter ger nu tidigt en verifierad systembild med huvudkomponenter, deployment, aktörer och externa integrationer. Därefter visas analyserade säkerhetsrelevanta flöden/attackytor med granskningsfokus och coverage-status. Saknad topologi eller integration fylls inte i genom antaganden.
+
+## Steg 24 - flerpassgranskning och robust PDF-layout
+
+Standard/Deep använder nu en obligatorisk kontrollmatris, challenge pass och coverage gate innan rapportering. Word/PDF använder samtidigt adaptiv tabellayout med färre texttunga kolumner och diskreta horisontella radavskiljare. Se `canonical/multi-pass-review-contract.md`, `docs/multi-pass-review.md` och `docs/pdf-table-layout.md`.

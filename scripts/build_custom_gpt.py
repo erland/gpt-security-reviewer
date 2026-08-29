@@ -30,6 +30,7 @@ if len(instructions) > max_chars:
 
 merge(CONFIG["output_files"]["core"], "Granskningskärna", [
     "canonical/review-framework.md",
+    "canonical/multi-pass-review-contract.md",
     "canonical/reporting-contract.md",
     "canonical/report-model.md",
     "canonical/report-modes.md",

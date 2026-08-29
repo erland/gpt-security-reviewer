@@ -18,6 +18,28 @@ def clean_name(value):
 def set_cell_shading(cell, fill='D9E1F2'):
     tcPr=cell._tc.get_or_add_tcPr(); shd=OxmlElement('w:shd'); shd.set(qn('w:fill'),fill); tcPr.append(shd)
 
+
+def set_table_row_separators(table, color='D9D9D9', size='4'):
+    """Light horizontal separators only; avoid dense gridlines in PDF/DOCX."""
+    tblPr=table._tbl.tblPr
+    borders=tblPr.first_child_found_in('w:tblBorders')
+    if borders is None:
+        borders=OxmlElement('w:tblBorders'); tblPr.append(borders)
+    for edge in ('top','bottom','insideH'):
+        el=OxmlElement(f'w:{edge}'); el.set(qn('w:val'),'single'); el.set(qn('w:sz'),size); el.set(qn('w:space'),'0'); el.set(qn('w:color'),color); borders.append(el)
+    for edge in ('left','right','insideV'):
+        el=OxmlElement(f'w:{edge}'); el.set(qn('w:val'),'nil'); borders.append(el)
+
+def set_cell_margins(cell, top=70, start=90, bottom=70, end=90):
+    tc=cell._tc; tcPr=tc.get_or_add_tcPr(); tcMar=tcPr.first_child_found_in('w:tcMar')
+    if tcMar is None:
+        tcMar=OxmlElement('w:tcMar'); tcPr.append(tcMar)
+    for m,v in [('top',top),('start',start),('bottom',bottom),('end',end)]:
+        node=tcMar.find(qn(f'w:{m}'))
+        if node is None:
+            node=OxmlElement(f'w:{m}'); tcMar.append(node)
+        node.set(qn('w:w'),str(v)); node.set(qn('w:type'),'dxa')
+
 def set_repeat_table_header(row):
     trPr=row._tr.get_or_add_trPr(); tblHeader=OxmlElement('w:tblHeader'); tblHeader.set(qn('w:val'),'true'); trPr.append(tblHeader)
 
@@ -31,21 +53,34 @@ def set_cell_width(cell, width_cm):
     tcW.set(qn('w:w'), str(int(width_cm*567))); tcW.set(qn('w:type'),'dxa')
 
 def set_cell_text(cell, text, bold=False):
-    cell.text=''; p=cell.paragraphs[0]; r=p.add_run(str(text)); r.bold=bold; r.font.size=Pt(9)
+    cell.text=''; p=cell.paragraphs[0]; r=p.add_run(str(text)); r.bold=bold; r.font.size=Pt(8.7)
+    p.paragraph_format.space_after=Pt(0); p.paragraph_format.space_before=Pt(0)
     cell.vertical_alignment=WD_CELL_VERTICAL_ALIGNMENT.CENTER
+    set_cell_margins(cell)
 
 def add_table(doc, headers, rows, widths=None):
-    table=doc.add_table(rows=1, cols=len(headers)); table.alignment=WD_TABLE_ALIGNMENT.CENTER; table.style='Table Grid'; table.autofit=False if widths else True
+    table=doc.add_table(rows=1, cols=len(headers)); table.alignment=WD_TABLE_ALIGNMENT.CENTER; table.autofit=False if widths else True
+    set_table_row_separators(table)
     hdr=table.rows[0]; set_repeat_table_header(hdr); prevent_row_split(hdr)
     for i,h in enumerate(headers):
-        set_cell_text(hdr.cells[i],h,True); set_cell_shading(hdr.cells[i])
+        set_cell_text(hdr.cells[i],h,True); set_cell_shading(hdr.cells[i], 'EDEDED')
         if widths: set_cell_width(hdr.cells[i], widths[i])
     for row in rows:
         r=table.add_row(); prevent_row_split(r); cells=r.cells
         for i,v in enumerate(row):
-            set_cell_text(cells[i], v if v not in (None,'') else '–')
+            set_cell_text(cells[i], v if v not in (None,'') else '-')
             if widths: set_cell_width(cells[i], widths[i])
     return table
+
+def add_review_blocks(doc, items):
+    for item in items:
+        p=doc.add_paragraph(); p.paragraph_format.space_before=Pt(5); p.paragraph_format.space_after=Pt(2)
+        r=p.add_run(f"{item['type']} - {item['priority']}"); r.bold=True
+        for label,key in [('Scope','scope'),('Motivering','reason'),('Verifieringsmål','verification_goal')]:
+            p=doc.add_paragraph(); p.paragraph_format.left_indent=Cm(0.4); p.paragraph_format.space_after=Pt(1)
+            r=p.add_run(f"{label}: "); r.bold=True; p.add_run(str(item[key]))
+        p=doc.add_paragraph(); p.paragraph_format.space_after=Pt(2)
+        pPr=p._p.get_or_add_pPr(); pbdr=OxmlElement('w:pBdr'); bottom=OxmlElement('w:bottom'); bottom.set(qn('w:val'),'single'); bottom.set(qn('w:sz'),'4'); bottom.set(qn('w:space'),'4'); bottom.set(qn('w:color'),'D9D9D9'); pbdr.append(bottom); pPr.append(pbdr)
 
 def add_bullets(doc, items, empty='Inga identifierade poster.'):
     if not items:
@@ -95,13 +130,13 @@ def render(report):
     comps=sysov.get('major_components',[])
     if comps:
         add_heading(doc,'Huvudkomponenter',2)
-        add_table(doc,['Komponent','Typ','Teknik','Ansvar','Deploymentenhet'],[[x['name'],x['type'],x.get('technology') or '–',x.get('responsibility') or '–',x.get('deployment_unit') or '–'] for x in comps], widths=[3.0,2.2,3.0,5.0,3.6])
+        add_table(doc,['Komponent','Typ / teknik','Ansvar / deployment'],[[x['name'], ' / '.join(v for v in [x['type'],x.get('technology')] if v), f"{x.get('responsibility') or '-'} | Deployment: {x.get('deployment_unit') or '-'}"] for x in comps], widths=[3.6,4.5,8.0])
     for key,label in [('frontend','Frontend'),('backend','Backend'),('data_stores','Datalager'),('deployment','Deployment'),('actors','Aktörer'),('external_systems','Externa system'),('integrations','Integrationer')]:
         if sysov.get(key): add_heading(doc,label,2); add_bullets(doc,sysov.get(key,[]))
 
     add_heading(doc,'Analyserade säkerhetsrelevanta flöden och attackytor',1)
     if flows:
-        add_table(doc,['Flöde/attackyta','Analyserat fokus','Status','Resultat / nästa steg'],[[x['flow'],x['review_focus'],x['status'],x.get('result_next_step') or x.get('evidence_basis') or '–'] for x in flows], widths=[4.0,5.2,2.6,5.1])
+        add_table(doc,['Flöde / attackyta','Fokus / status','Resultat / nästa steg'],[[x['flow'], f"{x['review_focus']} | Status: {x['status']}", x.get('result_next_step') or x.get('evidence_basis') or '-'] for x in flows], widths=[4.2,5.8,6.1])
     else: doc.add_paragraph('Inga separata säkerhetsrelevanta flöden dokumenterade.')
 
     add_heading(doc,'Scope och analyserat underlag',1); doc.add_paragraph(s['requested_scope']); add_heading(doc,'Analyserat underlag',2); add_bullets(doc,s['reviewed_material']); add_heading(doc,'Avgränsningar',2); add_bullets(doc,s['limitations'])
@@ -142,12 +177,12 @@ def render(report):
 
     add_heading(doc,'Rekommenderade åtgärder',1)
     actions=report.get('recommended_actions',[])
-    if actions: add_table(doc,['Prioritet','Åtgärd','Motivering','Relaterade fynd'],[[a['priority'],a['action'],a['reason'],', '.join(a.get('related_findings',[])) or '–'] for a in actions], widths=[2.1,6.4,5.8,2.6])
+    if actions: add_table(doc,['Prioritet','Åtgärd','Motivering / fynd'],[[a['priority'],a['action'], f"{a['reason']} | Fynd: {', '.join(a.get('related_findings',[])) or '-'}"] for a in actions], widths=[2.2,6.4,7.5])
     else: doc.add_paragraph('Inga ytterligare åtgärder identifierade.')
 
     add_heading(doc,'Rekommenderad fortsatt granskning',1)
     follow=report.get('follow_up_review',[])
-    if follow: add_table(doc,['Typ','Prioritet','Scope','Motivering','Verifieringsmål'],[[a['type'],a['priority'],a['scope'],a['reason'],a['verification_goal']] for a in follow], widths=[3.0,2.2,3.5,4.2,4.2])
+    if follow: add_review_blocks(doc, follow)
     else: doc.add_paragraph('Ingen ytterligare särskild granskning rekommenderas.')
 
     add_heading(doc,'Kvarvarande risk',1); doc.add_paragraph(rr['summary'])
