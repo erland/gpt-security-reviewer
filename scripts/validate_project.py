@@ -11,6 +11,7 @@ required = [
     "canonical/defensive-reporting-contract.md",
     "scripts/validate_rc_readiness.py",
     "scripts/validate_workflows.py",
+    "scripts/validate_system_overview.py",
     "docs/release-checklist.md",
     "RELEASE-NOTES.md",
     "CHANGELOG.md",

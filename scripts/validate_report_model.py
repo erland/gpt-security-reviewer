@@ -7,7 +7,7 @@ for x in ['canonical/report-model.md','canonical/reporting-contract.md','canonic
 for x in ['schemas/finding.schema.json','schemas/review-summary.schema.json','schemas/report.schema.json','tests/fixtures/report-standard-example.json']:
     try: json.loads((R/x).read_text(encoding='utf-8'))
     except Exception as ex: e.append(f'Invalid JSON {x}: {ex}')
-for tok in ['### 1. Metadata','### 6. Fynd','### 7. Coverage','### 9. Rekommenderad fortsatt granskning','### 10. Kvarvarande risk']:
+for tok in ['### 1. Metadata','### 3. Systemöversikt','### 4. Analyserade säkerhetsrelevanta flöden och attackytor','### 7. Fynd','### 8. Coverage','### 10. Rekommenderad fortsatt granskning','### 11. Kvarvarande risk']:
     if tok not in (R/'canonical/report-model.md').read_text(encoding='utf-8'): e.append('Missing report section: '+tok)
 for tok in ['## Quick','## Standard','## Deep']:
     if tok not in (R/'canonical/report-modes.md').read_text(encoding='utf-8'): e.append('Missing mode: '+tok)

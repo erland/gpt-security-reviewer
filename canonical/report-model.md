@@ -6,15 +6,16 @@ Alla mänskligt läsbara rapportformat ska bygga på samma innehållsmodell.
 Den canonical rapportmodellen består av:
 1. metadata,
 2. executive summary,
-3. scope och underlag,
-4. system- och tekniköversikt,
-5. arkitekturell säkerhetsbild,
-6. fynd,
-7. coverage,
-8. rekommenderade åtgärder,
-9. rekommenderad fortsatt granskning,
-10. kvarvarande risk,
-11. bilaga med evidens och metodinformation.
+3. systemöversikt,
+4. analyserade säkerhetsrelevanta flöden och attackytor,
+5. scope och underlag,
+6. arkitekturell säkerhetsbild,
+7. fynd,
+8. coverage,
+9. rekommenderade åtgärder,
+10. rekommenderad fortsatt granskning,
+11. kvarvarande risk,
+12. bilaga med evidens och metodinformation.
 
 Markdown, Confluence markup, PDF och Word ska rendera samma semantiska innehåll.
 
@@ -34,20 +35,42 @@ Markdown, Confluence markup, PDF och Word ska rendera samma semantiska innehåll
 - största osäkerheter
 - viktigaste nästa steg
 
-### 3. Scope och analyserat underlag
+### 3. Systemöversikt
+Syftet är att ge läsaren en mental modell av systemet innan säkerhetsdetaljerna.
+
+Redovisa när underlaget stödjer det:
+- stora systemdelar/komponenter,
+- frontend och teknik,
+- backend och teknik,
+- datalager,
+- deploymentenheter och hur systemdelarna paketeras/körs,
+- mänskliga eller tekniska aktörer,
+- externa system och integrationer.
+
+`major_components` bör användas för de viktigaste systemdelarna. Varje komponent kan ange namn, typ, teknik, ansvar och deploymentenhet.
+
+Rapporten får inte hitta på komponenter, aktörer, integrationssystem eller deploymenttopologi. Sådant som inte stöds av materialet ska utelämnas eller markeras som ej verifierbart i coverage/arkitekturavsnittet.
+
+### 4. Analyserade säkerhetsrelevanta flöden och attackytor
+Ge en kompakt översikt över vilka säkerhetsrelevanta vägar genom systemet som faktiskt analyserats.
+
+Varje rad ska normalt ange:
+- `flow`: exempelvis `Webbläsare → frontend/backend`,
+- `review_focus`: vilken säkerhetsfråga som analyserats,
+- `status`: `reviewed`, `partially_reviewed` eller `not_verifiable`,
+- valfri `evidence_basis`: vilket underlag som stöder analysen.
+
+Sektionen ska vara defensiv. Den beskriver kontrollpunkter och analysfokus, inte praktiska attackkedjor, payloads eller exploateringssteg.
+
+Skapa inte en analyserad väg enbart för att den är teoretiskt möjlig. Den ska kunna härledas från observerade komponenter, integrationer, trust boundaries, dataflöden eller faktiskt analyserad coverage.
+
+### 5. Scope och analyserat underlag
 - vad användaren bad om
 - analyserade komponenter
 - dokument/filer som ingått
 - kända avgränsningar
 
-### 4. System- och tekniköversikt
-- frontend
-- backend
-- datalager
-- integrationer
-- deploymentmiljö när verifierbar
-
-### 5. Arkitekturell säkerhetsbild
+### 6. Arkitekturell säkerhetsbild
 - trust boundaries
 - autentiseringspunkter
 - auktoriseringspunkter
@@ -56,21 +79,21 @@ Markdown, Confluence markup, PDF och Word ska rendera samma semantiska innehåll
 - känsliga dataflöden
 - arkitekturella observationer
 
-### 6. Fynd
+### 7. Fynd
 Fynd grupperas primärt efter severity och sekundärt efter kategori.
 
 Varje fynd bör innehålla ID, titel, kategori, severity, confidence, status, komponent, evidens, observation, möjlig konsekvens, resonemang, rekommenderad åtgärd, manuell verifiering och relevanta referensramar.
 
-### 7. Coverage
+### 8. Coverage
 Tre obligatoriska perspektiv:
 - Granskat
 - Ej granskat
 - Ej verifierbart
 
-### 8. Rekommenderade åtgärder
+### 9. Rekommenderade åtgärder
 Prioritera omedelbara säkerhetsåtgärder, strukturella förbättringar och mindre hardening-/hygienåtgärder.
 
-### 9. Rekommenderad fortsatt granskning
+### 10. Rekommenderad fortsatt granskning
 Varje rekommendation ska ange typ, prioritet, motivering, scope och vad som ska verifieras.
 
 Tillåtna huvudtyper:
@@ -85,14 +108,14 @@ Tillåtna huvudtyper:
 - penetration-test
 - specialist-review
 
-### 10. Kvarvarande risk
+### 11. Kvarvarande risk
 Beskriv vad som fortfarande inte kan uteslutas, vilka risker som kvarstår efter föreslagna åtgärder och om ytterligare verifiering krävs före starkare slutsats.
 
-### 11. Bilaga
+### 12. Bilaga
 Kan innehålla detaljerad evidens, metod, teknikprofiler som användes, fyndregister och referenser.
 
 ## Ordering
-Normal ordning ska följas i alla format. Semantiken får inte ändras mellan format.
+Normal ordning ska följas i alla format. Systemöversikten och de analyserade säkerhetsrelevanta flödena ska komma före scope, arkitekturdetaljer och fynd så att läsaren först förstår systemet och vad som granskats.
 
 ## Defensiv semantik för fynd
 

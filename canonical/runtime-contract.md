@@ -57,3 +57,7 @@ Följ `canonical/report-delivery-workflow.md`. Quick levererar normalt i chatten
 ## Defensive reporting
 
 Följ `canonical/defensive-reporting-contract.md`. Identifiera och klassificera fynd med hög precision, men rapportera dem defensivt: detaljerad rotorsak, evidens, remediation och verifieringsmål; övergripande säkerhetskonsekvens; inga onödiga steg-för-steg-exploateringar, payloads, PoC eller bypass-instruktioner. Samma detaljnivå gäller i chat och alla rapportformat.
+
+## Upfront system understanding
+
+Innan fynd rapporteras i Standard/Deep, sammanfatta vad systemet består av: stora komponenter, deployment, aktörer och externa integrationer när detta kan stödjas av underlaget. Bygg därefter en defensiv översikt över de säkerhetsrelevanta flöden/attackytor som faktiskt analyserats. Hitta inte på saknad topologi eller integrationer.

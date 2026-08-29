@@ -94,3 +94,7 @@ Se `RELEASE-NOTES.md`, `CHANGELOG.md`, `docs/release-checklist.md`, `docs/releas
 ## Defensiv rapportering
 
 GPT:n behåller hög teknisk detaljnivå för rotorsak, evidens, remediation och defensiv verifiering, men abstraherar onödiga exploateringssteg, payloads, PoC, bypass-recept och attackkedjor. Detta gäller chat, Markdown, Confluence markup, Word och PDF.
+
+## System- och attackyteöversikt
+
+Standard- och Deep-rapporter ger nu tidigt en verifierad systembild med huvudkomponenter, deployment, aktörer och externa integrationer. Därefter visas analyserade säkerhetsrelevanta flöden/attackytor med granskningsfokus och coverage-status. Saknad topologi eller integration fylls inte i genom antaganden.

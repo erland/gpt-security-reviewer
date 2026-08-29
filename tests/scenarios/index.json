@@ -399,6 +399,50 @@
         "elasticsearch",
         "recommendation"
       ]
+    },
+    {
+      "id": "report-system-overview",
+      "class": "positive",
+      "file": "tests/scenarios/report-system-overview.md",
+      "title": "Rapporten sammanfattar verifierade huvudkomponenter, tekniker och deployment tidigt.",
+      "tags": [
+        "reporting",
+        "architecture",
+        "system-overview"
+      ]
+    },
+    {
+      "id": "report-actors-integrations",
+      "class": "positive",
+      "file": "tests/scenarios/report-actors-integrations.md",
+      "title": "Aktörer och externa system visas när de stöds av underlaget.",
+      "tags": [
+        "reporting",
+        "integrations",
+        "actors"
+      ]
+    },
+    {
+      "id": "report-security-flows",
+      "class": "positive",
+      "file": "tests/scenarios/report-security-flows.md",
+      "title": "Analyserade säkerhetsrelevanta flöden visar granskningsfokus och coverage-status.",
+      "tags": [
+        "reporting",
+        "attack-surface",
+        "coverage"
+      ]
+    },
+    {
+      "id": "report-no-topology-hallucination",
+      "class": "uncertainty",
+      "file": "tests/scenarios/report-no-topology-hallucination.md",
+      "title": "Saknad deployment- eller integrationsinformation fylls inte i med antaganden.",
+      "tags": [
+        "reporting",
+        "uncertainty",
+        "architecture"
+      ]
     }
   ]
 }

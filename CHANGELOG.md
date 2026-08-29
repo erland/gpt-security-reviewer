@@ -12,5 +12,10 @@
 - GitHub Actions CI/release, taggbaserad versionering och SHA-256 checksums.
 - Eval-/regressionssvit och V1 quality gate.
 
+### Changed
+- Standard/Deep-rapporter visar systemets huvudkomponenter, deployment, aktörer och externa integrationer före fynden.
+- Ny strukturerad översikt över analyserade säkerhetsrelevanta flöden/attackytor med coverage-status.
+- Rapportmodellen skyddar mot att saknad topologi eller integration presenteras som verifierad.
+
 ### Known limitations
 Se `RELEASE-NOTES.md`.

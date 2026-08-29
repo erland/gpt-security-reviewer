@@ -26,3 +26,5 @@
 - Steg 20: pre-release sanity check – genomfört
 
 - Steg 21: defensiv rapportering och policyrobusthet – genomfört
+
+- Steg 22: system-, deployment-, integrations- och attackyteöversikt – genomfört

@@ -74,7 +74,7 @@ def setup_document(doc, title):
     add_page_number(sec.footer.paragraphs[0])
 
 def render(report):
-    doc=Document(); m=report['metadata']; e=report['executive_summary']; s=report['scope']; sysov=report['system_overview']; arch=report['architecture_security']; cov=report['coverage']; rr=report['residual_risk']; app=report.get('appendix') or {}
+    doc=Document(); m=report['metadata']; e=report['executive_summary']; s=report['scope']; sysov=report['system_overview']; arch=report['architecture_security']; flows=report.get('analyzed_security_flows',[]); cov=report['coverage']; rr=report['residual_risk']; app=report.get('appendix') or {}
     setup_document(doc,m['title'])
     p=doc.add_paragraph(style='Title'); p.alignment=WD_ALIGN_PARAGRAPH.CENTER; p.add_run(m['title'])
     if m.get('system_name'):
@@ -88,10 +88,20 @@ def render(report):
     add_heading(doc,'Sammanfattning',1); doc.add_paragraph(e['overall_assessment'])
     for label,key in [('Viktigaste fynd','key_findings'),('Viktigaste osäkerheter','key_uncertainties'),('Rekommenderade nästa steg','next_steps')]: add_heading(doc,label,2); add_bullets(doc,e[key])
 
-    add_heading(doc,'Scope och analyserat underlag',1); doc.add_paragraph(s['requested_scope']); add_heading(doc,'Analyserat underlag',2); add_bullets(doc,s['reviewed_material']); add_heading(doc,'Avgränsningar',2); add_bullets(doc,s['limitations'])
+    add_heading(doc,'Systemöversikt',1)
+    comps=sysov.get('major_components',[])
+    if comps:
+        add_heading(doc,'Huvudkomponenter',2)
+        add_table(doc,['Komponent','Typ','Teknik','Ansvar','Deploymentenhet'],[[x['name'],x['type'],x.get('technology') or '–',x.get('responsibility') or '–',x.get('deployment_unit') or '–'] for x in comps], widths=[3.0,2.2,3.0,5.0,3.6])
+    for key,label in [('frontend','Frontend'),('backend','Backend'),('data_stores','Datalager'),('deployment','Deployment'),('actors','Aktörer'),('external_systems','Externa system'),('integrations','Integrationer')]:
+        if sysov.get(key): add_heading(doc,label,2); add_bullets(doc,sysov.get(key,[]))
 
-    add_heading(doc,'System- och tekniköversikt',1)
-    for key,label in [('frontend','Frontend'),('backend','Backend'),('data_stores','Datalager'),('integrations','Integrationer'),('deployment','Deployment')]: add_heading(doc,label,2); add_bullets(doc,sysov.get(key,[]))
+    add_heading(doc,'Analyserade säkerhetsrelevanta flöden och attackytor',1)
+    if flows:
+        add_table(doc,['Flöde/attackyta','Analyserat fokus','Status','Evidensgrund'],[[x['flow'],x['review_focus'],x['status'],x.get('evidence_basis') or '–'] for x in flows], widths=[4.0,6.2,2.7,4.0])
+    else: doc.add_paragraph('Inga separata säkerhetsrelevanta flöden dokumenterade.')
+
+    add_heading(doc,'Scope och analyserat underlag',1); doc.add_paragraph(s['requested_scope']); add_heading(doc,'Analyserat underlag',2); add_bullets(doc,s['reviewed_material']); add_heading(doc,'Avgränsningar',2); add_bullets(doc,s['limitations'])
 
     add_heading(doc,'Arkitekturell säkerhetsbild',1)
     for key,label in [('trust_boundaries','Trust boundaries'),('authentication_points','Autentiseringspunkter'),('authorization_points','Auktoriseringspunkter'),('administrative_interfaces','Administrativa gränssnitt'),('sensitive_data_flows','Känsliga dataflöden'),('observations','Observationer')]: add_heading(doc,label,2); add_bullets(doc,arch.get(key,[]))
