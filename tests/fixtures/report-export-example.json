@@ -4,7 +4,7 @@
     "system_name": "Exempelsystem",
     "review_date": "2026-08-29",
     "review_mode": "standard",
-    "version": "0.1.0-dev",
+    "version": "0.1.0-rc.1",
     "source_reference": "example-fixture"
   },
   "executive_summary": {
@@ -46,6 +46,36 @@
     ],
     "deployment": [
       "OpenShift"
+    ],
+    "major_components": [
+      {
+        "name": "Webbklient",
+        "type": "frontend",
+        "technology": "React",
+        "responsibility": "Användargränssnitt",
+        "deployment_unit": "Frontend/webb"
+      },
+      {
+        "name": "Backend API",
+        "type": "backend",
+        "technology": "Jakarta EE / JAX-RS",
+        "responsibility": "API, affärslogik och auktorisering",
+        "deployment_unit": "Backend"
+      },
+      {
+        "name": "Applikationsdatabas",
+        "type": "data_store",
+        "technology": "PostgreSQL",
+        "responsibility": "Persistens av order- och applikationsdata",
+        "deployment_unit": "PostgreSQL"
+      }
+    ],
+    "actors": [
+      "Autentiserad användare",
+      "Systemadministratör"
+    ],
+    "external_systems": [
+      "Extern IdP"
     ]
   },
   "architecture_security": {
@@ -171,5 +201,25 @@
       "OWASP ASVS",
       "OWASP API Security"
     ]
-  }
+  },
+  "analyzed_security_flows": [
+    {
+      "flow": "Webbläsare → backend API",
+      "review_focus": "Autentisering, sessions-/identitetspropagering och auktorisering",
+      "status": "reviewed",
+      "evidence_basis": "Backendkod och arkitekturbeskrivning"
+    },
+    {
+      "flow": "Backend API → PostgreSQL",
+      "review_focus": "Objektbehörighet, query-hantering och databasåtkomst",
+      "status": "reviewed",
+      "evidence_basis": "JAX-RS/JPA-access och PostgreSQL-relaterad kod"
+    },
+    {
+      "flow": "Extern IdP → backend/runtime",
+      "review_focus": "Produktions-IAM, claims och policykoppling",
+      "status": "not_verifiable",
+      "evidence_basis": "Produktions-IAM-konfiguration saknas i underlaget"
+    }
+  ]
 }

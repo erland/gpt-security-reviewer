@@ -7,14 +7,26 @@ def clean_name(value):
 def bullets(items,empty="Inga identifierade poster."):
  return empty if not items else "\n".join(f"- {x}" for x in items)
 def render(report):
- m=report['metadata']; e=report['executive_summary']; s=report['scope']; sy=report['system_overview']; a=report['architecture_security']; c=report['coverage']; rr=report['residual_risk']; ap=report.get('appendix') or {}
+ m=report['metadata']; e=report['executive_summary']; s=report['scope']; sy=report['system_overview']; a=report['architecture_security']; flows=report.get('analyzed_security_flows',[]); c=report['coverage']; rr=report['residual_risk']; ap=report.get('appendix') or {}
  findings=sorted(report.get('findings',[]),key=lambda f:(SEVERITY_ORDER.get(f['severity'],99),f['id']))
  o=[f"# {m['title']}","","## Metadata","","| Fält | Värde |","|---|---|"]
  for k,l in [('system_name','System/IT-stöd'),('review_date','Granskningsdatum'),('review_mode','Granskningsläge'),('version','Version'),('source_reference','Underlagsreferens')]: o.append(f"| {l} | {m.get(k) or 'Ej angivet'} |")
  o += ["","## Sammanfattning","",e['overall_assessment'],"","### Viktigaste fynd","",bullets(e['key_findings']),"","### Viktigaste osäkerheter","",bullets(e['key_uncertainties']),"","### Rekommenderade nästa steg","",bullets(e['next_steps']),""]
+ o += ["## Systemöversikt",""]
+ comps=sy.get('major_components',[])
+ if comps:
+  o += ["### Huvudkomponenter","","| Komponent | Typ | Teknik | Ansvar | Deploymentenhet |","|---|---|---|---|---|"]
+  for x in comps:o.append(f"| {x['name']} | {x['type']} | {x.get('technology') or '–'} | {x.get('responsibility') or '–'} | {x.get('deployment_unit') or '–'} |")
+  o.append("")
+ for k,l in [('frontend','Frontend'),('backend','Backend'),('data_stores','Datalager'),('deployment','Deployment'),('actors','Aktörer'),('external_systems','Externa system'),('integrations','Integrationer')]:
+  if sy.get(k): o += [f"### {l}","",bullets(sy.get(k,[])),""]
+ o += ["## Analyserade säkerhetsrelevanta flöden och attackytor",""]
+ if flows:
+  o += ["| Flöde/attackyta | Analyserat fokus | Status | Evidensgrund |","|---|---|---|---|"]
+  for x in flows:o.append(f"| {x['flow']} | {x['review_focus']} | {x['status']} | {x.get('evidence_basis') or '–'} |")
+  o.append("")
+ else:o += ["Inga separata säkerhetsrelevanta flöden dokumenterade.",""]
  o += ["## Scope och analyserat underlag","",s['requested_scope'],"","### Analyserat underlag","",bullets(s['reviewed_material']),"","### Avgränsningar","",bullets(s['limitations']),""]
- o += ["## System- och tekniköversikt",""]
- for k,l in [('frontend','Frontend'),('backend','Backend'),('data_stores','Datalager'),('integrations','Integrationer'),('deployment','Deployment')]: o += [f"### {l}","",bullets(sy.get(k,[])),""]
  o += ["## Arkitekturell säkerhetsbild",""]
  for k,l in [('trust_boundaries','Trust boundaries'),('authentication_points','Autentiseringspunkter'),('authorization_points','Auktoriseringspunkter'),('administrative_interfaces','Administrativa gränssnitt'),('sensitive_data_flows','Känsliga dataflöden'),('observations','Observationer')]: o += [f"### {l}","",bullets(a.get(k,[])),""]
  o += ["## Fynd",""]

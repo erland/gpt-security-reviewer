@@ -33,3 +33,11 @@ Markdown är canonical mänskligt läsbart format. Confluence markup, PDF och Wo
 ## Defensive detail level
 
 Rapportens fynd ska vara tillräckligt konkreta för remediation men inte utformade som exploateringsinstruktioner. `observation` beskriver kontrollbrist/rotorsak, `impact` säkerhetskonsekvens, `reasoning` evidens och slutsats, `evidence` defensivt relevant lokalisering, `recommendation` får vara detaljerad och `verification_goal` ska beskriva defensiv verifiering. Renderers får inte lägga till exploateringsdetaljer som saknas i canonical report JSON.
+
+## Upfront system and attack-surface overview
+
+Efter sammanfattningen ska Standard och Deep normalt presentera en systemöversikt och en kompakt tabell över analyserade säkerhetsrelevanta flöden/attackytor innan fynden.
+
+Översikten ska härledas från observerat material. Lägg inte till aktörer, integrationssystem, containrar eller nätverksvägar som bara är sannolika. Om deployment/integration endast delvis kan fastställas ska detta framgå.
+
+Attackyteöversikten är defensiv: beskriv flöde, granskningsfokus och coverage-status. Beskriv inte payload, exploateringssekvens eller färdig attackkedja.

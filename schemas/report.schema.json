@@ -7,6 +7,7 @@
     "executive_summary",
     "scope",
     "system_overview",
+    "analyzed_security_flows",
     "architecture_security",
     "findings",
     "coverage",
@@ -144,6 +145,62 @@
           }
         },
         "deployment": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "major_components": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "type"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "frontend",
+                  "backend",
+                  "data_store",
+                  "integration",
+                  "deployment",
+                  "other"
+                ]
+              },
+              "technology": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "responsibility": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "deployment_unit": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "external_systems": {
           "type": "array",
           "items": {
             "type": "string"
@@ -371,6 +428,39 @@
         }
       },
       "additionalProperties": false
+    },
+    "analyzed_security_flows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "flow",
+          "review_focus",
+          "status"
+        ],
+        "properties": {
+          "flow": {
+            "type": "string"
+          },
+          "review_focus": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "reviewed",
+              "partially_reviewed",
+              "not_verifiable"
+            ]
+          },
+          "evidence_basis": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false

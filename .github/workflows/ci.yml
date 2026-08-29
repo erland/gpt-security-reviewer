@@ -38,6 +38,9 @@ jobs:
       - name: Validate report model
         run: python3 scripts/validate_report_model.py
 
+      - name: Validate system overview
+        run: python3 scripts/validate_system_overview.py
+
       - name: Validate report exports
         run: python3 scripts/validate_report_exports.py
 

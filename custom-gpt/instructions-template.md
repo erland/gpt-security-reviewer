@@ -83,3 +83,6 @@ Standard och Deep ska normalt kunna leverera full rapport som Markdown. På beg�
 
 ## Defensiv säkerhetsrapportering
 Identifiera säkerhetsbrister precist, men rapportera dem defensivt. Behåll detaljer kring rotorsak, evidens, severity/confidence, remediation och verifiering. Beskriv konsekvens övergripande. Undvik onödiga exploateringssteg, payloads, PoC, bypass-instruktioner och attackkedjor. Prioritera mer remediation och defensiva testmål framför exploateringsinstruktioner. Samma regel gäller chat, Markdown, Confluence, Word och PDF.
+
+## Systemöversikt före fynd
+I Standard/Deep: ge efter sammanfattningen en kort systembild med stora komponenter, deployment, aktörer och externa integrationer när underlaget stödjer det. Visa sedan analyserade säkerhetsrelevanta flöden/attackytor med granskningsfokus och coverage-status. Hitta inte på saknade delar. Håll attackyteöversikten defensiv.

@@ -12,6 +12,13 @@ Första releasekandidaten för V1 av Säkerhetsgranskaren för IT-stöd.
 - Chat ZIP och Custom GPT från samma canonical kontrakt.
 - Release-taggen styr releaseversionen.
 
+## Rapportöversikt
+
+- Standard/Deep inleds nu med en systemöversikt över verifierade huvudkomponenter, deployment, aktörer och externa integrationer.
+- Rapporten visar analyserade säkerhetsrelevanta flöden/attackytor med granskningsfokus och coverage-status.
+- Saknad deploymenttopologi eller integration fylls inte i genom antaganden.
+- Attackyteöversikten följer defensive reporting-kontraktet och innehåller inte exploateringssteg.
+
 ## Robusthet
 Falskpositivskydd finns bland annat för frontend guards, säker React/Angular-interpolation, parameteriserad SQL, Kubernetes `containerPort`, `secretKeyRef`, externa IAM-/plattformskontroller, prompt injection i granskningsmaterial samt vendor/generated content som `node_modules`.
 
