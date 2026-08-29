@@ -130,3 +130,9 @@ Normal ordning ska följas i alla format: sammanfattning → systemöversikt →
 ## Defensiv semantik för fynd
 
 `observation` = vad som är fel eller inte kan verifieras. `impact` = möjlig säkerhetskonsekvens på övergripande nivå. `reasoning` = varför evidensen stödjer fyndet. `evidence_details` = var problemet finns och vad som observerats. `recommendation` = hur problemet åtgärdas. `verification_goal` = hur åtgärden verifieras defensivt. Fälten ska inte användas för steg-för-steg-exploatering, attackpayloads eller praktiska bypass-recept.
+
+## Internt review_process-objekt
+
+Standard och Deep ska bära ett internt `review_process`-objekt i den canonical rapportdatan. Det renderas normalt inte i huvudrapporten, men används som leveransgate. Det innehåller kontrollmatris, kandidatregister, `challenge_completed` och `coverage_gate_passed`.
+
+Varje kandidat måste få slutlig disposition: `confirmed`, `probable`, `review-point`, `dismissed`, `coverage-gap` eller `merged`. Kandidater med de tre första dispositionerna ska mappa till ett faktiskt rapportfynd; övriga ska ha explicit rationale. Ett rapportfynd utan kandidatspårning eller en kandidat utan slutlig disposition blockerar Standard/Deep-leverans.

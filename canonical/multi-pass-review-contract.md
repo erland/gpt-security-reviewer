@@ -53,14 +53,16 @@ Fördjupa de flöden där konsekvens, privilegier, extern exponering eller osäk
 
 Fynd i detta pass får inte göra att övriga relevanta rader i kontrollmatrisen lämnas obehandlade.
 
-## Pass 4 - kandidatfynd
+## Pass 4 - kandidatregister
 
-Samla alla rimligt underbyggda kandidatfynd innan prioritering. Kandidater kan senare:
+Samla alla rimligt underbyggda kandidatfynd i ett beständigt internt kandidatregister innan prioritering. En kandidat som registrerats får inte bara försvinna i ett senare pass. Kandidater kan senare:
 
 - bli `confirmed`, `probable` eller `review-point`,
 - slås ihop med samma rotorsak,
 - avföras efter motbevisande evidens,
 - omklassificeras till coverage-gap.
+
+Varje kandidat ska ha ett stabilt `candidate_id`, titel, ursprungligt pass och slutlig disposition. Vid rapportlåsning är endast följande dispositioner tillåtna: `confirmed`, `probable`, `review-point`, `dismissed`, `coverage-gap` eller `merged`. `dismissed`, `coverage-gap` och `merged` kräver ett explicit skäl; rapporterade kandidater ska peka på motsvarande finding-id.
 
 Prioritera inte bort ett kandidatfynd bara för att ett allvarligare fynd redan finns.
 
@@ -87,12 +89,13 @@ En komplett Standard/Deep-rapport får inte slutföras förrän:
 1. varje identifierad säkerhetsrelevant trust boundary/flöde har en granskningsstatus,
 2. varje relevant kontrollfamilj har en status i kontrollmatrisen,
 3. viktiga `not_reviewed` och `not_verifiable` är representerade i coverage eller fortsatt granskning,
-4. varje kandidatfynd har konsoliderats, avförts med skäl eller blivit review-point,
-5. challenge-passet är genomfört.
+4. varje kandidatfynd har en slutlig disposition; inget kandidat-id är olöst eller bortglömt,
+5. varje rapporterat fynd kan härledas till minst en kandidat,
+6. challenge-passet är genomfört.
 
 Om analysbudgeten inte räcker ska rapporten hellre markera `not_reviewed` än att implicit utelämna området.
 
-## Pass 7 - konsolidering och defensiv rapportering
+## Pass 7 - kandidat-adjudicering, konsolidering och defensiv rapportering
 
 Först efter coverage gate:
 

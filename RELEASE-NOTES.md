@@ -27,3 +27,9 @@ Falskpositivskydd finns bland annat för frontend guards, säker React/Angular-i
 - Infrastruktur-/clusterhardening utanför applikationsnära scope kan kräva specialistgranskning.
 - Aktuell CVE-status ska verifieras med SCA/aktuell källa.
 - Externa gateway-/IAM-/plattformskontroller kan kräva manuell verifiering.
+
+## Steg 25
+- Beständigt candidate finding register med explicit adjudicering.
+- Standard/Deep delivery gate validerar review_process före rendering.
+- DOCX/PDF max tre textkolumner och blocklayout för åtgärder/follow-up.
+- Deterministisk canonical JSON -> renderer-pipeline.

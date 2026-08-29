@@ -150,5 +150,87 @@
       "evidence_basis": "Produktions-IAM-konfiguration saknas i underlaget",
       "result_next_step": "Manuell/configuration review krävs innan starkare slutsats."
     }
-  ]
+  ],
+  "review_process": {
+    "control_matrix": [
+      {
+        "control_family": "authentication/session",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "authorization/object ownership/current authorization",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "input/archive/path handling",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "injection/output/browser sinks",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "secrets/cryptography",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "external HTTP/API integrations",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "local process/Git/file-system operations",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "data stores",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "resource consumption/timeouts/concurrency",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "error handling/logging/audit",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "dependency/supply chain",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "deployment/runtime/network exposure",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      },
+      {
+        "control_family": "architecture/trust boundaries/privilege boundaries",
+        "status": "reviewed",
+        "note": "Täcks av fixture för processvalidering."
+      }
+    ],
+    "candidate_findings": [
+      {
+        "candidate_id": "CAND-900",
+        "title": "Exempel på motbevisad kandidat",
+        "disposition": "dismissed",
+        "finding_id": null,
+        "merged_into": null,
+        "rationale": "Motbevisande evidens visar att den relevanta kontrollen finns i den aktiva kodvägen.",
+        "source_pass": "challenge-pass"
+      }
+    ],
+    "challenge_completed": true,
+    "coverage_gate_passed": true
+  }
 }

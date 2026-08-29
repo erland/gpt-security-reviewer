@@ -34,3 +34,8 @@ När filer skapats ska chatten kort ange att granskningen är klar, viktigaste b
 
 ## No-finding case
 Om inga fynd identifierats får GPT:n inte säga att systemet är säkert. Coverage och not_verifiable ska fortfarande redovisas och fortsatt granskning rekommenderas proportionerligt.
+
+## Standard/Deep delivery gate
+Innan någon filrendering sker ska canonical report JSON vara färdig och `scripts/validate_review_integrity.py` passera. Kandidatregister, challenge pass och coverage gate är därmed en precondition för leverans.
+
+Word/PDF får inte skapas som fristående dokumentutkast. De ska renderas från samma canonical JSON via projektets renderer. Detta låser rubrikordning och layoutregler oberoende av hur analysen formulerades i chatten.

@@ -102,3 +102,6 @@ Standard- och Deep-rapporter ger nu tidigt en verifierad systembild med huvudkom
 ## Steg 24 - flerpassgranskning och robust PDF-layout
 
 Standard/Deep använder nu en obligatorisk kontrollmatris, challenge pass och coverage gate innan rapportering. Word/PDF använder samtidigt adaptiv tabellayout med färre texttunga kolumner och diskreta horisontella radavskiljare. Se `canonical/multi-pass-review-contract.md`, `docs/multi-pass-review.md` och `docs/pdf-table-layout.md`.
+
+## Steg 25 - kandidatregister och deterministisk leverans
+Standard/Deep använder nu ett beständigt kandidatregister med obligatorisk slutdisposition och en leveransgate före rapportgenerering. DOCX/PDF renderas deterministiskt från canonical JSON; texttunga tabeller begränsas till tre kolumner och åtgärds-/follow-up-sektioner använder blocklayout.

@@ -21,3 +21,7 @@
 Se `RELEASE-NOTES.md`.
 
 - Steg 23: målgruppsingångar för utvecklare/säkerhetsgranskare, resultat/nästa steg i attackytekartan samt berörda komponenter och acceptance criteria per fynd.
+
+### Step 25
+- Added candidate finding register, adjudication and review integrity gate.
+- Enforced deterministic report rendering and stricter DOCX/PDF table layout.

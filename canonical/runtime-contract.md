@@ -66,4 +66,6 @@ Innan fynd rapporteras i Standard/Deep, sammanfatta vad systemet består av: sto
 
 ## Multi-pass consistency
 
-Standard och Deep använder internt: inventering/säkerhetsmodell -> obligatorisk kontrollmatris -> riskdriven fördjupning -> kandidatfynd -> challenge pass -> coverage gate -> konsolidering/rapportering. Användaren behöver normalt inte mata fram passen med flera promptar. Kontrollmatrisen ska aktivt pröva bland annat current authorization, resursförbrukning/timeouts, externa integrationer, process/filsystem, datalager, browser/API, secrets, supply chain och deployment när de är relevanta.
+Standard och Deep använder internt: inventering/säkerhetsmodell -> obligatorisk kontrollmatris -> riskdriven fördjupning -> beständigt kandidatregister -> challenge pass -> kandidat-adjudicering -> coverage gate -> konsolidering/rapportering. Användaren behöver normalt inte mata fram passen med flera promptar. Kontrollmatrisen ska aktivt pröva bland annat current authorization, resursförbrukning/timeouts, externa integrationer, process/filsystem, datalager, browser/API, secrets, supply chain och deployment när de är relevanta.
+
+För Standard/Deep ska canonical rapportdata innehålla `review_process`. Word/PDF får endast levereras via den deterministiska renderer-pipelinen efter godkänd review-integrity gate; fri dokumentlayout är inte tillåten.
