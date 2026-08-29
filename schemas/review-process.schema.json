@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewProcessState",
+  "type": "object",
+  "required": [
+    "control_matrix",
+    "candidate_findings",
+    "challenge_completed",
+    "coverage_gate_passed"
+  ],
+  "properties": {
+    "control_matrix": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "control_family",
+          "status"
+        ],
+        "properties": {
+          "control_family": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "reviewed",
+              "not_reviewed",
+              "not_verifiable",
+              "not_applicable"
+            ]
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "candidate_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "title",
+          "disposition"
+        ],
+        "properties": {
+          "candidate_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "disposition": {
+            "enum": [
+              "confirmed",
+              "probable",
+              "review-point",
+              "dismissed",
+              "coverage-gap",
+              "merged"
+            ]
+          },
+          "finding_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "merged_into": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rationale": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_pass": {
+            "enum": [
+              "control-matrix",
+              "risk-pass",
+              "challenge-pass",
+              "other"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "challenge_completed": {
+      "type": "boolean"
+    },
+    "coverage_gate_passed": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false
+}

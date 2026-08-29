@@ -39,3 +39,6 @@
 - adaptiva Word/PDF-tabeller
 - diskreta horisontella radavskiljare
 - regressionsfall för analyskonsistens och layout
+
+## Steg 25 - genomfört
+Beständigt kandidatregister, obligatorisk slutdisposition, coverage/delivery gate och deterministisk Word/PDF-rendering med max tre textkolumner.

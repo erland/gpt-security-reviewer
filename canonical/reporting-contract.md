@@ -50,3 +50,13 @@ Utvecklingsteamet ska snabbt kunna hitta: prioriterade fynd, berörda komponente
 Säkerhetsgranskaren ska snabbt kunna hitta: system-/deployment-/integrationsbild, analyserade attackytor, coverage, review points och rekommenderad fortsatt manuell eller verktygsbaserad granskning.
 
 Sammanfattningen får därför innehålla korta målgruppsingångar för respektive läsare.
+
+## Deterministisk rapportleverans
+
+För Standard och Deep ska rapportinnehållet först låsas som ett canonical strukturerat rapportobjekt som följer `schemas/report.schema.json`. Word och PDF får inte författas ad hoc eller med en fristående layout. Leveransordningen är:
+
+`analys -> review_process/kandidatdisposition -> canonical report JSON -> validering -> deterministisk renderer -> DOCX/PDF`.
+
+`deliver_report.py` ska användas som leveransgate för Standard/Deep. Den ska avbryta om kandidatregistret inte är slutdispositionerat, challenge pass inte är klart eller coverage gate inte passerar. Rubrikordning, tabellstruktur, blocklayout och sidpresentation styrs av renderern och får inte improviseras av analyssteget.
+
+För DOCX/PDF gäller dessutom att texttunga tabeller har högst tre kolumner. Rekommenderade åtgärder och fortsatt granskning renderas som block när fälten är texttunga. Diskreta horisontella radavskiljare används i tabeller.

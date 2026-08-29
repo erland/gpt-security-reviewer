@@ -19,10 +19,13 @@ for p in [instructions,runtime]:
             if token not in txt: errors.append(f'{p.name} missing: {token}')
 idx=json.loads((ROOT/'tests/scenarios/index.json').read_text(encoding='utf-8'))
 ids={x['id'] for x in idx['scenarios']}
-required={'multipass-stale-authorization','multipass-resource-timeouts','coverage-gate-relevant-controls','multipass-combined-findings'}
+required={'multipass-stale-authorization','multipass-resource-timeouts','coverage-gate-relevant-controls','multipass-combined-findings','candidate-register-no-silent-drop','candidate-dismissed-rationale','candidate-report-traceability','deterministic-pdf-renderer'}
 for x in required-ids: errors.append(f'missing indexed scenario: {x}')
+contract_txt=contract.read_text(encoding='utf-8').lower() if contract.exists() else ''
+for token in ['beständigt internt kandidatregister','candidate_id','coverage-gap','merged','slutlig disposition']:
+    if token not in contract_txt: errors.append('Missing candidate-register rule: '+token)
 if errors:
     print('MULTI-PASS REVIEW VALIDATION FAILED'); [print('- '+e) for e in errors]; sys.exit(1)
 print('MULTI-PASS REVIEW VALIDATION OK')
-print('passes=inventory,matrix,risk,candidates,challenge,coverage,report')
+print('passes=inventory,matrix,risk,candidates,challenge,adjudication,coverage,report')
 print(f'scenarios={len(required)}')

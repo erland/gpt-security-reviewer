@@ -51,6 +51,9 @@ jobs:
       - name: Validate multi-pass review
         run: python3 scripts/validate_multi_pass_review.py
 
+      - name: Validate review integrity
+        run: python3 scripts/validate_review_integrity.py
+
       - name: Validate report layout policy
         run: python3 scripts/validate_report_layout.py
 

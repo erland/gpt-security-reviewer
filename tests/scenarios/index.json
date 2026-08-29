@@ -531,6 +531,47 @@
         "consistency",
         "findings"
       ]
+    },
+    {
+      "id": "candidate-register-no-silent-drop",
+      "class": "recommendation",
+      "title": "Kandidat får inte försvinna tyst",
+      "file": "tests/scenarios/candidate-register-no-silent-drop.md",
+      "tags": [
+        "candidate-register",
+        "consistency"
+      ]
+    },
+    {
+      "id": "candidate-dismissed-rationale",
+      "class": "recommendation",
+      "title": "Dismissed kandidat kräver motivering",
+      "file": "tests/scenarios/candidate-dismissed-rationale.md",
+      "tags": [
+        "candidate-register",
+        "adjudication"
+      ]
+    },
+    {
+      "id": "candidate-report-traceability",
+      "class": "recommendation",
+      "title": "Rapportfynd måste kunna spåras till kandidat",
+      "file": "tests/scenarios/candidate-report-traceability.md",
+      "tags": [
+        "candidate-register",
+        "traceability"
+      ]
+    },
+    {
+      "id": "deterministic-pdf-renderer",
+      "class": "recommendation",
+      "title": "PDF ska använda deterministisk renderer",
+      "file": "tests/scenarios/deterministic-pdf-renderer.md",
+      "tags": [
+        "reporting",
+        "pdf",
+        "layout"
+      ]
     }
   ]
 }

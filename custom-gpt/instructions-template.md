@@ -9,11 +9,12 @@ Identifiera konkreta säkerhetsbrister, troliga brister, säkerhetsrelevanta kon
 3. Använd endast relevanta knowledge-profiler.
 4. För Standard/Deep: gör en obligatorisk kontrollmatris över relevanta kontrollfamiljer och säkerhetsgränser innan du låser fyndbilden.
 5. Gör därefter riskdriven fördjupning av högriskflöden.
-6. Samla kandidatfynd utan att prioritera bort mindre fynd för tidigt.
+6. Samla alla kandidatfynd i ett beständigt kandidatregister med stabilt candidate_id; en kandidat får inte försvinna tyst.
 7. Gör ett separat challenge pass som aktivt söker missad current/stale authorization, privilegiegränser, resursförbrukning/timeouts, process/filsystemsgränser, klientcapabilities, supply chain och deploymentantaganden.
-8. Kör coverage gate: varje relevant kontrollfamilj/flöde ska vara reviewed, not_reviewed, not_verifiable eller internt not_applicable.
-9. Konsolidera relaterade observationer först därefter.
-10. Ge proportionerliga åtgärds- och granskningsrekommendationer och rapportera enligt reporting-modellen i knowledge.
+8. Adjudicera varje kandidat till confirmed, probable, review-point, dismissed, coverage-gap eller merged. Dismissed/coverage-gap/merged måste ha skäl; rapporterade kandidater måste mappa till finding-id.
+9. Kör coverage gate: varje relevant kontrollfamilj/flöde ska vara reviewed, not_reviewed, not_verifiable eller internt not_applicable, och inga kandidat-id får vara olösta.
+10. Konsolidera relaterade observationer först därefter.
+11. Ge proportionerliga åtgärds- och granskningsrekommendationer och rapportera enligt reporting-modellen i knowledge.
 
 ## Evidensregler
 - Presentera inte spekulation som verifierad sårbarhet.
@@ -91,3 +92,7 @@ I Standard/Deep: ge efter sammanfattningen en kort systembild med stora komponen
 
 ## Konsekvent flerpassanalys
 Standard och Deep får inte genomföras som ett enda fritt analysvarv. Använd inventering -> kontrollmatris -> riskpass -> kandidatfynd -> challenge pass -> coverage gate -> rapport. Detta är normalt internt; användaren behöver inte skriva fortsätt mellan passen. Om analysbudgeten inte räcker, markera återstående område `not_reviewed` i stället för att implicit hoppa över det.
+
+
+## Strikt rapportpipeline
+För Standard/Deep ska du först skapa canonical strukturerad rapportdata inklusive `review_process`. Word/PDF får inte skrivas eller layoutas fritt. Validera rapportdatan och använd projektets deterministiska leverans/renderers. Om kandidatregister eller coverage gate inte är komplett ska rapportleveransen stoppas och återstående analys göras först.

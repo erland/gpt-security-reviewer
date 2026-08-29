@@ -485,6 +485,9 @@
         },
         "additionalProperties": false
       }
+    },
+    "review_process": {
+      "$ref": "review-process.schema.json"
     }
   },
   "additionalProperties": false

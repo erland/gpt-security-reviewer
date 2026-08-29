@@ -5,8 +5,11 @@ import json, sys
 ROOT = Path(__file__).resolve().parents[1]
 
 required = [
+    "docs/candidate-finding-register.md",
+    "schemas/review-process.schema.json",
     "canonical/multi-pass-review-contract.md",
     "scripts/validate_multi_pass_review.py",
+    "scripts/validate_review_integrity.py",
     "scripts/validate_report_layout.py",
     "docs/multi-pass-review.md",
     "docs/pdf-table-layout.md",
@@ -103,7 +106,7 @@ for rel in required:
     elif p.is_file() and not p.read_text(encoding="utf-8").strip():
         errors.append(f"Empty required file: {rel}")
 
-for schema_rel in ["schemas/finding.schema.json", "schemas/review-summary.schema.json"]:
+for schema_rel in ["schemas/finding.schema.json", "schemas/review-summary.schema.json", "schemas/report.schema.json", "schemas/review-process.schema.json"]:
     try:
         json.loads((ROOT/schema_rel).read_text(encoding="utf-8"))
     except Exception as e:

@@ -82,6 +82,18 @@ def add_review_blocks(doc, items):
         p=doc.add_paragraph(); p.paragraph_format.space_after=Pt(2)
         pPr=p._p.get_or_add_pPr(); pbdr=OxmlElement('w:pBdr'); bottom=OxmlElement('w:bottom'); bottom.set(qn('w:val'),'single'); bottom.set(qn('w:sz'),'4'); bottom.set(qn('w:space'),'4'); bottom.set(qn('w:color'),'D9D9D9'); pbdr.append(bottom); pPr.append(pbdr)
 
+def add_action_blocks(doc, items):
+    for item in items:
+        p=doc.add_paragraph(); p.paragraph_format.space_before=Pt(5); p.paragraph_format.space_after=Pt(2)
+        r=p.add_run(f"{item['priority']} - {item['action']}"); r.bold=True
+        p=doc.add_paragraph(); p.paragraph_format.left_indent=Cm(0.4); p.paragraph_format.space_after=Pt(1)
+        r=p.add_run("Motivering: "); r.bold=True; p.add_run(str(item['reason']))
+        related=', '.join(item.get('related_findings',[])) or '-'
+        p=doc.add_paragraph(); p.paragraph_format.left_indent=Cm(0.4); p.paragraph_format.space_after=Pt(1)
+        r=p.add_run("Relaterade fynd: "); r.bold=True; p.add_run(related)
+        p=doc.add_paragraph(); p.paragraph_format.space_after=Pt(2)
+        pPr=p._p.get_or_add_pPr(); pbdr=OxmlElement('w:pBdr'); bottom=OxmlElement('w:bottom'); bottom.set(qn('w:val'),'single'); bottom.set(qn('w:sz'),'4'); bottom.set(qn('w:space'),'4'); bottom.set(qn('w:color'),'D9D9D9'); pbdr.append(bottom); pPr.append(pbdr)
+
 def add_bullets(doc, items, empty='Inga identifierade poster.'):
     if not items:
         doc.add_paragraph(empty); return
@@ -177,7 +189,7 @@ def render(report):
 
     add_heading(doc,'Rekommenderade åtgärder',1)
     actions=report.get('recommended_actions',[])
-    if actions: add_table(doc,['Prioritet','Åtgärd','Motivering / fynd'],[[a['priority'],a['action'], f"{a['reason']} | Fynd: {', '.join(a.get('related_findings',[])) or '-'}"] for a in actions], widths=[2.2,6.4,7.5])
+    if actions: add_action_blocks(doc, actions)
     else: doc.add_paragraph('Inga ytterligare åtgärder identifierade.')
 
     add_heading(doc,'Rekommenderad fortsatt granskning',1)

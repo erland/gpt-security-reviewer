@@ -19,7 +19,7 @@ with tempfile.TemporaryDirectory() as td:
     out=Path(td)/'stress.docx'; render_report_docx.render(report).save(out)
     doc=Document(out)
     col_counts=[len(t.columns) for t in doc.tables]
-    if any(c>4 for c in col_counts): errors.append(f'text table has >4 columns: {col_counts}')
+    if any(c>3 for c in col_counts): errors.append(f'text table has >3 columns: {col_counts}')
     xml=out.read_bytes()
     # Inspect OOXML inside zip for our separator controls.
     import zipfile
@@ -29,6 +29,7 @@ with tempfile.TemporaryDirectory() as td:
 if errors:
     print('REPORT LAYOUT VALIDATION FAILED'); [print('- '+e) for e in errors]; sys.exit(1)
 print('REPORT LAYOUT VALIDATION OK')
-print('max_text_columns=4')
+print('max_text_columns=3')
 print('row_separators=horizontal-discreet')
+print('recommended_actions_layout=blocks')
 print('follow_up_layout=blocks')
