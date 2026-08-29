@@ -12,6 +12,9 @@ def render(report):
  o=[f"# {m['title']}","","## Metadata","","| Fält | Värde |","|---|---|"]
  for k,l in [('system_name','System/IT-stöd'),('review_date','Granskningsdatum'),('review_mode','Granskningsläge'),('version','Version'),('source_reference','Underlagsreferens')]: o.append(f"| {l} | {m.get(k) or 'Ej angivet'} |")
  o += ["","## Sammanfattning","",e['overall_assessment'],"","### Viktigaste fynd","",bullets(e['key_findings']),"","### Viktigaste osäkerheter","",bullets(e['key_uncertainties']),"","### Rekommenderade nästa steg","",bullets(e['next_steps']),""]
+ ag=e.get('audience_guidance') or {}
+ if ag.get('developer'): o += ["### För utvecklingsteamet","",bullets(ag['developer']),""]
+ if ag.get('security_reviewer'): o += ["### För säkerhetsgranskaren","",bullets(ag['security_reviewer']),""]
  o += ["## Systemöversikt",""]
  comps=sy.get('major_components',[])
  if comps:
@@ -22,8 +25,8 @@ def render(report):
   if sy.get(k): o += [f"### {l}","",bullets(sy.get(k,[])),""]
  o += ["## Analyserade säkerhetsrelevanta flöden och attackytor",""]
  if flows:
-  o += ["| Flöde/attackyta | Analyserat fokus | Status | Evidensgrund |","|---|---|---|---|"]
-  for x in flows:o.append(f"| {x['flow']} | {x['review_focus']} | {x['status']} | {x.get('evidence_basis') or '–'} |")
+  o += ["| Flöde/attackyta | Analyserat fokus | Status | Resultat / nästa steg |","|---|---|---|---|"]
+  for x in flows:o.append(f"| {x['flow']} | {x['review_focus']} | {x['status']} | {x.get('result_next_step') or x.get('evidence_basis') or '–'} |")
   o.append("")
  else:o += ["Inga separata säkerhetsrelevanta flöden dokumenterade.",""]
  o += ["## Scope och analyserat underlag","",s['requested_scope'],"","### Analyserat underlag","",bullets(s['reviewed_material']),"","### Avgränsningar","",bullets(s['limitations']),""]
@@ -35,10 +38,13 @@ def render(report):
   for f in findings:o.append(f"| {f['id']} | {f['severity']} | {f['confidence']} | {f['status']} | {f['title']} |")
   o.append("")
   for f in findings:
-   o += [f"### {f['id']} – {f['title']}","",f"- **Kategori:** {f['category']}",f"- **Severity:** {f['severity']}",f"- **Confidence:** {f['confidence']}",f"- **Status:** {f['status']}",f"- **Komponent:** {f.get('component') or 'Ej angivet'}",f"- **Manuell verifiering:** {f['manual_verification']}","","**Observation**","",f['observation'],""]
+   affected=f.get('affected_components') or ([f['component']] if f.get('component') else [])
+   o += [f"### {f['id']} – {f['title']}","",f"- **Kategori:** {f['category']}",f"- **Severity:** {f['severity']}",f"- **Confidence:** {f['confidence']}",f"- **Status:** {f['status']}",f"- **Berörda komponenter:** {', '.join(affected) if affected else 'Ej angivet'}",f"- **Manuell verifiering:** {f['manual_verification']}","","**Observation**","",f['observation'],""]
    if f.get('impact'):o += ["**Möjlig konsekvens**","",f['impact'],""]
    if f.get('reasoning'):o += ["**Resonemang**","",f['reasoning'],""]
    o += ["**Rekommenderad åtgärd**","",f['recommendation'],""]
+   ac=f.get('acceptance_criteria') or f.get('verification_goal')
+   if ac:o += ["**Acceptance criteria / verifieringsmål**","",ac,""]
    ev=f.get('evidence_details') or []
    if ev:
     o += ["**Evidens**",""]

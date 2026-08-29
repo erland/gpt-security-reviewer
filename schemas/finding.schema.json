@@ -250,6 +250,18 @@
         "string",
         "null"
       ]
+    },
+    "affected_components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "acceptance_criteria": {
+      "type": [
+        "string",
+        "null"
+      ]
     }
   },
   "additionalProperties": false

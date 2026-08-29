@@ -5,7 +5,7 @@ Alla mänskligt läsbara rapportformat ska bygga på samma innehållsmodell.
 
 Den canonical rapportmodellen består av:
 1. metadata,
-2. executive summary,
+2. executive summary med målgruppsingångar,
 3. systemöversikt,
 4. analyserade säkerhetsrelevanta flöden och attackytor,
 5. scope och underlag,
@@ -34,6 +34,13 @@ Markdown, Confluence markup, PDF och Word ska rendera samma semantiska innehåll
 - viktigaste fynd
 - största osäkerheter
 - viktigaste nästa steg
+- kort målgruppsingång för utvecklingsteamet
+- kort målgruppsingång för säkerhetsgranskaren
+
+`audience_guidance.developer` ska fokusera på vad som behöver åtgärdas, i vilken ordning och hur klart verifieras.
+`audience_guidance.security_reviewer` ska fokusera på vilka gränser som behöver verifieras manuellt, vad som inte är verifierbart från underlaget och vilka kompletterande granskningsformer som är proportionerliga.
+
+Målgruppsingångarna ska vara korta och återanvända rapportens faktiska fynd, coverage och follow-up. De får inte introducera nya slutsatser.
 
 ### 3. Systemöversikt
 Syftet är att ge läsaren en mental modell av systemet innan säkerhetsdetaljerna.
@@ -58,7 +65,8 @@ Varje rad ska normalt ange:
 - `flow`: exempelvis `Webbläsare → frontend/backend`,
 - `review_focus`: vilken säkerhetsfråga som analyserats,
 - `status`: `reviewed`, `partially_reviewed` eller `not_verifiable`,
-- valfri `evidence_basis`: vilket underlag som stöder analysen.
+- valfri `evidence_basis`: vilket underlag som stöder analysen,
+- valfri `result_next_step`: kort slutsats eller nästa steg för just denna yta.
 
 Sektionen ska vara defensiv. Den beskriver kontrollpunkter och analysfokus, inte praktiska attackkedjor, payloads eller exploateringssteg.
 
@@ -82,7 +90,9 @@ Skapa inte en analyserad väg enbart för att den är teoretiskt möjlig. Den sk
 ### 7. Fynd
 Fynd grupperas primärt efter severity och sekundärt efter kategori.
 
-Varje fynd bör innehålla ID, titel, kategori, severity, confidence, status, komponent, evidens, observation, möjlig konsekvens, resonemang, rekommenderad åtgärd, manuell verifiering och relevanta referensramar.
+Varje fynd bör innehålla ID, titel, kategori, severity, confidence, status, berörd komponent/berörda komponenter, evidens, observation, möjlig konsekvens, resonemang, rekommenderad åtgärd, manuell verifiering, tydligt acceptance criterion/verifieringsmål och relevanta referensramar.
+
+`affected_components` gör det enkelt för utvecklingsteamet att se vilka delar som behöver ändras eller kontrolleras. `acceptance_criteria` ska uttrycka när fyndet kan betraktas som åtgärdat och verifierat, utan att bli ett offensivt exploateringsrecept.
 
 ### 8. Coverage
 Tre obligatoriska perspektiv:
@@ -115,7 +125,7 @@ Beskriv vad som fortfarande inte kan uteslutas, vilka risker som kvarstår efter
 Kan innehålla detaljerad evidens, metod, teknikprofiler som användes, fyndregister och referenser.
 
 ## Ordering
-Normal ordning ska följas i alla format. Systemöversikten och de analyserade säkerhetsrelevanta flödena ska komma före scope, arkitekturdetaljer och fynd så att läsaren först förstår systemet och vad som granskats.
+Normal ordning ska följas i alla format: sammanfattning → systemöversikt → analyserade säkerhetsrelevanta flöden/attackytor → scope → arkitekturell säkerhetsbild → fynd → coverage → åtgärder/follow-up. Systembilden ska alltså komma före den detaljerade scope-redovisningen.
 
 ## Defensiv semantik för fynd
 

@@ -11,12 +11,13 @@ if len(flows)<3: errors.append('Expected at least three analyzed security flows 
 for x in flows:
     if x.get('status') not in ['reviewed','partially_reviewed','not_verifiable']: errors.append('Invalid flow status')
     if not x.get('flow') or not x.get('review_focus'): errors.append('Flow missing content')
+    if not x.get('result_next_step'): errors.append('Flow missing result_next_step')
 contract=(R/'canonical/report-model.md').read_text(encoding='utf-8')
 for token in ['systemdelar/komponenter','deploymentenheter','aktörer','externa system','får inte hitta på','attackytor']:
     if token.lower() not in contract.lower(): errors.append('Report model missing: '+token)
 for rel in ['scripts/render_report_markdown.py','scripts/render_report_confluence.py','scripts/render_report_docx.py']:
     t=(R/rel).read_text(encoding='utf-8')
-    for token in ['major_components','analyzed_security_flows']:
+    for token in ['major_components','analyzed_security_flows','result_next_step']:
         if token not in t: errors.append(f'{rel} missing {token}')
 if errors:
     print('SYSTEM OVERVIEW VALIDATION FAILED')

@@ -12,6 +12,7 @@ required = [
     "scripts/validate_rc_readiness.py",
     "scripts/validate_workflows.py",
     "scripts/validate_system_overview.py",
+    "scripts/validate_audience_reporting.py",
     "docs/release-checklist.md",
     "RELEASE-NOTES.md",
     "CHANGELOG.md",

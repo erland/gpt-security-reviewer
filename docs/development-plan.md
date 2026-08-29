@@ -28,3 +28,5 @@
 - Steg 21: defensiv rapportering och policyrobusthet – genomfört
 
 - Steg 22: system-, deployment-, integrations- och attackyteöversikt – genomfört
+
+- Steg 23: målgruppsanpassad rapportnavigering och tydligare acceptance criteria – genomfört

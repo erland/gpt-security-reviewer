@@ -18,7 +18,15 @@
     "next_steps": [
       "Åtgärda F-001.",
       "Verifiera produktions-IAM."
-    ]
+    ],
+    "audience_guidance": {
+      "developer": [
+        "Åtgärda verifierade fynd i prioriteringsordning och använd acceptance criteria som Definition of Done."
+      ],
+      "security_reviewer": [
+        "Använd attackytekartan, coverage och follow-up för att avgöra vilken manuell verifiering som återstår."
+      ]
+    }
   },
   "scope": {
     "requested_scope": "Standardgranskning av backend och arkitektur.",
@@ -129,7 +137,11 @@
         "Orderdata"
       ],
       "remediation_effort": "medium",
-      "verification_goal": "Verifiera att användare endast kan läsa behöriga order."
+      "verification_goal": "Verifiera att användare endast kan läsa behöriga order.",
+      "affected_components": [
+        "OrderResource"
+      ],
+      "acceptance_criteria": "Verifiera att användare endast kan läsa behöriga order."
     }
   ],
   "coverage": {
@@ -207,19 +219,22 @@
       "flow": "Webbläsare → backend API",
       "review_focus": "Autentisering, sessions-/identitetspropagering och auktorisering",
       "status": "reviewed",
-      "evidence_basis": "Backendkod och arkitekturbeskrivning"
+      "evidence_basis": "Backendkod och arkitekturbeskrivning",
+      "result_next_step": "Ingen särskild fortsatt granskning utöver identifierade fynd."
     },
     {
       "flow": "Backend API → PostgreSQL",
       "review_focus": "Objektbehörighet, query-hantering och databasåtkomst",
       "status": "reviewed",
-      "evidence_basis": "JAX-RS/JPA-access och PostgreSQL-relaterad kod"
+      "evidence_basis": "JAX-RS/JPA-access och PostgreSQL-relaterad kod",
+      "result_next_step": "Ingen särskild fortsatt granskning utöver identifierade fynd."
     },
     {
       "flow": "Extern IdP → backend/runtime",
       "review_focus": "Produktions-IAM, claims och policykoppling",
       "status": "not_verifiable",
-      "evidence_basis": "Produktions-IAM-konfiguration saknas i underlaget"
+      "evidence_basis": "Produktions-IAM-konfiguration saknas i underlaget",
+      "result_next_step": "Manuell/configuration review krävs innan starkare slutsats."
     }
   ]
 }

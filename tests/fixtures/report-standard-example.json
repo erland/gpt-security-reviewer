@@ -15,7 +15,15 @@
     ],
     "next_steps": [
       "Verifiera IAM."
-    ]
+    ],
+    "audience_guidance": {
+      "developer": [
+        "Åtgärda verifierade fynd i prioriteringsordning och använd acceptance criteria som Definition of Done."
+      ],
+      "security_reviewer": [
+        "Använd attackytekartan, coverage och follow-up för att avgöra vilken manuell verifiering som återstår."
+      ]
+    }
   },
   "scope": {
     "requested_scope": "Kod och arkitektur.",
@@ -125,19 +133,22 @@
       "flow": "Webbläsare → backend API",
       "review_focus": "Autentisering, sessions-/identitetspropagering och auktorisering",
       "status": "reviewed",
-      "evidence_basis": "Backendkod och arkitekturbeskrivning"
+      "evidence_basis": "Backendkod och arkitekturbeskrivning",
+      "result_next_step": "Ingen särskild fortsatt granskning utöver identifierade fynd."
     },
     {
       "flow": "Backend API → PostgreSQL",
       "review_focus": "Objektbehörighet, query-hantering och databasåtkomst",
       "status": "reviewed",
-      "evidence_basis": "JAX-RS/JPA-access och PostgreSQL-relaterad kod"
+      "evidence_basis": "JAX-RS/JPA-access och PostgreSQL-relaterad kod",
+      "result_next_step": "Ingen särskild fortsatt granskning utöver identifierade fynd."
     },
     {
       "flow": "Extern IdP → backend/runtime",
       "review_focus": "Produktions-IAM, claims och policykoppling",
       "status": "not_verifiable",
-      "evidence_basis": "Produktions-IAM-konfiguration saknas i underlaget"
+      "evidence_basis": "Produktions-IAM-konfiguration saknas i underlaget",
+      "result_next_step": "Manuell/configuration review krävs innan starkare slutsats."
     }
   ]
 }

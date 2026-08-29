@@ -87,6 +87,9 @@ def render(report):
 
     add_heading(doc,'Sammanfattning',1); doc.add_paragraph(e['overall_assessment'])
     for label,key in [('Viktigaste fynd','key_findings'),('Viktigaste osäkerheter','key_uncertainties'),('Rekommenderade nästa steg','next_steps')]: add_heading(doc,label,2); add_bullets(doc,e[key])
+    guidance=e.get('audience_guidance') or {}
+    if guidance.get('developer'): add_heading(doc,'För utvecklingsteamet',2); add_bullets(doc,guidance['developer'])
+    if guidance.get('security_reviewer'): add_heading(doc,'För säkerhetsgranskaren',2); add_bullets(doc,guidance['security_reviewer'])
 
     add_heading(doc,'Systemöversikt',1)
     comps=sysov.get('major_components',[])
@@ -98,7 +101,7 @@ def render(report):
 
     add_heading(doc,'Analyserade säkerhetsrelevanta flöden och attackytor',1)
     if flows:
-        add_table(doc,['Flöde/attackyta','Analyserat fokus','Status','Evidensgrund'],[[x['flow'],x['review_focus'],x['status'],x.get('evidence_basis') or '–'] for x in flows], widths=[4.0,6.2,2.7,4.0])
+        add_table(doc,['Flöde/attackyta','Analyserat fokus','Status','Resultat / nästa steg'],[[x['flow'],x['review_focus'],x['status'],x.get('result_next_step') or x.get('evidence_basis') or '–'] for x in flows], widths=[4.0,5.2,2.6,5.1])
     else: doc.add_paragraph('Inga separata säkerhetsrelevanta flöden dokumenterade.')
 
     add_heading(doc,'Scope och analyserat underlag',1); doc.add_paragraph(s['requested_scope']); add_heading(doc,'Analyserat underlag',2); add_bullets(doc,s['reviewed_material']); add_heading(doc,'Avgränsningar',2); add_bullets(doc,s['limitations'])
@@ -113,7 +116,8 @@ def render(report):
         for f in findings:
             add_heading(doc,f"{f['id']} – {f['title']}",2)
             p=doc.add_paragraph()
-            fields=[('Kategori',f['category']),('Severity',f['severity']),('Confidence',f['confidence']),('Status',f['status']),('Komponent',f.get('component') or 'Ej angivet'),('Manuell verifiering',f['manual_verification'])]
+            affected=f.get('affected_components') or ([f.get('component')] if f.get('component') else [])
+            fields=[('Kategori',f['category']),('Severity',f['severity']),('Confidence',f['confidence']),('Status',f['status']),('Berörda komponenter',', '.join(affected) if affected else 'Ej angivet'),('Manuell verifiering',f['manual_verification'])]
             for i,(label,value) in enumerate(fields):
                 r=p.add_run(f"{label}: " ); r.bold=True; p.add_run(str(value))
                 if i < len(fields)-1: p.add_run('  |  ')
@@ -121,6 +125,8 @@ def render(report):
             if f.get('impact'): add_heading(doc,'Möjlig konsekvens',3); doc.add_paragraph(f['impact'])
             if f.get('reasoning'): add_heading(doc,'Resonemang',3); doc.add_paragraph(f['reasoning'])
             add_heading(doc,'Rekommenderad åtgärd',3); doc.add_paragraph(f['recommendation'])
+            acceptance=f.get('acceptance_criteria') or f.get('verification_goal')
+            if acceptance: add_heading(doc,'Acceptance criteria / verifieringsmål',3); doc.add_paragraph(acceptance)
             ev=f.get('evidence_details') or []
             if ev:
                 add_heading(doc,'Evidens',3)
