@@ -92,3 +92,7 @@ Deploymentfynd ska peka på konkret manifest/config eller dokumenterad runtimepo
 - cluster RBAC ligger utanför applikationsprojektet
 - ingress/WAF/gateway sköts centralt
 - image scanning/signering hanteras i CI/CD utanför underlaget
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

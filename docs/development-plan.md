@@ -24,3 +24,5 @@
 - Steg 19: RC-förberedelse – genomfört
 
 - Steg 20: pre-release sanity check – genomfört
+
+- Steg 21: defensiv rapportering och policyrobusthet – genomfört

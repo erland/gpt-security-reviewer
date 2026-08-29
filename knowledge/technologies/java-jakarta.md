@@ -206,3 +206,7 @@ För XXE:
 - outbound access begränsas av nätverkspolicy
 - filskanning/antivirus sker i extern tjänst
 - management endpoints exponeras via separat nätverkszon
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

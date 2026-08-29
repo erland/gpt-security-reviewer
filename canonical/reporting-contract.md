@@ -29,3 +29,7 @@ Rapporten ska uttryckligen beskriva kvarvarande risk och hur stor del som beror 
 
 ## Format neutrality
 Markdown är canonical mänskligt läsbart format. Confluence markup, PDF och Word ska genereras från samma rapportmodell och får inte ändra severity, confidence, fynd, granskningsluckor eller rekommenderad fortsatt granskning.
+
+## Defensive detail level
+
+Rapportens fynd ska vara tillräckligt konkreta för remediation men inte utformade som exploateringsinstruktioner. `observation` beskriver kontrollbrist/rotorsak, `impact` säkerhetskonsekvens, `reasoning` evidens och slutsats, `evidence` defensivt relevant lokalisering, `recommendation` får vara detaljerad och `verification_goal` ska beskriva defensiv verifiering. Renderers får inte lägga till exploateringsdetaljer som saknas i canonical report JSON.

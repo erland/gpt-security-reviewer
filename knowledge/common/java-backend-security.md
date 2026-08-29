@@ -24,3 +24,7 @@ Bedöm call chain och global konfiguration innan du slutsatsar om saknad kontrol
 
 ## Manual verification triggers
 När security enforcement sker i gemensamma bibliotek eller runtime utanför projektet.
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

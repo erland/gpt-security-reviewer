@@ -53,3 +53,7 @@ Varje komplett granskning ska avslutas med:
 ## Report delivery
 
 Följ `canonical/report-delivery-workflow.md`. Quick levererar normalt i chatten. Standard och Deep levererar normalt kort chattsammanfattning plus Markdown-rapport. Explicit formatval vinner över default. Alla format renderas från samma strukturerade rapportdata.
+
+## Defensive reporting
+
+Följ `canonical/defensive-reporting-contract.md`. Identifiera och klassificera fynd med hög precision, men rapportera dem defensivt: detaljerad rotorsak, evidens, remediation och verifieringsmål; övergripande säkerhetskonsekvens; inga onödiga steg-för-steg-exploateringar, payloads, PoC eller bypass-instruktioner. Samma detaljnivå gäller i chat och alla rapportformat.

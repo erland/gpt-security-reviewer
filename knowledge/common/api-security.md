@@ -37,3 +37,7 @@ Använd för REST/HTTP-API:er och andra applikationsgränssnitt som exponeras ö
 - externa konsumenter och scopes är oklara,
 - business logic abuse kräver domänkunskap,
 - runtime rate limiting eller schema enforcement ligger externt.
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

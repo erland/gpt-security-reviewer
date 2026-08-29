@@ -1,0 +1,39 @@
+{
+  "cases": [
+    {
+      "id": "authorization-bola",
+      "category": "authorization",
+      "unsafe": "Exact object identifier manipulation sequence.",
+      "safe": "Objektnivåauktorisering kan inte verifieras. Detta kan medföra obehörig åtkomst till andra användares data.",
+      "remediation": "Inför server-side kontroll av åtkomst till varje objekt och komplettera med negativa auktoriseringstester."
+    },
+    {
+      "id": "sql-injection",
+      "category": "injection",
+      "unsafe": "Concrete SQL payload and modified predicate.",
+      "safe": "Extern input påverkar dynamiskt konstruerad SQL utan verifierbar säker bindning eller allowlist.",
+      "remediation": "Använd parameterbindning för värden och strikt allowlist för dynamiska identifierare eller sorteringsfält."
+    },
+    {
+      "id": "ssrf",
+      "category": "ssrf",
+      "unsafe": "Concrete internal destination and credential retrieval steps.",
+      "safe": "Användarkontrollerad destination kan påverka serverns utgående HTTP-anrop utan verifierbar destinationsbegränsning.",
+      "remediation": "Inför tillåten destinationslista, URL-normalisering och nätverksrestriktion för utgående anrop."
+    },
+    {
+      "id": "path-traversal",
+      "category": "path-traversal",
+      "unsafe": "Concrete traversal sequence and target system file.",
+      "safe": "Extern filidentifierare används i sökvägskonstruktion utan verifierbar begränsning till avsedd katalog.",
+      "remediation": "Normalisera sökvägen, verifiera canonical path mot tillåten bas och använd servergenererade filidentifierare."
+    },
+    {
+      "id": "elasticsearch-query",
+      "category": "elasticsearch",
+      "unsafe": "Concrete query bypass syntax.",
+      "safe": "Användarkontrollerad query-syntax kan påverka den avsedda sökstrukturen och åtkomstfiltreringen.",
+      "remediation": "Bygg strukturerad DSL på serversidan och tillåt endast explicit godkända fält och operatorer."
+    }
+  ]
+}

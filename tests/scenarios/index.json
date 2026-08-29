@@ -344,6 +344,61 @@
         "trust-boundary",
         "authn"
       ]
+    },
+    {
+      "id": "defensive-bola-reporting",
+      "class": "recommendation",
+      "file": "tests/scenarios/defensive-bola-reporting.md",
+      "title": "Defensiv rapportering: bola",
+      "tags": [
+        "defensive-reporting",
+        "bola",
+        "recommendation"
+      ]
+    },
+    {
+      "id": "defensive-injection-reporting",
+      "class": "recommendation",
+      "file": "tests/scenarios/defensive-injection-reporting.md",
+      "title": "Defensiv rapportering: injection",
+      "tags": [
+        "defensive-reporting",
+        "injection",
+        "recommendation"
+      ]
+    },
+    {
+      "id": "defensive-ssrf-reporting",
+      "class": "recommendation",
+      "file": "tests/scenarios/defensive-ssrf-reporting.md",
+      "title": "Defensiv rapportering: ssrf",
+      "tags": [
+        "defensive-reporting",
+        "ssrf",
+        "recommendation"
+      ]
+    },
+    {
+      "id": "defensive-path-traversal-reporting",
+      "class": "recommendation",
+      "file": "tests/scenarios/defensive-path-traversal-reporting.md",
+      "title": "Defensiv rapportering: path-traversal",
+      "tags": [
+        "defensive-reporting",
+        "path-traversal",
+        "recommendation"
+      ]
+    },
+    {
+      "id": "defensive-elasticsearch-reporting",
+      "class": "recommendation",
+      "file": "tests/scenarios/defensive-elasticsearch-reporting.md",
+      "title": "Defensiv rapportering: elasticsearch",
+      "tags": [
+        "defensive-reporting",
+        "elasticsearch",
+        "recommendation"
+      ]
     }
   ]
 }

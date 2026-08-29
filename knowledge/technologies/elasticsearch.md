@@ -95,3 +95,7 @@ För datafynd: visa att skyddsvärd data faktiskt indexeras.
 - nätverksexponering ligger bakom service mesh/gateway
 - snapshots hanteras av plattformsteam
 - remote-cluster trust ligger utanför underlaget
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

@@ -68,3 +68,7 @@ Fynd ska visa relevant role/grant, funktion, policy eller connection-konfigurati
 - produktionsroller skiljer sig från migrationsmiljön
 - TLS policy styrs på server/proxy
 - backup/replication ligger utanför projektet
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

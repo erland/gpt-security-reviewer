@@ -28,3 +28,15 @@ Prioritera åtgärder och rekommendera proportionerlig fortsatt granskning.
 
 ## Fas 8 – Rapportering
 Leverera sammanfattning, fynd, coverage, fortsatt granskning och kvarvarande risk.
+
+### Fas 5 – defensiv fyndkonsolidering
+
+Vid konsolidering av fynd:
+1. behåll exakt klassificering, rotorsak och relevant evidens,
+2. beskriv konsekvens på säkerhetsnivå,
+3. behåll detaljerad remediation,
+4. formulera verifieringsmål defensivt,
+5. ta bort eller abstrahera payloads, exploateringssteg, bypass-recept och attackkedjor,
+6. kombinera inte flera fynd till en praktiskt användbar attackväg.
+
+Om ett fynd endast kan förklaras genom offensiv detalj ska det i rapporten uttryckas på kontroll-/konsekvensnivå och vid behov kompletteras med rekommendation om manuell specialistgranskning.

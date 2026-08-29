@@ -90,3 +90,7 @@ Aktuell projektversion: **0.1.0-rc.1**.
 Avsedd GitHub Release-tagg: `v0.1.0-rc.1`. Release-taggen är canonical versionskälla vid release och vinner över `VERSION`.
 
 Se `RELEASE-NOTES.md`, `CHANGELOG.md`, `docs/release-checklist.md`, `docs/release-process.md` och `docs/v1-quality-review.md`.
+
+## Defensiv rapportering
+
+GPT:n behåller hög teknisk detaljnivå för rotorsak, evidens, remediation och defensiv verifiering, men abstraherar onödiga exploateringssteg, payloads, PoC, bypass-recept och attackkedjor. Detta gäller chat, Markdown, Confluence markup, Word och PDF.
