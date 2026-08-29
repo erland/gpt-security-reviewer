@@ -41,6 +41,9 @@ jobs:
       - name: Validate system overview
         run: python3 scripts/validate_system_overview.py
 
+      - name: Validate audience reporting
+        run: python3 scripts/validate_audience_reporting.py
+
       - name: Validate report exports
         run: python3 scripts/validate_report_exports.py
 

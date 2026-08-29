@@ -19,3 +19,5 @@
 
 ### Known limitations
 Se `RELEASE-NOTES.md`.
+
+- Steg 23: målgruppsingångar för utvecklare/säkerhetsgranskare, resultat/nästa steg i attackytekartan samt berörda komponenter och acceptance criteria per fynd.

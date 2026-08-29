@@ -87,6 +87,24 @@
           "items": {
             "type": "string"
           }
+        },
+        "audience_guidance": {
+          "type": "object",
+          "properties": {
+            "developer": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "security_reviewer": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -453,6 +471,12 @@
             ]
           },
           "evidence_basis": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "result_next_step": {
             "type": [
               "string",
               "null"

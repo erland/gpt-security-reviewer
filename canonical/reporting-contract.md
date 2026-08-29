@@ -41,3 +41,12 @@ Efter sammanfattningen ska Standard och Deep normalt presentera en systemöversi
 Översikten ska härledas från observerat material. Lägg inte till aktörer, integrationssystem, containrar eller nätverksvägar som bara är sannolika. Om deployment/integration endast delvis kan fastställas ska detta framgå.
 
 Attackyteöversikten är defensiv: beskriv flöde, granskningsfokus och coverage-status. Beskriv inte payload, exploateringssekvens eller färdig attackkedja.
+
+## Två primära läsare
+Rapporten ska fungera för två huvudmålgrupper utan att dupliceras i två separata rapporter.
+
+Utvecklingsteamet ska snabbt kunna hitta: prioriterade fynd, berörda komponenter, remediation och acceptance criteria.
+
+Säkerhetsgranskaren ska snabbt kunna hitta: system-/deployment-/integrationsbild, analyserade attackytor, coverage, review points och rekommenderad fortsatt manuell eller verktygsbaserad granskning.
+
+Sammanfattningen får därför innehålla korta målgruppsingångar för respektive läsare.

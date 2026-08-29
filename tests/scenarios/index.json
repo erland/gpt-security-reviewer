@@ -443,6 +443,50 @@
         "uncertainty",
         "architecture"
       ]
+    },
+    {
+      "id": "audience-developer-entry",
+      "class": "positive",
+      "file": "tests/scenarios/audience-developer-entry.md",
+      "title": "Målgruppsingång för utvecklingsteamet",
+      "tags": [
+        "reporting",
+        "developer",
+        "navigation"
+      ]
+    },
+    {
+      "id": "audience-security-reviewer-entry",
+      "class": "positive",
+      "file": "tests/scenarios/audience-security-reviewer-entry.md",
+      "title": "Målgruppsingång för säkerhetsgranskaren",
+      "tags": [
+        "reporting",
+        "security-reviewer",
+        "navigation"
+      ]
+    },
+    {
+      "id": "attack-surface-next-step",
+      "class": "recommendation",
+      "file": "tests/scenarios/attack-surface-next-step.md",
+      "title": "Resultat och nästa steg i attackytekartan",
+      "tags": [
+        "reporting",
+        "attack-surface",
+        "follow-up"
+      ]
+    },
+    {
+      "id": "finding-acceptance-criteria",
+      "class": "recommendation",
+      "file": "tests/scenarios/finding-acceptance-criteria.md",
+      "title": "Acceptance criteria per fynd",
+      "tags": [
+        "reporting",
+        "developer",
+        "remediation"
+      ]
     }
   ]
 }
