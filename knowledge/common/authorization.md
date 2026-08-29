@@ -40,3 +40,7 @@ Följ ett konkret flöde från inkommande identitet och resursidentifierare till
 - ABAC/RBAC-konfiguration utanför repo,
 - komplex ärvd rollmodell,
 - flera tjänster delar ansvar för beslutet.
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

@@ -57,6 +57,9 @@ jobs:
       - name: Validate test suite
         run: python3 scripts/validate_tests.py
 
+      - name: Validate defensive reporting
+        run: python3 scripts/validate_defensive_reporting.py
+
       - name: Build Chat ZIP
         run: python3 scripts/build_chat_zip.py
 

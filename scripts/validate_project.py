@@ -6,6 +6,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 required = [
     "README.md",
+    "scripts/validate_defensive_reporting.py",
+    "knowledge/common/defensive-reporting.md",
+    "canonical/defensive-reporting-contract.md",
     "scripts/validate_rc_readiness.py",
     "scripts/validate_workflows.py",
     "docs/release-checklist.md",

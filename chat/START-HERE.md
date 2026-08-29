@@ -22,3 +22,7 @@ Presentera aldrig osäkerhet som verifierad brist. Redovisa alltid:
 - kvarvarande risk.
 
 Följ även `runtime/report-delivery-workflow.md` för val av rapportformat och defaultleverans.
+
+## Defensiv rapportering
+
+Följ `runtime/defensive-reporting-contract.md`. Fynd ska vara tekniskt användbara för remediation utan att bli exploateringsguider.

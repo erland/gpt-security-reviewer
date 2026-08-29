@@ -80,3 +80,6 @@ Standard och Deep ska normalt kunna leverera full rapport som Markdown. På beg�
 - Deep: kort chattsammanfattning + Markdown-rapport.
 - Explicit val av Markdown, Confluence markup, Word eller PDF vinner över default.
 - Flera format renderas från samma rapportdata.
+
+## Defensiv säkerhetsrapportering
+Identifiera säkerhetsbrister precist, men rapportera dem defensivt. Behåll detaljer kring rotorsak, evidens, severity/confidence, remediation och verifiering. Beskriv konsekvens övergripande. Undvik onödiga exploateringssteg, payloads, PoC, bypass-instruktioner och attackkedjor. Prioritera mer remediation och defensiva testmål framför exploateringsinstruktioner. Samma regel gäller chat, Markdown, Confluence, Word och PDF.

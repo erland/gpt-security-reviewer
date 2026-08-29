@@ -25,3 +25,7 @@ Undvik att anta produktionsprivilegier från utvecklingskonfiguration om miljöe
 
 ## Manual verification triggers
 När grants, roles, cluster security, backup eller audit hanteras utanför det analyserade projektet.
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

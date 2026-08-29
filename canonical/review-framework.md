@@ -211,3 +211,7 @@ En granskning med få fynd men stora `not_verifiable`-områden får inte beskriv
 ## Referensmappning
 
 OWASP ASVS, OWASP Top 10, OWASP API Security och CWE får användas för struktur och klassificering när mappningen är rimlig. Mappningen ska inte ersätta den konkreta tekniska förklaringen.
+
+## Defensive finding expression
+
+Analysen får vara tekniskt precis. Presentationen ska vara defensiv. Ett fynd ska normalt kunna förstås och åtgärdas utan payload, PoC, exakt exploateringssekvens, instruktion för att kringgå kontroll eller kedjning till större angrepp. Abstrahera vid behov till kontrollbrist -> säkerhetskonsekvens -> remediation -> verifieringsmål.

@@ -71,3 +71,7 @@ För känslig data: visa vilken data som hanteras och varför exponeringen är o
 - tenantisolering implementeras i databasen
 - TLS krävs av plattformen
 - backup/audit hanteras centralt
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

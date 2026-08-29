@@ -67,3 +67,7 @@ Oracle-specifika fynd ska kopplas till faktisk PL/SQL, grant, connection-konfigu
 - VPD/FGAC eller andra policyer används
 - wallets och network ACLs hanteras centralt
 - auditing konfigureras i databasmiljön
+
+## Defensive reporting note
+
+Behåll rotorsak, evidens, severity/confidence, remediation och defensivt verifieringsmål. Abstrahera exploitpayloads, steg-för-steg-angrepp, bypass-recept och attackkedjor om de inte behövs för defensiv förståelse.

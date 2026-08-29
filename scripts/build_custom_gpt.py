@@ -35,6 +35,7 @@ merge(CONFIG["output_files"]["core"], "Granskningskärna", [
     "canonical/report-modes.md",
     "canonical/report-export-contract.md",
     "canonical/report-delivery-workflow.md",
+    "canonical/defensive-reporting-contract.md",
     "canonical/report-binary-export-contract.md",
     "canonical/workflow.md",
 ])

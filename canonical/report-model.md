@@ -93,3 +93,7 @@ Kan innehålla detaljerad evidens, metod, teknikprofiler som användes, fyndregi
 
 ## Ordering
 Normal ordning ska följas i alla format. Semantiken får inte ändras mellan format.
+
+## Defensiv semantik för fynd
+
+`observation` = vad som är fel eller inte kan verifieras. `impact` = möjlig säkerhetskonsekvens på övergripande nivå. `reasoning` = varför evidensen stödjer fyndet. `evidence_details` = var problemet finns och vad som observerats. `recommendation` = hur problemet åtgärdas. `verification_goal` = hur åtgärden verifieras defensivt. Fälten ska inte användas för steg-för-steg-exploatering, attackpayloads eller praktiska bypass-recept.
