@@ -177,6 +177,10 @@ Behåll separata fynd när:
 
 Samma rotorsak ska inte rapporteras flera gånger enbart för att den förekommer på många endpoints eller filer. Rapportera ett huvudfynd och lista representativa eller berörda förekomster.
 
+## Flerpassgranskning och coverage gate
+
+För Standard och Deep gäller `canonical/multi-pass-review-contract.md`. Riskdriven prioritering får inte ersätta den obligatoriska relevansbedömningen av kontrollfamiljer. Innan rapportering ska ett separat challenge pass genomföras och varje relevant säkerhetsgräns/kontrollfamilj ha explicit intern status.
+
 ## Coverage
 
 För varje relevant område använd en av:

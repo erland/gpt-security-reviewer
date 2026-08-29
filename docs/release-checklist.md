@@ -24,3 +24,10 @@
 - [ ] Testa Chat ZIP i ny konversation.
 - [ ] Testa Custom GPT-paketet.
 - [ ] Kör minst ett Quick-, Standard- och Deep-scenario.
+
+## Step 24 acceptance
+
+- [ ] `validate_multi_pass_review.py` passes.
+- [ ] `validate_report_layout.py` passes.
+- [ ] Standard/Deep Custom GPT smoke test demonstrates matrix -> risk pass -> challenge -> coverage gate behavior without requiring user continuation prompts.
+- [ ] Word/PDF stress report has no overlapping/clipped table text and uses discreet row separators.

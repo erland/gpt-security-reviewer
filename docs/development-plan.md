@@ -30,3 +30,12 @@
 - Steg 22: system-, deployment-, integrations- och attackyteöversikt – genomfört
 
 - Steg 23: målgruppsanpassad rapportnavigering och tydligare acceptance criteria – genomfört
+
+## Steg 24 - klart
+
+- deterministisk flerpassgranskning för Standard/Deep
+- obligatorisk kontrollmatris och coverage gate
+- separat challenge pass före fyndkonsolidering
+- adaptiva Word/PDF-tabeller
+- diskreta horisontella radavskiljare
+- regressionsfall för analyskonsistens och layout

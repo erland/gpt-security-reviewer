@@ -5,6 +5,11 @@ import json, sys
 ROOT = Path(__file__).resolve().parents[1]
 
 required = [
+    "canonical/multi-pass-review-contract.md",
+    "scripts/validate_multi_pass_review.py",
+    "scripts/validate_report_layout.py",
+    "docs/multi-pass-review.md",
+    "docs/pdf-table-layout.md",
     "README.md",
     "scripts/validate_defensive_reporting.py",
     "knowledge/common/defensive-reporting.md",
