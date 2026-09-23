@@ -19,12 +19,17 @@ jobs:
           python-version: "3.12"
 
       - name: Install report dependencies
-        run: pip install -r requirements-reporting.txt
+        run: |
+          pip install -r requirements-reporting.txt
+          pip install pyyaml
 
       - name: Install LibreOffice for PDF tests
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libreoffice-writer
+
+      - name: Validate GPT Builder project model
+        run: python3 scripts/lint_gpt_project.py
 
       - name: Validate project
         run: python3 scripts/validate_project.py
@@ -68,6 +73,9 @@ jobs:
       - name: Validate test suite
         run: python3 scripts/validate_tests.py
 
+      - name: Validate GPT Builder model robustness evals
+        run: python3 scripts/validate_model_robustness_evals.py
+
       - name: Validate defensive reporting
         run: python3 scripts/validate_defensive_reporting.py
 
@@ -86,6 +94,18 @@ jobs:
       - name: Validate distribution
         run: python3 scripts/validate_distribution.py
 
+      - name: Build OpenCode distribution
+        run: python3 scripts/build_opencode.py
+
+      - name: Validate OpenCode distribution
+        run: python3 scripts/validate_opencode.py
+
+      - name: Validate project hygiene
+        run: python3 scripts/project_hygiene.py
+
+      - name: Validate workflow parity
+        run: python3 scripts/validate_workflow_parity.py
+
   release-smoke:
     runs-on: ubuntu-latest
     env:
@@ -98,6 +118,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Install parity validation dependency
+        run: pip install pyyaml
 
       - name: Build Chat ZIP
         run: python3 scripts/build_chat_zip.py
@@ -114,8 +137,35 @@ jobs:
       - name: Validate distribution
         run: python3 scripts/validate_distribution.py
 
+      - name: Build OpenCode distribution
+        run: python3 scripts/build_opencode.py
+
+      - name: Validate OpenCode distribution
+        run: python3 scripts/validate_opencode.py
+
+      - name: Build project package
+        run: python3 scripts/build_project_package.py
+
+      - name: Validate runtime parity
+        run: python3 scripts/validate_runtime_parity.py
+
       - name: Validate synthetic release artifacts
         run: python3 scripts/validate_release.py
 
       - name: Generate synthetic checksums
         run: python3 scripts/generate_checksums.py
+
+      - name: Build delivery manifest
+        run: python3 scripts/build_delivery_manifest.py
+
+      - name: Validate release readiness
+        run: python3 scripts/validate_release_readiness.py
+
+      - name: Validate project hygiene
+        run: python3 scripts/project_hygiene.py
+
+      - name: Validate workflow parity
+        run: python3 scripts/validate_workflow_parity.py
+
+      - name: Verify reproducible release
+        run: python3 scripts/verify_reproducible_build.py

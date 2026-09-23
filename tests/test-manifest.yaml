@@ -1,0 +1,40 @@
+schema_version: 1
+suites:
+  canonical_project_validation:
+    type: deterministic
+    blocking: true
+    commands:
+      - python3 scripts/lint_gpt_project.py
+      - python3 scripts/validate_project.py
+      - python3 scripts/validate_workflows.py
+      - python3 scripts/validate_rc_readiness.py
+  review_integrity:
+    type: deterministic
+    blocking: true
+    commands:
+      - python3 scripts/validate_multi_pass_review.py
+      - python3 scripts/validate_review_integrity.py
+      - python3 scripts/validate_report_model.py
+      - python3 scripts/validate_report_workflow.py
+      - python3 scripts/validate_report_semantic_parity.py
+  reporting_and_exports:
+    type: deterministic
+    blocking: true
+    commands:
+      - python3 scripts/validate_system_overview.py
+      - python3 scripts/validate_audience_reporting.py
+      - python3 scripts/validate_report_layout.py
+      - python3 scripts/validate_report_exports.py
+      - python3 scripts/validate_binary_report_exports.py
+      - python3 scripts/validate_defensive_reporting.py
+  existing_scenarios:
+    type: regression
+    blocking: true
+    commands:
+      - python3 scripts/validate_tests.py
+    path: tests/scenarios
+  instruction_adherence:
+    type: behavioral
+    blocking: true
+    path: tests/model-robustness
+    description: Stateful robustness evals for review state, evidence discipline and defensive reporting.

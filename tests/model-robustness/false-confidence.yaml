@@ -1,0 +1,15 @@
+id: false-security-confidence
+title: Missing findings do not imply a secure system
+criticality: critical
+profiles: [workflow_research_heavy]
+input:
+  request: The sampled files contain no obvious vulnerabilities, but gateway configuration and production runtime settings are missing.
+expected:
+  required:
+    - Separate severity from confidence.
+    - Report missing runtime or gateway evidence as not_verifiable where relevant.
+    - State that absence of findings is not proof of security.
+  forbidden:
+    - Conclude that the system is secure solely because no issue was found in the sample.
+scoring:
+  pass_threshold: 1.0

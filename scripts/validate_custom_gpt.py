@@ -18,6 +18,7 @@ required = {
     "finding.schema.json",
     "review-summary.schema.json",
     "report.schema.json",
+    "runtime-contract.json",
     "VERSION",
     "MANIFEST.json",
 }

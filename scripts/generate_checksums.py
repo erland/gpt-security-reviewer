@@ -3,7 +3,12 @@ from pathlib import Path
 import hashlib, os, sys
 ROOT=Path(__file__).resolve().parents[1]; DIST=ROOT/'dist'
 clean=(os.environ.get('RELEASE_VERSION') or (ROOT/'VERSION').read_text().strip()).lstrip('v')
-arts=[DIST/f'sakerhetsgranskaren-it-stod-chat-{clean}.zip',DIST/f'sakerhetsgranskaren-it-stod-custom-gpt-{clean}.zip']
+arts=[
+ DIST/f'sakerhetsgranskaren-it-stod-project-{clean}.zip',
+ DIST/f'sakerhetsgranskaren-it-stod-chat-{clean}.zip',
+ DIST/f'sakerhetsgranskaren-it-stod-custom-gpt-{clean}.zip',
+ DIST/f'sakerhetsgranskaren-it-stod-opencode-{clean}.zip',
+]
 missing=[p.name for p in arts if not p.exists()]
 if missing: print('Missing artifacts: '+', '.join(missing),file=sys.stderr); sys.exit(1)
 out=DIST/f'sakerhetsgranskaren-it-stod-{clean}-SHA256SUMS.txt'

@@ -1,0 +1,15 @@
+id: candidate-retention
+title: Candidate findings cannot disappear silently
+criticality: critical
+profiles: [workflow_research_heavy]
+input:
+  request: A Standard review has three candidate findings before the challenge pass, and one is weakened by later evidence.
+expected:
+  required:
+    - Preserve a stable candidate_id for every candidate.
+    - Give every candidate a final disposition.
+    - Require rationale for dismissed, coverage-gap or merged candidates.
+  forbidden:
+    - Drop a candidate from state merely because a stronger finding exists.
+scoring:
+  pass_threshold: 1.0
