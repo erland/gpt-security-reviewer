@@ -8,7 +8,7 @@ Befintligt canonical säkerhetsbeteende, flerpassgranskning, rapportpipeline och
 
 ## Migrationssteg
 
-- [ ] Steg 1 – GPT Byggaren 1.5 projektmodell och stateful kontrakt
+- [x] Steg 1 – GPT Byggaren 1.5 projektmodell och stateful kontrakt
 - [ ] Steg 2 – 1.5 testmanifest och model-robustness evals
 - [ ] Steg 3 – OpenCode peer-distribution
 - [ ] Steg 4 – Runtime parity och modern releasekedja
@@ -22,8 +22,10 @@ Befintligt canonical säkerhetsbeteende, flerpassgranskning, rapportpipeline och
 - Claude Projects: reduced / inactive
 - OpenAI Plugin: reduced / inactive
 
+## Verifiering av steg 1
+
+CI passerade den nya GPT Builder stateful-linten tillsammans med befintliga projekt-, workflow-, RC-, rapport-, multi-pass-, review-integrity-, export-, defensive-reporting- och distributionsvalidatorer. Chat/Custom-build samt release-smoke är fortsatt gröna.
+
 ## Aktuellt steg
 
-**Steg 1 – GPT Byggaren 1.5 projektmodell och stateful kontrakt.**
-
-Steget är inte klart förrän den nya projektmodellen är CI-verifierad tillsammans med befintliga projekt-, rapport-, Chat- och Custom GPT-valideringar.
+**Steg 2 – 1.5 testmanifest och model-robustness evals.**
