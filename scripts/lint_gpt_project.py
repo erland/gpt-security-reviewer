@@ -69,6 +69,12 @@ if cfg_path.is_file():
     check(opencode.get("state_path") == ".security-reviewer-state/review-process.json",
           "OpenCode must use the canonical workspace review-state path")
 
+    parity = cfg.get("runtime_parity", {})
+    check(parity.get("model") == "runtime-parity.yaml", "Runtime parity model not registered")
+    check(set(parity.get("registered_runtimes", [])) == expected, "Runtime parity must register all five runtimes")
+    check(set(parity.get("compared_categories", [])) == {"behavior","capability","artifact","workspace_state","tool"},
+          "Runtime parity categories differ")
+
     testing = cfg.get("testing", {})
     check(testing.get("manifest") == "tests/test-manifest.yaml", "GPT Builder test manifest not registered")
     check(testing.get("eval_case_schema") == "schemas/eval-case.schema.json", "Eval case schema not registered")
@@ -116,6 +122,14 @@ for rel in (
     "scripts/validate_model_robustness_evals.py",
     "scripts/build_opencode.py",
     "scripts/validate_opencode.py",
+    "scripts/build_project_package.py",
+    "scripts/build_delivery_manifest.py",
+    "scripts/validate_runtime_parity.py",
+    "scripts/validate_release_readiness.py",
+    "runtime-parity.yaml",
+    "runtime-contracts/chatgpt-chat.json",
+    "runtime-contracts/chatgpt-custom.json",
+    "runtime-contracts/opencode.json",
     "PROJECT.md",
     "STATUS.md",
     "project-status.yaml",
