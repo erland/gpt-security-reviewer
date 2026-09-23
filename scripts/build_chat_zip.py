@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 STAGE = DIST / "chat-package"
 DIST.mkdir(exist_ok=True)
+FIXED_ZIP_TIME = (2020, 1, 1, 0, 0, 0)
 
 version = os.environ.get("RELEASE_VERSION") or (ROOT / "VERSION").read_text(encoding="utf-8").strip()
 version = version.lstrip("v")
@@ -84,8 +85,9 @@ with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         if not p.is_file():
             continue
         rel = p.relative_to(STAGE)
-        info = zipfile.ZipInfo.from_file(p, arcname=rel.as_posix())
-        info.external_attr = (p.stat().st_mode & 0xFFFF) << 16
+        info = zipfile.ZipInfo(rel.as_posix(), FIXED_ZIP_TIME)
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.external_attr = 0o100644 << 16
         with open(p, "rb") as f:
             z.writestr(info, f.read(), compress_type=zipfile.ZIP_DEFLATED)
 
