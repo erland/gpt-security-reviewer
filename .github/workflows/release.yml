@@ -23,12 +23,17 @@ jobs:
         run: echo "RELEASE_VERSION=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
 
       - name: Install report dependencies
-        run: pip install -r requirements-reporting.txt
+        run: |
+          pip install -r requirements-reporting.txt
+          pip install pyyaml
 
       - name: Install LibreOffice for PDF tests
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libreoffice-writer
+
+      - name: Validate GPT Builder project model
+        run: python3 scripts/lint_gpt_project.py
 
       - name: Validate project
         run: python3 scripts/validate_project.py
@@ -90,18 +95,39 @@ jobs:
       - name: Validate Chat distribution
         run: python3 scripts/validate_distribution.py
 
+      - name: Build OpenCode distribution
+        run: python3 scripts/build_opencode.py
+
+      - name: Validate OpenCode distribution
+        run: python3 scripts/validate_opencode.py
+
+      - name: Build project package
+        run: python3 scripts/build_project_package.py
+
+      - name: Validate runtime parity
+        run: python3 scripts/validate_runtime_parity.py
+
       - name: Validate release artifacts
         run: python3 scripts/validate_release.py
 
       - name: Generate SHA-256 checksums
         run: python3 scripts/generate_checksums.py
 
+      - name: Build delivery manifest
+        run: python3 scripts/build_delivery_manifest.py
+
+      - name: Validate release readiness
+        run: python3 scripts/validate_release_readiness.py
+
       - name: Upload release assets
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release upload "$GITHUB_REF_NAME" \
+            "dist/sakerhetsgranskaren-it-stod-project-${RELEASE_VERSION#v}.zip" \
             "dist/sakerhetsgranskaren-it-stod-chat-${RELEASE_VERSION#v}.zip" \
             "dist/sakerhetsgranskaren-it-stod-custom-gpt-${RELEASE_VERSION#v}.zip" \
+            "dist/sakerhetsgranskaren-it-stod-opencode-${RELEASE_VERSION#v}.zip" \
             "dist/sakerhetsgranskaren-it-stod-${RELEASE_VERSION#v}-SHA256SUMS.txt" \
+            "dist/sakerhetsgranskaren-it-stod-${RELEASE_VERSION#v}-DELIVERY-MANIFEST.json" \
             --clobber
