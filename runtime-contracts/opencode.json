@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "behavior": {
+    "canonical": "canonical/runtime-contract.md",
+    "workflow": "canonical/workflow.md",
+    "stateful_standard_deep": true,
+    "review_state_schema": "schemas/review-process.schema.json"
+  },
+  "capabilities": {
+    "filesystem_read": "required",
+    "filesystem_write": "recommended",
+    "shell": "recommended",
+    "code_execution": "recommended",
+    "structured_data": "required",
+    "persistent_state": "required",
+    "web": "optional"
+  },
+  "artifacts": {
+    "review_report": "required",
+    "review_data": "required",
+    "confluence_report": "conditional",
+    "word_report": "conditional",
+    "pdf_report": "conditional",
+    "runtime_package": "required",
+    "project_package": "required"
+  },
+  "workspace_state": {
+    "workspace": "required",
+    "separate_from_assistant": true,
+    "state": "required",
+    "authority": "workspace_file",
+    "schema": "schemas/review-process.schema.json"
+  },
+  "tools": {
+    "review_integrity": "required",
+    "report_delivery": "required"
+  },
+  "runtime_id": "opencode",
+  "adapter": {
+    "mode": "opencode_workspace",
+    "repository_input": "workspace",
+    "state_storage": ".security-reviewer-state/review-process.json",
+    "deterministic_tools": "local",
+    "binary_exports": "local_when_dependencies_available",
+    "target_source_read_only_by_default": true
+  }
+}
