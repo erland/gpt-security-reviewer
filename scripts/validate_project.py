@@ -15,6 +15,8 @@ required = [
     "docs/pdf-table-layout.md",
     "README.md",
     "scripts/validate_defensive_reporting.py",
+    "scripts/build_opencode.py",
+    "scripts/validate_opencode.py",
     "knowledge/common/defensive-reporting.md",
     "canonical/defensive-reporting-contract.md",
     "scripts/validate_rc_readiness.py",
