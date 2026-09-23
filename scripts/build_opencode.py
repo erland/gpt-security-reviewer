@@ -8,6 +8,7 @@ STAGE=DIST/"opencode-package"
 DIST.mkdir(exist_ok=True)
 version=(os.environ.get("RELEASE_VERSION") or (ROOT/"VERSION").read_text(encoding="utf-8").strip()).lstrip("v")
 out=DIST/f"sakerhetsgranskaren-it-stod-opencode-{version}.zip"
+FIXED_ZIP_TIME=(2020,1,1,0,0,0)
 
 if STAGE.exists(): shutil.rmtree(STAGE)
 STAGE.mkdir(parents=True)
@@ -170,7 +171,11 @@ manifest={"name":"Säkerhetsgranskaren för IT-stöd","distribution":"opencode",
 (STAGE/"MANIFEST.json").write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 
 if out.exists(): out.unlink()
-with zipfile.ZipFile(out,"w",zipfile.ZIP_DEFLATED) as z:
+with zipfile.ZipFile(out,"w",zipfile.ZIP_DEFLATED,compresslevel=9) as z:
     for p in sorted(STAGE.rglob("*")):
-        if p.is_file(): z.write(p,p.relative_to(STAGE).as_posix())
+        if p.is_file():
+            info=zipfile.ZipInfo(p.relative_to(STAGE).as_posix(),FIXED_ZIP_TIME)
+            info.compress_type=zipfile.ZIP_DEFLATED
+            info.external_attr=0o100644<<16
+            z.writestr(info,p.read_bytes(),compress_type=zipfile.ZIP_DEFLATED,compresslevel=9)
 print(out)
