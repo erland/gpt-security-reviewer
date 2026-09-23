@@ -2,7 +2,7 @@
 
 ## Sammanfattning
 
-Migrering till **GPT Byggaren 1.5.0** har startat.
+Migrering till **GPT Byggaren 1.5.0** är slutförd.
 
 Befintligt canonical säkerhetsbeteende, flerpassgranskning, rapportpipeline och nuvarande Chat/Custom GPT-distributioner bevaras medan projekt- och runtime-modellen moderniseras.
 
@@ -12,7 +12,7 @@ Befintligt canonical säkerhetsbeteende, flerpassgranskning, rapportpipeline och
 - [x] Steg 2 – 1.5 testmanifest och model-robustness evals
 - [x] Steg 3 – OpenCode peer-distribution
 - [x] Steg 4 – Runtime parity och modern releasekedja
-- [ ] Steg 5 – Slutregression, hygiene och release readiness
+- [x] Steg 5 – Slutregression, hygiene och release readiness
 
 ## Runtime-status
 
@@ -38,6 +38,14 @@ OpenCode-distributionen bygger och validerar i både full CI och release-smoke. 
 
 CI och release-smoke passerade fem-runtime parity-modellen. Aktiva peer-runtimes är ChatGPT Chat, Custom GPT och OpenCode; Claude Projects och OpenAI Plugin är explicit reducerade/inaktiva. Releasekedjan bygger nu Project ZIP, Chat ZIP, Custom GPT ZIP och OpenCode ZIP samt fullständiga SHA-256-checksummor och delivery manifest.
 
-## Aktuellt steg
+## Verifiering av steg 5
 
-**Steg 5 – Slutregression, hygiene och release readiness.**
+Slutverifieringen passerade på samma commit för både full regression och release-smoke. Project hygiene verifierar att endast `dist/.gitkeep` är versionshanterad under `dist/`. Workflow parity verifierar gemensamma säkerhets-/rapportgates mellan CI och release. Reproducerbarhetskontrollen byggde hela leveransen två gånger och verifierade identiska SHA-256-hashar för Project, Chat, Custom GPT, OpenCode, checksumfil och delivery manifest.
+
+## Aktuellt läge
+
+Projektet är i **maintenance-läge**. Migreringen är klar och PR:n är redo att mergeas.
+
+## Blockerare
+
+Inga.
