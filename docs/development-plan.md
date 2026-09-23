@@ -1,44 +1,48 @@
-# Utvecklingsplan
+# Development plan – migrering av Säkerhetsgranskaren för IT-stöd
 
-## Nära steg
+**Målversion:** GPT Byggaren 1.5.0  
+**Migrationstyp:** existing-project, behavior-preserving  
+**Modellrobusthet:** `stateful`
 
-- Steg 3: initial projektstruktur och canonical kontrakt
-- Steg 4: fördjupa review framework och rapportformat – KLART
-- Steg 5: implementera common security-profiler – KLART
-- Steg 6: frontend-profiler – genomfört
-- Steg 7: Java/Jakarta-profil – genomfört
-- Steg 8: databas- och Elasticsearch-profiler – genomfört
-- Steg 9: arkitektur- och deploymentprofil – genomfört
-- Steg 10: testscenarier och falsk-positivskydd – genomfört
-- Steg 11: Chat ZIP-builder – genomfört
-- Steg 12: Custom GPT-builder – genomfört
-- Steg 13: distributionstest och releasehygien – genomfört
+## Mål
 
-- Steg 14: canonical rapportmodell – genomfört
-- Steg 15: Markdown + Confluence markup – genomfört
-- Steg 16: Word + PDF – genomfört
-- Steg 17: rapportworkflow och tester – genomfört
+Modernisera projekt- och runtime-modellen utan att förändra den befintliga evidensbaserade, defensiva säkerhetsgranskningen.
 
-- Steg 18: samlad V1-kvalitetsgranskning – genomfört
+Befintliga canonical kontrakt, schemas, rapportpipeline och deterministiska validatorer är auktoritativa och ska återanvändas.
 
-- Steg 19: RC-förberedelse – genomfört
+## Steg 1 – GPT Byggaren 1.5 projektmodell och stateful kontrakt
 
-- Steg 20: pre-release sanity check – genomfört
+Inför:
 
-- Steg 21: defensiv rapportering och policyrobusthet – genomfört
+- `gpt-project.yaml`,
+- strukturerad projektstatus och migrationsplan,
+- capability-, artifact-, workspace/state- och tool-kontrakt,
+- explicit bedömning av alla fem peer-runtimes,
+- `stateful` modellrobusthet,
+- `schemas/review-process.schema.json` som auktoritativ state-modell för Standard/Deep.
 
-- Steg 22: system-, deployment-, integrations- och attackyteöversikt – genomfört
+**Klart när:** befintlig canonical logik är oförändrad och alla nuvarande projekt-/rapport-/Chat-/Custom-valideringar passerar tillsammans med ny 1.5-lint.
 
-- Steg 23: målgruppsanpassad rapportnavigering och tydligare acceptance criteria – genomfört
+## Steg 2 – 1.5 testmanifest och model-robustness evals
 
-## Steg 24 - klart
+Registrera befintliga deterministic gates i ett 1.5-testmanifest och komplettera med instruction-adherence-evals för prompt injection, kandidatförlust, coverage gate, falsk säkerhetsconfidence och defensiv rapportering.
 
-- deterministisk flerpassgranskning för Standard/Deep
-- obligatorisk kontrollmatris och coverage gate
-- separat challenge pass före fyndkonsolidering
-- adaptiva Word/PDF-tabeller
-- diskreta horisontella radavskiljare
-- regressionsfall för analyskonsistens och layout
+## Steg 3 – OpenCode peer-distribution
 
-## Steg 25 - genomfört
-Beständigt kandidatregister, obligatorisk slutdisposition, coverage/delivery gate och deterministisk Word/PDF-rendering med max tre textkolumner.
+Bygg OpenCode från samma canonical regler, Knowledge, schemas och relevanta verktyg. Målrepo ska hållas separat från assistantens runtimefiler. Normal säkerhetsgranskning ska vara read-only mot målrepo.
+
+## Steg 4 – Runtime parity och modern releasekedja
+
+Jämför fem registrerade runtimes över behavior, capability, artifact, workspace/state och tool.
+
+Aktivera Chat, Custom GPT och OpenCode. Dokumentera Claude Projects och OpenAI Plugin som reducerade tills deras tool/runtime-modell kan uppfylla hela kontraktet.
+
+Inför Project ZIP, runtime contracts, delivery manifest, checksummor och release-readiness.
+
+## Steg 5 – Slutregression, hygiene och release readiness
+
+Verifiera full regression, runtime parity, workflow parity, project hygiene och reproducerbar leverans. Genererad `dist/` ska inte vara persistent källmaterial när motsvarande CI/release-output är verifierad.
+
+## Aktuellt nästa steg
+
+**Steg 1 – GPT Byggaren 1.5 projektmodell och stateful kontrakt.**
