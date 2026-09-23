@@ -63,6 +63,12 @@ if cfg_path.is_file():
     check({"review-integrity", "report-delivery"}.issubset(tool_ids),
           "Required deterministic review/report tools are not registered")
 
+    testing = cfg.get("testing", {})
+    check(testing.get("manifest") == "tests/test-manifest.yaml", "GPT Builder test manifest not registered")
+    check(testing.get("eval_case_schema") == "schemas/eval-case.schema.json", "Eval case schema not registered")
+    check(testing.get("instruction_adherence", {}).get("blocking") is True,
+          "Instruction-adherence eval suite must be blocking")
+
 for rel in (
     "canonical/runtime-contract.md",
     "canonical/workflow.md",
@@ -98,6 +104,10 @@ for rel in (
     "schemas/artifact-contract.schema.json",
     "schemas/workspace-state-contract.schema.json",
     "schemas/tool-contract.schema.json",
+    "schemas/eval-case.schema.json",
+    "schemas/test-manifest.schema.json",
+    "tests/test-manifest.yaml",
+    "scripts/validate_model_robustness_evals.py",
     "PROJECT.md",
     "STATUS.md",
     "project-status.yaml",
