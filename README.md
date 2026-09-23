@@ -119,3 +119,6 @@ GitHub Release publicerar:
 - OpenCode ZIP
 - SHA-256-checksummor
 - delivery manifest
+
+
+Releaseartefakterna byggs reproducerbart med fixerad ZIP-metadata och verifieras i CI tillsammans med project hygiene, workflow parity och release readiness.
