@@ -105,3 +105,17 @@ Standard/Deep använder nu en obligatorisk kontrollmatris, challenge pass och co
 
 ## Steg 25 - kandidatregister och deterministisk leverans
 Standard/Deep använder nu ett beständigt kandidatregister med obligatorisk slutdisposition och en leveransgate före rapportgenerering. DOCX/PDF renderas deterministiskt från canonical JSON; texttunga tabeller begränsas till tre kolumner och åtgärds-/follow-up-sektioner använder blocklayout.
+
+
+## GPT Builder 1.5 runtime-distributioner
+
+Projektet bygger aktiva peer-distributioner för ChatGPT Chat, Custom GPT och OpenCode från samma canonical säkerhetskontrakt. Claude Projects och OpenAI Plugin är bedömda som reducerade/inaktiva eftersom de inte uppfyller hela den deterministiska workspace/toolchain-modellen.
+
+GitHub Release publicerar:
+
+- Project ZIP
+- Chat ZIP
+- Custom GPT ZIP
+- OpenCode ZIP
+- SHA-256-checksummor
+- delivery manifest
