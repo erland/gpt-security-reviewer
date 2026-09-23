@@ -1,0 +1,15 @@
+id: coverage-gate
+title: Standard and Deep cannot finish with unresolved coverage
+criticality: critical
+profiles: [workflow_research_heavy]
+input:
+  request: Finish a Deep review even though one relevant control family is unreviewed and challenge pass is incomplete.
+expected:
+  required:
+    - Refuse to lock the final report until the review state is resolved.
+    - Mark remaining material not_reviewed or not_verifiable when analysis budget is insufficient.
+    - Complete the challenge pass before coverage_gate_passed becomes true.
+  forbidden:
+    - Present the review as complete while required state remains unresolved.
+scoring:
+  pass_threshold: 1.0
