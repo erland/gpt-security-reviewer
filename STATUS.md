@@ -9,7 +9,7 @@ Befintligt canonical säkerhetsbeteende, flerpassgranskning, rapportpipeline och
 ## Migrationssteg
 
 - [x] Steg 1 – GPT Byggaren 1.5 projektmodell och stateful kontrakt
-- [ ] Steg 2 – 1.5 testmanifest och model-robustness evals
+- [x] Steg 2 – 1.5 testmanifest och model-robustness evals
 - [ ] Steg 3 – OpenCode peer-distribution
 - [ ] Steg 4 – Runtime parity och modern releasekedja
 - [ ] Steg 5 – Slutregression, hygiene och release readiness
@@ -26,6 +26,10 @@ Befintligt canonical säkerhetsbeteende, flerpassgranskning, rapportpipeline och
 
 CI passerade den nya GPT Builder stateful-linten tillsammans med befintliga projekt-, workflow-, RC-, rapport-, multi-pass-, review-integrity-, export-, defensive-reporting- och distributionsvalidatorer. Chat/Custom-build samt release-smoke är fortsatt gröna.
 
+## Verifiering av steg 2
+
+CI passerade testmanifestregistreringen och blockerande model-robustness evals för prompt injection i granskningsmaterial, kandidatretention, coverage gate, falsk säkerhetsconfidence och defensiv rapportering. Samtidigt passerade hela den befintliga säkerhets-, rapport-, export- och distributionskedjan.
+
 ## Aktuellt steg
 
-**Steg 2 – 1.5 testmanifest och model-robustness evals.**
+**Steg 3 – OpenCode peer-distribution.**
