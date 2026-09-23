@@ -113,6 +113,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install parity validation dependency
+        run: pip install pyyaml
+
       - name: Build Chat ZIP
         run: python3 scripts/build_chat_zip.py
 
