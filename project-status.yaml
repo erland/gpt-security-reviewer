@@ -1,0 +1,31 @@
+schema_version: 1
+project:
+  id: security-reviewer
+  name: Säkerhetsgranskaren för IT-stöd
+plan:
+  path: docs/development-plan.md
+  total_steps: 5
+progress:
+  current_phase: migration
+  current_step: 1
+  last_completed_step: 0
+  completed_steps: []
+  skipped_steps: []
+  inserted_steps: []
+state:
+  overall: in_progress
+  blocking_issues: []
+  warnings: []
+next_step:
+  recommended: 1
+  title: GPT Byggaren 1.5 projektmodell och stateful kontrakt
+  reason: Projektet har stark canonical logik men saknar GPT Byggaren 1.5 projekt- och runtimekontrakt.
+resume:
+  supported: true
+  required_files:
+    - gpt-project.yaml
+    - project-status.yaml
+    - docs/development-plan.md
+    - STATUS.md
+    - PROJECT.md
+  human_readable_status: Migrering till GPT Byggaren 1.5.0 har startat. Steg 1 inväntar CI-verifiering.
