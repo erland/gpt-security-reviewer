@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import sys
+import subprocess, sys
 
 ROOT=Path(__file__).resolve().parents[1]
 errors=[]
 warnings=[]
 
-# Generated distribution content must not be versioned.
-dist=ROOT/"dist"
-if dist.exists():
-    tracked_like=[p.name for p in dist.iterdir() if p.name!=".gitkeep"]
-    if tracked_like:
-        errors.append("dist/ contains generated content: "+", ".join(sorted(tracked_like)))
+# Generated distribution content must not be versioned. CI may still have generated files in dist/.
+tracked=subprocess.run(
+    ["git","ls-files","dist"],
+    cwd=ROOT,
+    text=True,
+    capture_output=True,
+    check=True,
+).stdout.splitlines()
+unexpected=[p for p in tracked if p!="dist/.gitkeep"]
+if unexpected:
+    errors.append("generated dist content is versioned: "+", ".join(sorted(unexpected)))
 
 gitignore=(ROOT/".gitignore").read_text(encoding="utf-8")
 for token in ["dist/*","!dist/.gitkeep","__pycache__/","*.pyc"]:
