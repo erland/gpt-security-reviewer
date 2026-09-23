@@ -213,3 +213,11 @@ migration:
   target: gpt-builder-1.5.0
   preserve_domain_behavior: true
   preserve_existing_chat_custom_builds_until_replaced: true
+
+testing:
+  manifest: tests/test-manifest.yaml
+  manifest_schema: schemas/test-manifest.schema.json
+  eval_case_schema: schemas/eval-case.schema.json
+  instruction_adherence:
+    path: tests/model-robustness
+    blocking: true
