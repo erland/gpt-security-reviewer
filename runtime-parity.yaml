@@ -1,0 +1,35 @@
+schema_version: 1
+reference: gpt-project.yaml
+registered_runtimes:
+  - chatgpt_chat
+  - chatgpt_custom
+  - claude_project
+  - opencode
+  - openai_plugin
+compared_categories:
+  - behavior
+  - capability
+  - artifact
+  - workspace_state
+  - tool
+runtimes:
+  chatgpt_chat:
+    suitability: ready
+    active: true
+    contract: runtime-contracts/chatgpt-chat.json
+  chatgpt_custom:
+    suitability: ready
+    active: true
+    contract: runtime-contracts/chatgpt-custom.json
+  opencode:
+    suitability: ready
+    active: true
+    contract: runtime-contracts/opencode.json
+  claude_project:
+    suitability: reduced
+    active: false
+    reason: Deterministic integrity and DOCX/PDF toolchain cannot run locally in the runtime.
+  openai_plugin:
+    suitability: reduced
+    active: false
+    reason: Skills do not provide the repository workspace and local deterministic toolchain required for full parity.
