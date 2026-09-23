@@ -45,4 +45,4 @@ Verifiera full regression, runtime parity, workflow parity, project hygiene och 
 
 ## Aktuellt nästa steg
 
-**Steg 1 – GPT Byggaren 1.5 projektmodell och stateful kontrakt.**
+Alla migrationssteg 1–5 är klara och verifierade. Projektet är i maintenance-läge efter migreringen till GPT Byggaren 1.5.0.
