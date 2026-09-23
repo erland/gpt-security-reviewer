@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "behavior": {
+    "canonical": "canonical/runtime-contract.md",
+    "workflow": "canonical/workflow.md",
+    "stateful_standard_deep": true,
+    "review_state_schema": "schemas/review-process.schema.json"
+  },
+  "capabilities": {
+    "filesystem_read": "required",
+    "filesystem_write": "recommended",
+    "shell": "recommended",
+    "code_execution": "recommended",
+    "structured_data": "required",
+    "persistent_state": "required",
+    "web": "optional"
+  },
+  "artifacts": {
+    "review_report": "required",
+    "review_data": "required",
+    "confluence_report": "conditional",
+    "word_report": "conditional",
+    "pdf_report": "conditional",
+    "runtime_package": "required",
+    "project_package": "required"
+  },
+  "workspace_state": {
+    "workspace": "required",
+    "separate_from_assistant": true,
+    "state": "required",
+    "authority": "workspace_file",
+    "schema": "schemas/review-process.schema.json"
+  },
+  "tools": {
+    "review_integrity": "required",
+    "report_delivery": "required"
+  },
+  "runtime_id": "chatgpt_chat",
+  "adapter": {
+    "mode": "chat_zip",
+    "repository_input": "uploaded_files",
+    "state_storage": "conversation_or_file",
+    "deterministic_tools": "external_or_manual",
+    "binary_exports": "external_or_manual"
+  }
+}
