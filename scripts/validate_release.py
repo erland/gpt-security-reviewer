@@ -8,7 +8,12 @@ if not version:
 clean=version.lstrip('v')
 if not re.fullmatch(r'\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?',clean):
  print(f'RELEASE VALIDATION FAILED\n- Unsupported release version/tag format: {version}'); sys.exit(1)
-expected=[DIST/f'sakerhetsgranskaren-it-stod-chat-{clean}.zip',DIST/f'sakerhetsgranskaren-it-stod-custom-gpt-{clean}.zip']
+expected=[
+ DIST/f'sakerhetsgranskaren-it-stod-project-{clean}.zip',
+ DIST/f'sakerhetsgranskaren-it-stod-chat-{clean}.zip',
+ DIST/f'sakerhetsgranskaren-it-stod-custom-gpt-{clean}.zip',
+ DIST/f'sakerhetsgranskaren-it-stod-opencode-{clean}.zip',
+]
 errors=[]
 for p in expected:
  if not p.exists(): errors.append(f'Missing release artifact: {p.name}')
