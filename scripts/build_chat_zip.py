@@ -39,6 +39,7 @@ copy("canonical/report-delivery-workflow.md", "runtime/report-delivery-workflow.
 copy("canonical/defensive-reporting-contract.md", "runtime/defensive-reporting-contract.md")
 copy("canonical/report-delivery-policy.json", "runtime/report-delivery-policy.json")
 copy("canonical/report-binary-export-contract.md", "runtime/report-binary-export-contract.md")
+copy("runtime-contracts/chatgpt-chat.json", "runtime/platform-contract.json")
 copy("schemas/report.schema.json")
 
 # Runtime knowledge.
