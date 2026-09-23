@@ -40,3 +40,6 @@ OpenCode är naturlig peer-runtime eftersom lokal repository-inspektion och dete
 - Strukturerad projektstatus: `project-status.yaml`
 - Utvecklingsplan: `docs/development-plan.md`
 - Runtime state-schema: `schemas/review-process.schema.json`
+
+- Runtime parity: `runtime-parity.yaml`
+- Runtime contracts: `runtime-contracts/`
