@@ -40,6 +40,8 @@ for folder in ("knowledge/common","knowledge/technologies"):
     for p in sorted((ROOT/folder).glob("*.md")):
         copy(str(p.relative_to(ROOT)),f".opencode/security-reviewer/{p.relative_to(ROOT).as_posix()}")
 
+copy("runtime-contracts/opencode.json", ".opencode/security-reviewer/platform-contract.json")
+
 for rel in [
     "schemas/finding.schema.json",
     "schemas/review-summary.schema.json",
