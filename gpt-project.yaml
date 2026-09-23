@@ -192,9 +192,14 @@ runtime:
     enabled: false
     role: assessed_reduced
   opencode:
-    enabled: false
+    enabled: true
     role: peer_distribution
-    planned_step: 3
+    mode: opencode_workspace
+    instructions: AGENTS.md
+    runtime_root: .opencode/security-reviewer
+    state_path: .security-reviewer-state/review-process.json
+    builder: scripts/build_opencode.py
+    validator: scripts/validate_opencode.py
   openai_plugin:
     enabled: false
     role: assessed_reduced
