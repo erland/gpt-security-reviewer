@@ -11,7 +11,7 @@ Befintligt canonical säkerhetsbeteende, flerpassgranskning, rapportpipeline och
 - [x] Steg 1 – GPT Byggaren 1.5 projektmodell och stateful kontrakt
 - [x] Steg 2 – 1.5 testmanifest och model-robustness evals
 - [x] Steg 3 – OpenCode peer-distribution
-- [ ] Steg 4 – Runtime parity och modern releasekedja
+- [x] Steg 4 – Runtime parity och modern releasekedja
 - [ ] Steg 5 – Slutregression, hygiene och release readiness
 
 ## Runtime-status
@@ -34,6 +34,10 @@ CI passerade testmanifestregistreringen och blockerande model-robustness evals f
 
 OpenCode-distributionen bygger och validerar i både full CI och release-smoke. Paketet håller runtimefiler under `.opencode/security-reviewer/`, review state under `.security-reviewer-state/` och rapporter under `security-review-output/`. Målrepots källfiler är read-only som standard och assistant/state/output-yta exkluderas från source evidence.
 
+## Verifiering av steg 4
+
+CI och release-smoke passerade fem-runtime parity-modellen. Aktiva peer-runtimes är ChatGPT Chat, Custom GPT och OpenCode; Claude Projects och OpenAI Plugin är explicit reducerade/inaktiva. Releasekedjan bygger nu Project ZIP, Chat ZIP, Custom GPT ZIP och OpenCode ZIP samt fullständiga SHA-256-checksummor och delivery manifest.
+
 ## Aktuellt steg
 
-**Steg 4 – Runtime parity och modern releasekedja.**
+**Steg 5 – Slutregression, hygiene och release readiness.**
