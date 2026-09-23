@@ -28,7 +28,7 @@ Standard/Deep använder redan strukturerat state genom kontrollmatris, kandidatr
 
 - ChatGPT Chat – ready / active
 - ChatGPT Custom – ready / active
-- OpenCode – ready / planned
+- OpenCode – ready / active
 - Claude Projects – reduced / inactive
 - OpenAI Plugin – reduced / inactive
 
