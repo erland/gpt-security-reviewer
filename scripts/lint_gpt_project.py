@@ -63,6 +63,12 @@ if cfg_path.is_file():
     check({"review-integrity", "report-delivery"}.issubset(tool_ids),
           "Required deterministic review/report tools are not registered")
 
+    opencode = cfg.get("runtime", {}).get("opencode", {})
+    check(opencode.get("enabled") is True, "OpenCode peer runtime must be enabled in step 3")
+    check(opencode.get("mode") == "opencode_workspace", "OpenCode runtime mode must be opencode_workspace")
+    check(opencode.get("state_path") == ".security-reviewer-state/review-process.json",
+          "OpenCode must use the canonical workspace review-state path")
+
     testing = cfg.get("testing", {})
     check(testing.get("manifest") == "tests/test-manifest.yaml", "GPT Builder test manifest not registered")
     check(testing.get("eval_case_schema") == "schemas/eval-case.schema.json", "Eval case schema not registered")
@@ -108,6 +114,8 @@ for rel in (
     "schemas/test-manifest.schema.json",
     "tests/test-manifest.yaml",
     "scripts/validate_model_robustness_evals.py",
+    "scripts/build_opencode.py",
+    "scripts/validate_opencode.py",
     "PROJECT.md",
     "STATUS.md",
     "project-status.yaml",
