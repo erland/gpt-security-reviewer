@@ -23,13 +23,21 @@ for token in ["dist/*","!dist/.gitkeep","__pycache__/","*.pyc"]:
     if token not in gitignore:
         errors.append(f".gitignore missing {token}")
 
-for bad in [".DS_Store"]:
-    for p in ROOT.rglob(bad):
-        errors.append(f"temporary file present: {p.relative_to(ROOT)}")
-for p in ROOT.rglob("__pycache__"):
-    errors.append(f"cache directory present: {p.relative_to(ROOT)}")
-for p in ROOT.rglob("*.pyc"):
-    errors.append(f"compiled Python present: {p.relative_to(ROOT)}")
+tracked_all=subprocess.run(
+    ["git","ls-files"],
+    cwd=ROOT,
+    text=True,
+    capture_output=True,
+    check=True,
+).stdout.splitlines()
+for rel in tracked_all:
+    parts=Path(rel).parts
+    if Path(rel).name==".DS_Store":
+        errors.append(f"temporary file is versioned: {rel}")
+    if "__pycache__" in parts:
+        errors.append(f"cache content is versioned: {rel}")
+    if rel.endswith(".pyc"):
+        errors.append(f"compiled Python is versioned: {rel}")
 
 required=[
     "gpt-project.yaml","project-status.yaml","PROJECT.md","STATUS.md",
