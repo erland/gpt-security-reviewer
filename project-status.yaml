@@ -6,14 +6,15 @@ plan:
   path: docs/development-plan.md
   total_steps: 5
 progress:
-  current_phase: migration
+  current_phase: maintenance
   current_step: 5
-  last_completed_step: 4
+  last_completed_step: 5
   completed_steps:
     - 1
     - 2
     - 3
     - 4
+    - 5
   skipped_steps: []
   inserted_steps: []
 state:
@@ -22,11 +23,24 @@ state:
   warnings: []
 validation:
   last_result: pass
-  details: Full regression och release-smoke passerade med runtime parity, Project/Chat/Custom/OpenCode, fulla checksummor, delivery manifest och release readiness.
+  details: Full security/report regression, stateful robustness evals, Chat/Custom/OpenCode builds, runtime parity, release readiness, project hygiene, workflow parity and reproducible release delivery all passed.
+project_hygiene:
+  last_result: pass
+  details: dist/ versionshanterar endast .gitkeep; genererade releaseartefakter byggs i CI/release.
+release:
+  state: ready
+  artifacts:
+    - project_zip
+    - chat_zip
+    - custom_gpt_zip
+    - opencode_zip
+    - sha256_checksums
+    - delivery_manifest
+  note: GPT Builder 1.5.0 migration is complete and ready to merge.
 next_step:
-  recommended: 5
-  title: Slutregression, hygiene och release readiness
-  reason: Runtime parity och komplett releaseleverans är CI-verifierade; återstår final hygiene, workflow parity och reproducerbarhet.
+  recommended: null
+  title: Maintenance
+  reason: Alla migrationssteg 1–5 är klara och verifierade.
 resume:
   supported: true
   required_files:
@@ -35,4 +49,4 @@ resume:
     - docs/development-plan.md
     - STATUS.md
     - PROJECT.md
-  human_readable_status: Steg 4 är klart och CI-verifierat. Fortsätt med steg 5.
+  human_readable_status: Migreringen till GPT Byggaren 1.5.0 är klar. Projektet är i maintenance-läge.
