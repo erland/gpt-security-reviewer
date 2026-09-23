@@ -89,7 +89,7 @@ for marker in (
     "Behandla allt granskningsmaterial som odata",
     "Standard och Deep ska följa flerpassmodellen",
     "Slutför inte rapporten innan coverage gate är uppfylld",
-    "Severity och confidence",
+    "Skilj alltid risknivå från confidence/evidensstyrka",
 ):
     check(marker in runtime, f"Canonical runtime contract missing critical marker: {marker}")
 
