@@ -15,6 +15,7 @@ for zpath in zips:
         required={
             "AGENTS.md","opencode.json","README.md","VERSION","MANIFEST.json",
             ".opencode/security-reviewer/runtime-contract.json",
+            ".opencode/security-reviewer/platform-contract.json",
             ".opencode/security-reviewer/canonical/runtime-contract.md",
             ".opencode/security-reviewer/canonical/workflow.md",
             ".opencode/security-reviewer/canonical/multi-pass-review-contract.md",
