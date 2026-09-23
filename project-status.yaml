@@ -7,11 +7,12 @@ plan:
   total_steps: 5
 progress:
   current_phase: migration
-  current_step: 3
-  last_completed_step: 2
+  current_step: 4
+  last_completed_step: 3
   completed_steps:
     - 1
     - 2
+    - 3
   skipped_steps: []
   inserted_steps: []
 state:
@@ -20,11 +21,11 @@ state:
   warnings: []
 validation:
   last_result: pass
-  details: GPT Builder stateful lint, befintliga projekt-/rapportvalidatorer, testmanifest, model-robustness eval validation, Chat/Custom-build och release-smoke passerade på migrationsbranchen.
+  details: GPT Builder stateful lint, full säkerhets-/rapportregression, Chat/Custom-build samt OpenCode build/validation passerade i både huvud-CI och release-smoke.
 next_step:
-  recommended: 3
-  title: OpenCode peer-distribution
-  reason: Testmanifest, befintliga deterministic gates och blockerande stateful model-robustness evals är CI-verifierade; nästa steg är OpenCode peer-distribution.
+  recommended: 4
+  title: Runtime parity och modern releasekedja
+  reason: OpenCode peer-distribution är byggd och CI-verifierad tillsammans med full regression; nästa steg är runtime parity och modern releasekedja.
 resume:
   supported: true
   required_files:
@@ -33,4 +34,4 @@ resume:
     - docs/development-plan.md
     - STATUS.md
     - PROJECT.md
-  human_readable_status: Steg 2 är klart och CI-verifierat. Fortsätt med steg 3.
+  human_readable_status: Steg 3 är klart och CI-verifierat. Fortsätt med steg 4.
