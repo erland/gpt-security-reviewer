@@ -65,6 +65,7 @@ merge(CONFIG["output_files"]["architecture_deployment"], "Arkitektur och deploym
 shutil.copy2(ROOT/"schemas/finding.schema.json", DIST/"finding.schema.json")
 shutil.copy2(ROOT/"schemas/review-summary.schema.json", DIST/"review-summary.schema.json")
 shutil.copy2(ROOT/"schemas/report.schema.json", DIST/"report.schema.json")
+shutil.copy2(ROOT/"runtime-contracts/chatgpt-custom.json", DIST/"runtime-contract.json")
 (DIST/"VERSION").write_text(version+"\n", encoding="utf-8")
 
 excluded = {CONFIG["output_files"]["instructions"], "VERSION", "MANIFEST.json"}
