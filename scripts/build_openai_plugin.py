@@ -46,9 +46,11 @@ with tempfile.TemporaryDirectory() as td:
     refs=skill/"references"
     scripts=skill/"scripts"
     assets=skill/"assets"
+    runtime_canonical=skill/"canonical"
     refs.mkdir(parents=True)
     scripts.mkdir(parents=True)
     assets.mkdir(parents=True)
+    runtime_canonical.mkdir(parents=True)
 
     plugin={
         "$schema":"https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
@@ -109,6 +111,7 @@ description: Evidensbaserad och defensiv säkerhetsgranskning av källkod, konfi
     for rel in script_files:
         shutil.copy2(ROOT/rel,scripts/Path(rel).name)
 
+    shutil.copy2(ROOT/"canonical/report-delivery-policy.json",runtime_canonical/"report-delivery-policy.json")
     shutil.copy2(ROOT/"requirements-reporting.txt",assets/"requirements-reporting.txt")
     (stage/"README.md").write_text(
         "# Säkerhetsgranskaren för IT-stöd – OpenAI Plugin\n\n"
