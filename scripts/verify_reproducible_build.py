@@ -11,6 +11,7 @@ def snapshot(dist: Path):
         f"sakerhetsgranskaren-it-stod-chat-{version}.zip",
         f"sakerhetsgranskaren-it-stod-custom-gpt-{version}.zip",
         f"sakerhetsgranskaren-it-stod-opencode-{version}.zip",
+        f"sakerhetsgranskaren-it-stod-plugin-{version}.zip",
         f"sakerhetsgranskaren-it-stod-{version}-SHA256SUMS.txt",
         f"sakerhetsgranskaren-it-stod-{version}-DELIVERY-MANIFEST.json",
     ]
@@ -36,6 +37,7 @@ def build_once(target: Path):
         "scripts/build_custom_gpt.py",
         "scripts/package_custom_gpt.py",
         "scripts/build_opencode.py",
+        "scripts/build_openai_plugin.py",
         "scripts/build_project_package.py",
         "scripts/generate_checksums.py",
         "scripts/build_delivery_manifest.py",
