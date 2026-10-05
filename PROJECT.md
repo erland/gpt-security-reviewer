@@ -30,9 +30,9 @@ Standard/Deep använder redan strukturerat state genom kontrollmatris, kandidatr
 - ChatGPT Custom – ready / active
 - OpenCode – ready / active
 - Claude Projects – reduced / inactive
-- OpenAI Plugin – reduced / inactive
+- OpenAI Plugin – equivalent_runtime_dependent / active
 
-OpenCode är naturlig peer-runtime eftersom lokal repository-inspektion och deterministiska validerings-/rapporteringsverktyg är centrala för full funktionalitet.
+OpenCode är referensruntime för lokal full parity. OpenAI Plugin använder samma canonical state/tool-modell som skills-first peer runtime; full Standard/Deep-parity är beroende av hostens repository-workspace, persistent filesystem och code execution.
 
 ## Projektkällor
 
