@@ -12,7 +12,8 @@ for token in ['types: [published]','GITHUB_REF_NAME','validate_release.py','gene
 ci=(ROOT/'.github/workflows/ci.yml').read_text(encoding='utf-8')
 if 'release-smoke' not in ci: errors.append('ci.yml missing release-smoke')
 for p in (ROOT/'scripts').glob('*.py'):
- if not (p.stat().st_mode & 0o111): errors.append(f'Not executable: {p.name}')
+ first=p.read_text(encoding='utf-8').splitlines()[0] if p.stat().st_size else ''
+ if first!='#!/usr/bin/env python3': errors.append(f'Missing Python shebang: {p.name}')
 if errors:
  print('RC READINESS FAILED'); [print('-',e) for e in errors]; sys.exit(1)
 print('RC READINESS OK'); print('version=0.1.0-rc.1'); print('tag=v0.1.0-rc.1')

@@ -27,9 +27,9 @@ analysis:
         activate_by_default: true
         reason: Lokal workspace-, filesystem- och shellåtkomst passar repository-granskning och projektets deterministiska validerings- och rapportverktyg.
       - runtime_id: openai_plugin
-        suitability: reduced
-        activate_by_default: false
-        reason: Skills kan bära metodiken men ger inte i sig repository-workspace och lokal toolchain för full parity.
+        suitability: equivalent_runtime_dependent
+        activate_by_default: true
+        reason: Skills-first runtime kan bära hela metodiken, review state och deterministiska verktygsresurser när hosten erbjuder repository/workspace, persistent filesystem och code execution.
 
 model_robustness:
   level: stateful
@@ -201,8 +201,22 @@ runtime:
     builder: scripts/build_opencode.py
     validator: scripts/validate_opencode.py
   openai_plugin:
-    enabled: false
-    role: assessed_reduced
+    enabled: true
+    role: peer_distribution
+    mode: skills_first
+    builder: scripts/build_openai_plugin.py
+    validator: scripts/validate_openai_plugin.py
+    artifact_name: sakerhetsgranskaren-it-stod-plugin-{version}.zip
+    skill_id: security-reviewer
+    state_path: .security-reviewer-state/review-process.json
+    output_path: security-review-output
+    compatibility:
+      parity: equivalent_runtime_dependent
+      repository_workspace: host_capability_dependent
+      persistent_state: required_for_standard_deep
+      code_execution: required_for_deterministic_gates
+      binary_exports: host_dependency_dependent
+      mcp_required_for_script_resources: false
 
 ci:
   enabled: true

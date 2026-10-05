@@ -13,6 +13,7 @@ Befintligt canonical säkerhetsbeteende, flerpassgranskning, rapportpipeline och
 - [x] Steg 3 – OpenCode peer-distribution
 - [x] Steg 4 – Runtime parity och modern releasekedja
 - [x] Steg 5 – Slutregression, hygiene och release readiness
+- [x] Steg 6 – OpenAI Plugin peer-distribution
 
 ## Runtime-status
 
@@ -20,7 +21,7 @@ Befintligt canonical säkerhetsbeteende, flerpassgranskning, rapportpipeline och
 - ChatGPT Custom: ready / active
 - OpenCode: ready / active
 - Claude Projects: reduced / inactive
-- OpenAI Plugin: reduced / inactive
+- OpenAI Plugin: equivalent_runtime_dependent / active
 
 ## Verifiering av steg 1
 
@@ -36,15 +37,19 @@ OpenCode-distributionen bygger och validerar i både full CI och release-smoke. 
 
 ## Verifiering av steg 4
 
-CI och release-smoke passerade fem-runtime parity-modellen. Aktiva peer-runtimes är ChatGPT Chat, Custom GPT och OpenCode; Claude Projects och OpenAI Plugin är explicit reducerade/inaktiva. Releasekedjan bygger nu Project ZIP, Chat ZIP, Custom GPT ZIP och OpenCode ZIP samt fullständiga SHA-256-checksummor och delivery manifest.
+CI och release-smoke använder fem-runtime parity-modellen. Aktiva peer-runtimes är ChatGPT Chat, Custom GPT, OpenCode och OpenAI Plugin; Claude Projects är fortsatt reducerad/inaktiv. Releasekedjan bygger Project ZIP, Chat ZIP, Custom GPT ZIP, OpenCode ZIP och OpenAI Plugin ZIP samt fullständiga SHA-256-checksummor och delivery manifest.
 
 ## Verifiering av steg 5
 
 Slutverifieringen passerade på samma commit för både full regression och release-smoke. Project hygiene verifierar att endast `dist/.gitkeep` är versionshanterad under `dist/`. Workflow parity verifierar gemensamma säkerhets-/rapportgates mellan CI och release. Reproducerbarhetskontrollen byggde hela leveransen två gånger och verifierade identiska SHA-256-hashar för Project, Chat, Custom GPT, OpenCode, checksumfil och delivery manifest.
 
+## Verifiering av steg 6
+
+OpenAI Plugin är implementerad som skills-first `equivalent_runtime_dependent` peer runtime. Paketet innehåller canonical säkerhetskontrakt, Knowledge, schemas och den deterministiska review/report-toolchainen som script-resurser utan MCP-wrapper. Standard/Deep kräver persistent workspace-state och faktisk review-integrity gate; målrepo är read-only som standard och Plugin/state/output exkluderas från source evidence. Release-smoke verifierar Plugin-build, parity, release assets och reproducibility.
+
 ## Aktuellt läge
 
-Projektet är i **maintenance-läge**. Migreringen är klar och PR:n är redo att mergeas.
+Projektet är i **maintenance-läge** efter verifierat Plugin-stöd.
 
 ## Blockerare
 

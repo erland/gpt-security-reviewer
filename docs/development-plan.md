@@ -35,7 +35,7 @@ Bygg OpenCode från samma canonical regler, Knowledge, schemas och relevanta ver
 
 Jämför fem registrerade runtimes över behavior, capability, artifact, workspace/state och tool.
 
-Aktivera Chat, Custom GPT och OpenCode. Dokumentera Claude Projects och OpenAI Plugin som reducerade tills deras tool/runtime-modell kan uppfylla hela kontraktet.
+Aktivera Chat, Custom GPT och OpenCode. Claude Projects är reducerad tills dess tool/runtime-modell kan uppfylla hela kontraktet. OpenAI Plugin aktiveras senare som runtime-dependent peer när skills-first workspace/state/tool-projektionen är verifierad.
 
 Inför Project ZIP, runtime contracts, delivery manifest, checksummor och release-readiness.
 
@@ -46,3 +46,17 @@ Verifiera full regression, runtime parity, workflow parity, project hygiene och 
 ## Aktuellt nästa steg
 
 Alla migrationssteg 1–5 är klara och verifierade. Projektet är i maintenance-läge efter migreringen till GPT Byggaren 1.5.0.
+
+
+## Steg 6 – OpenAI Plugin peer-distribution
+
+Aktivera OpenAI Plugin som `equivalent_runtime_dependent` från samma canonical säkerhetskontrakt.
+
+**Klart när:**
+- Plugin-ZIP har `plugin.json`, `runtime-contract.json` och canonical `SKILL.md`,
+- canonical kontrakt, Knowledge, schemas och runtime tool/support closure följer med,
+- review state är workspace-authoritativt för Standard/Deep,
+- målrepo är read-only som standard och Plugin/state/output exkluderas från source evidence,
+- review-integrity kan inte hoppas över,
+- script-resurser kräver inte MCP-wrapper,
+- Plugin ingår i CI, release, checksums, delivery manifest och reproducibility.

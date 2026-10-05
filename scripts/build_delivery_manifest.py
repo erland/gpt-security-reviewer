@@ -10,6 +10,7 @@ items=[
     ("chat_zip",DIST/f"sakerhetsgranskaren-it-stod-chat-{clean}.zip"),
     ("custom_gpt_zip",DIST/f"sakerhetsgranskaren-it-stod-custom-gpt-{clean}.zip"),
     ("opencode_zip",DIST/f"sakerhetsgranskaren-it-stod-opencode-{clean}.zip"),
+    ("plugin_zip",DIST/f"sakerhetsgranskaren-it-stod-plugin-{clean}.zip"),
 ]
 missing=[p.name for _,p in items if not p.exists()]
 if missing:
@@ -26,7 +27,7 @@ payload={
         "chatgpt_custom":"ready_active",
         "opencode":"ready_active",
         "claude_project":"reduced_inactive",
-        "openai_plugin":"reduced_inactive"
+        "openai_plugin":"equivalent_runtime_dependent_active"
     }
 }
 out=DIST/f"sakerhetsgranskaren-it-stod-{clean}-DELIVERY-MANIFEST.json"

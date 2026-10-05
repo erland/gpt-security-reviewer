@@ -24,6 +24,8 @@ common=[
     "scripts/validate_distribution.py",
     "scripts/build_opencode.py",
     "scripts/validate_opencode.py",
+    "scripts/build_openai_plugin.py",
+    "scripts/validate_openai_plugin.py",
 ]
 for token in common:
     if token not in ci: errors.append(f"CI missing common gate: {token}")

@@ -30,6 +30,6 @@ runtimes:
     active: false
     reason: Deterministic integrity and DOCX/PDF toolchain cannot run locally in the runtime.
   openai_plugin:
-    suitability: reduced
-    active: false
-    reason: Skills do not provide the repository workspace and local deterministic toolchain required for full parity.
+    suitability: equivalent_runtime_dependent
+    active: true
+    contract: runtime-contracts/openai-plugin.json

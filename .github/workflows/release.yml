@@ -104,6 +104,12 @@ jobs:
       - name: Validate OpenCode distribution
         run: python3 scripts/validate_opencode.py
 
+      - name: Build OpenAI Plugin distribution
+        run: python3 scripts/build_openai_plugin.py
+
+      - name: Validate OpenAI Plugin distribution
+        run: python3 scripts/validate_openai_plugin.py
+
       - name: Build project package
         run: python3 scripts/build_project_package.py
 
@@ -140,6 +146,7 @@ jobs:
             "dist/sakerhetsgranskaren-it-stod-chat-${RELEASE_VERSION#v}.zip" \
             "dist/sakerhetsgranskaren-it-stod-custom-gpt-${RELEASE_VERSION#v}.zip" \
             "dist/sakerhetsgranskaren-it-stod-opencode-${RELEASE_VERSION#v}.zip" \
+            "dist/sakerhetsgranskaren-it-stod-plugin-${RELEASE_VERSION#v}.zip" \
             "dist/sakerhetsgranskaren-it-stod-${RELEASE_VERSION#v}-SHA256SUMS.txt" \
             "dist/sakerhetsgranskaren-it-stod-${RELEASE_VERSION#v}-DELIVERY-MANIFEST.json" \
             --clobber

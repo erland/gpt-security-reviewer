@@ -26,12 +26,18 @@ for rid in active:
     if p.get("suitability")!="ready" or p.get("active") is not True:
         errors.append(f"{rid}: parity assessment not ready/active")
 
-for rid in {"claude_project","openai_plugin"}:
-    if candidates[rid].get("suitability")!="reduced" or candidates[rid].get("activate_by_default") is not False:
-        errors.append(f"{rid}: project assessment not reduced/inactive")
-    p=parity["runtimes"][rid]
-    if p.get("suitability")!="reduced" or p.get("active") is not False:
-        errors.append(f"{rid}: parity assessment not reduced/inactive")
+rid="claude_project"
+if candidates[rid].get("suitability")!="reduced" or candidates[rid].get("activate_by_default") is not False:
+    errors.append(f"{rid}: project assessment not reduced/inactive")
+p=parity["runtimes"][rid]
+if p.get("suitability")!="reduced" or p.get("active") is not False:
+    errors.append(f"{rid}: parity assessment not reduced/inactive")
+
+if candidates["openai_plugin"].get("suitability")!="equivalent_runtime_dependent" or candidates["openai_plugin"].get("activate_by_default") is not True:
+    errors.append("openai_plugin: project assessment not equivalent_runtime_dependent/active")
+p=parity["runtimes"]["openai_plugin"]
+if p.get("suitability")!="equivalent_runtime_dependent" or p.get("active") is not True:
+    errors.append("openai_plugin: parity assessment not equivalent_runtime_dependent/active")
 
 required_common={
     "behavior":{"canonical":"canonical/runtime-contract.md","workflow":"canonical/workflow.md","stateful_standard_deep":True,"review_state_schema":"schemas/review-process.schema.json"},
@@ -44,6 +50,7 @@ for rid,path in {
     "chatgpt_chat":"runtime-contracts/chatgpt-chat.json",
     "chatgpt_custom":"runtime-contracts/chatgpt-custom.json",
     "opencode":"runtime-contracts/opencode.json",
+    "openai_plugin":"runtime-contracts/openai-plugin.json",
 }.items():
     data=json.loads((ROOT/path).read_text(encoding="utf-8"))
     if data.get("runtime_id")!=rid:
@@ -57,5 +64,5 @@ if errors:
     for e in errors: print("-",e)
     sys.exit(1)
 print("RUNTIME PARITY VALIDATION OK")
-print("active=chatgpt_chat,chatgpt_custom,opencode")
-print("reduced=claude_project,openai_plugin")
+print("active=chatgpt_chat,chatgpt_custom,opencode,openai_plugin")
+print("reduced=claude_project")
