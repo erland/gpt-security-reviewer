@@ -109,7 +109,7 @@ Standard/Deep använder nu ett beständigt kandidatregister med obligatorisk slu
 
 ## GPT Builder 1.5 runtime-distributioner
 
-Projektet bygger aktiva peer-distributioner för ChatGPT Chat, Custom GPT och OpenCode från samma canonical säkerhetskontrakt. Claude Projects och OpenAI Plugin är bedömda som reducerade/inaktiva eftersom de inte uppfyller hela den deterministiska workspace/toolchain-modellen.
+Projektet bygger aktiva peer-distributioner för ChatGPT Chat, Custom GPT, OpenCode och OpenAI Plugin från samma canonical säkerhetskontrakt. Claude Projects är fortsatt reducerad/inaktiv. OpenAI Plugin är `equivalent_runtime_dependent`: full Standard/Deep-parity kräver repository-workspace, persistent review state och kompatibel code execution.
 
 GitHub Release publicerar:
 
@@ -117,8 +117,14 @@ GitHub Release publicerar:
 - Chat ZIP
 - Custom GPT ZIP
 - OpenCode ZIP
+- OpenAI Plugin ZIP
 - SHA-256-checksummor
 - delivery manifest
 
 
 Releaseartefakterna byggs reproducerbart med fixerad ZIP-metadata och verifieras i CI tillsammans med project hygiene, workflow parity och release readiness.
+
+
+### OpenAI Plugin
+
+Plugin-distributionen är skills-first och paketerar canonical säkerhetskontrakt, Knowledge, schemas samt den testade rapport/toolchain-closure som används av OpenCode. Endast `review-integrity` och `report-delivery` är canonical tools; övriga Pythonfiler är support-resurser. Script-resurser kräver ingen MCP-wrapper. Målrepots filer är read-only som standard, review state/output hålls separerade från source evidence och DOCX/PDF får inte kringgå den deterministiska rendererpipelinen.
