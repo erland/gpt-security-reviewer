@@ -15,6 +15,7 @@ artifacts=[
     DIST/f"sakerhetsgranskaren-it-stod-chat-{clean}.zip",
     DIST/f"sakerhetsgranskaren-it-stod-custom-gpt-{clean}.zip",
     DIST/f"sakerhetsgranskaren-it-stod-opencode-{clean}.zip",
+    DIST/f"sakerhetsgranskaren-it-stod-plugin-{clean}.zip",
 ]
 delivery=DIST/f"sakerhetsgranskaren-it-stod-{clean}-DELIVERY-MANIFEST.json"
 sums=DIST/f"sakerhetsgranskaren-it-stod-{clean}-SHA256SUMS.txt"
@@ -34,7 +35,7 @@ if not delivery.exists(): errors.append("delivery manifest missing")
 else:
     data=json.loads(delivery.read_text(encoding="utf-8"))
     types={x.get("type") for x in data.get("artifacts",[])}
-    if types!={"project_zip","chat_zip","custom_gpt_zip","opencode_zip"}:
+    if types!={"project_zip","chat_zip","custom_gpt_zip","opencode_zip","plugin_zip"}:
         errors.append(f"delivery artifact types differ: {sorted(types)}")
 
 checks={}
