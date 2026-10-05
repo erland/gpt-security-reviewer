@@ -25,3 +25,10 @@ Se `RELEASE-NOTES.md`.
 ### Step 25
 - Added candidate finding register, adjudication and review integrity gate.
 - Enforced deterministic report rendering and stricter DOCX/PDF table layout.
+
+
+### GPT Builder 1.5.1 runtime alignment
+- Added OpenAI Plugin as an active `equivalent_runtime_dependent` peer distribution.
+- Packaged canonical security contracts, Knowledge, schemas and deterministic review/report tool resources.
+- Preserved read-only target-source policy, workspace-authoritative review state, integrity gate and defensive reporting constraints.
+- Added Plugin to release artifacts, checksums, delivery manifest and reproducibility validation.
