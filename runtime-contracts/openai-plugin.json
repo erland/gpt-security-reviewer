@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "behavior": {
+    "canonical": "canonical/runtime-contract.md",
+    "workflow": "canonical/workflow.md",
+    "stateful_standard_deep": true,
+    "review_state_schema": "schemas/review-process.schema.json"
+  },
+  "capabilities": {
+    "filesystem_read": "required",
+    "filesystem_write": "recommended",
+    "shell": "recommended",
+    "code_execution": "recommended",
+    "structured_data": "required",
+    "persistent_state": "required",
+    "web": "optional"
+  },
+  "artifacts": {
+    "review_report": "required",
+    "review_data": "required",
+    "confluence_report": "conditional",
+    "word_report": "conditional",
+    "pdf_report": "conditional",
+    "runtime_package": "required",
+    "project_package": "required"
+  },
+  "workspace_state": {
+    "workspace": "required",
+    "separate_from_assistant": true,
+    "state": "required",
+    "authority": "workspace_file",
+    "schema": "schemas/review-process.schema.json"
+  },
+  "tools": {
+    "review_integrity": "required",
+    "report_delivery": "required"
+  },
+  "runtime_id": "openai_plugin",
+  "adapter": {
+    "mode": "skills_first",
+    "entrypoint": "skills/security-reviewer/SKILL.md",
+    "repository_input": "host_workspace",
+    "state_storage": ".security-reviewer-state/review-process.json",
+    "output_root": "security-review-output",
+    "target_source_read_only_by_default": true,
+    "exclude_from_source_evidence": [
+      "skills/security-reviewer/",
+      ".security-reviewer-state/",
+      "security-review-output/"
+    ],
+    "deterministic_tools": "packaged_python_resources",
+    "mcp_generated": false,
+    "script_resources": {
+      "packaged": [
+        "validate_review_integrity.py",
+        "plan_report_delivery.py",
+        "deliver_report.py",
+        "export_report.py",
+        "render_report_markdown.py",
+        "render_report_confluence.py",
+        "render_report_docx.py",
+        "render_report_pdf.py"
+      ],
+      "canonical_tools": [
+        "validate_review_integrity.py",
+        "deliver_report.py"
+      ],
+      "mcp_required_for_resource_use": false
+    },
+    "host_requirements": {
+      "repository_workspace": "required_for_full_parity",
+      "persistent_filesystem": "required_for_standard_deep",
+      "python": "required_for_deterministic_gates",
+      "python_docx": "required_only_for_docx_pdf",
+      "libreoffice": "required_only_for_pdf"
+    },
+    "fallback_policy": {
+      "quick_without_persistent_state": "allowed",
+      "standard_deep_without_persistent_state": "block_full_parity",
+      "skip_integrity_gate": "forbidden",
+      "freeform_docx_pdf_rendering": "forbidden"
+    }
+  }
+}
