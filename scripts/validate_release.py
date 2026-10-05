@@ -13,6 +13,7 @@ expected=[
  DIST/f'sakerhetsgranskaren-it-stod-chat-{clean}.zip',
  DIST/f'sakerhetsgranskaren-it-stod-custom-gpt-{clean}.zip',
  DIST/f'sakerhetsgranskaren-it-stod-opencode-{clean}.zip',
+ DIST/f'sakerhetsgranskaren-it-stod-plugin-{clean}.zip',
 ]
 errors=[]
 for p in expected:
