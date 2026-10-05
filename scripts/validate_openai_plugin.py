@@ -30,6 +30,7 @@ with zipfile.ZipFile(path) as z:
         "skills/security-reviewer/scripts/render_report_docx.py",
         "skills/security-reviewer/scripts/render_report_pdf.py",
         "skills/security-reviewer/assets/requirements-reporting.txt",
+        "skills/security-reviewer/canonical/report-delivery-policy.json",
     }
     missing=sorted(required-names)
     if missing: errors.append(f"missing files: {missing}")
@@ -63,6 +64,9 @@ with zipfile.ZipFile(path) as z:
         "Fri dokumentlayout",
     ]:
         if marker not in skill: errors.append(f"SKILL missing marker: {marker}")
+
+    if z.read("skills/security-reviewer/canonical/report-delivery-policy.json") != (ROOT/"canonical/report-delivery-policy.json").read_bytes():
+        errors.append("runtime report delivery policy drift")
 
     for rel in [
         "canonical/runtime-contract.md",
