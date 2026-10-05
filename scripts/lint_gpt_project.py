@@ -45,9 +45,12 @@ if cfg_path.is_file():
     for runtime_id in ("chatgpt_chat", "chatgpt_custom", "opencode"):
         check(candidates.get(runtime_id, {}).get("suitability") == "ready",
               f"{runtime_id} must be assessed ready")
-    for runtime_id in ("claude_project", "openai_plugin"):
-        check(candidates.get(runtime_id, {}).get("suitability") == "reduced",
-              f"{runtime_id} must be assessed reduced")
+    check(candidates.get("openai_plugin", {}).get("suitability") == "equivalent_runtime_dependent",
+          "openai_plugin must be assessed equivalent_runtime_dependent")
+    check(candidates.get("openai_plugin", {}).get("activate_by_default") is True,
+          "openai_plugin must be active")
+    check(candidates.get("claude_project", {}).get("suitability") == "reduced",
+          "claude_project must be assessed reduced")
 
     for key in ("capabilities", "artifacts", "workspace_state", "tools"):
         check(isinstance(cfg.get(key), dict), f"Missing platform-neutral contract: {key}")
@@ -62,6 +65,14 @@ if cfg_path.is_file():
     tool_ids = {item.get("id") for item in cfg.get("tools", {}).get("tools", [])}
     check({"review-integrity", "report-delivery"}.issubset(tool_ids),
           "Required deterministic review/report tools are not registered")
+
+    plugin = cfg.get("runtime", {}).get("openai_plugin", {})
+    check(plugin.get("enabled") is True, "OpenAI Plugin peer runtime must be enabled")
+    check(plugin.get("role") == "peer_distribution", "OpenAI Plugin role must be peer_distribution")
+    check(plugin.get("state_path") == ".security-reviewer-state/review-process.json",
+          "OpenAI Plugin must use canonical review-state path")
+    check(plugin.get("compatibility", {}).get("parity") == "equivalent_runtime_dependent",
+          "OpenAI Plugin parity must be equivalent_runtime_dependent")
 
     opencode = cfg.get("runtime", {}).get("opencode", {})
     check(opencode.get("enabled") is True, "OpenCode peer runtime must be enabled in step 3")
@@ -122,6 +133,8 @@ for rel in (
     "scripts/validate_model_robustness_evals.py",
     "scripts/build_opencode.py",
     "scripts/validate_opencode.py",
+    "scripts/build_openai_plugin.py",
+    "scripts/validate_openai_plugin.py",
     "scripts/build_project_package.py",
     "scripts/build_delivery_manifest.py",
     "scripts/validate_runtime_parity.py",
@@ -133,6 +146,7 @@ for rel in (
     "runtime-contracts/chatgpt-chat.json",
     "runtime-contracts/chatgpt-custom.json",
     "runtime-contracts/opencode.json",
+    "runtime-contracts/openai-plugin.json",
     "PROJECT.md",
     "STATUS.md",
     "project-status.yaml",
