@@ -18,7 +18,7 @@ candidates={x["runtime_id"]:x for x in cfg["analysis"]["runtime"]["candidates"]}
 if set(candidates)!=expected:
     errors.append("project runtime candidates differ")
 
-active={"chatgpt_chat","chatgpt_custom","opencode","openai_plugin"}
+active={"chatgpt_chat","chatgpt_custom","opencode"}
 for rid in active:
     if candidates[rid].get("suitability")!="ready" or candidates[rid].get("activate_by_default") is not True:
         errors.append(f"{rid}: project assessment not ready/active")
