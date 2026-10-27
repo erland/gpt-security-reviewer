@@ -162,6 +162,13 @@ jobs:
       - name: Verify canonical reproducible release
         run: python3 scripts/verify_reproducible_build.py
 
+      - name: Simulate final release engine regeneration
+        run: |
+          test ! -e "dist/security-reviewer-engine-${RELEASE_VERSION#v}.zip" || rm "dist/security-reviewer-engine-${RELEASE_VERSION#v}.zip"
+          python3 scripts/build_report_engine.py --version "${RELEASE_VERSION#v}"
+          python3 scripts/validate_report_engine.py --version "${RELEASE_VERSION#v}" --structure-only
+          test -s "dist/security-reviewer-engine-${RELEASE_VERSION#v}.zip"
+
       - name: Validate project hygiene
         run: python3 scripts/project_hygiene.py
 
