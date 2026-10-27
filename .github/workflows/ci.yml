@@ -193,7 +193,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install YAML dependency
-        run: python3 -m pip install pyyaml
+        run: python3 -m pip install pyyaml jsonschema
       - name: Download pinned canonical engine
         run: |
           curl --fail --location --retry 3 --output /tmp/gpt-byggaren-engine-1.6.33.zip \
