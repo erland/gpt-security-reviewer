@@ -22,6 +22,21 @@ def validate(report):
     for name,x in by.items():
         if x.get('status') not in {'reviewed','not_reviewed','not_verifiable','not_applicable'}:
             errors.append(f'invalid control status: {name}')
+    # A flag or a generic note does not substantiate a reviewed control.
+    if mode in {'standard','deep'}:
+        for name, control in by.items():
+            if control.get('status') == 'reviewed':
+                refs = control.get('evidence_refs') or []
+                if not isinstance(refs, list) or not any(isinstance(ref, str) and ref.strip() for ref in refs):
+                    errors.append(f'reviewed control has no evidence reference: {name}')
+        flows = report.get('analyzed_security_flows') or []
+        if not flows:
+            errors.append('Standard/Deep requires analyzed_security_flows')
+        for flow in flows:
+            if flow.get('status') == 'reviewed' and not str(flow.get('evidence_basis') or '').strip():
+                errors.append('reviewed flow lacks evidence_basis')
+        if any(x.get('status') == 'reviewed' for x in matrix) and not (report.get('coverage') or {}).get('reviewed'):
+            errors.append('reviewed controls require report coverage.reviewed')
     if rp.get('challenge_completed') is not True: errors.append('challenge pass not completed')
     if rp.get('coverage_gate_passed') is not True: errors.append('coverage gate not passed')
     findings={f.get('id'):f for f in report.get('findings',[])}
