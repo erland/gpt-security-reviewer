@@ -181,3 +181,33 @@ jobs:
 
       - name: Verify reproducible release
         run: python3 scripts/verify_reproducible_build.py
+
+  canonical-1633:
+    name: GPT Byggaren 1.6.33 migration gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install YAML dependency
+        run: python3 -m pip install pyyaml
+      - name: Download pinned canonical engine
+        run: |
+          curl --fail --location --retry 3 --output /tmp/gpt-byggaren-engine-1.6.33.zip \
+            https://github.com/erland/gpt-byggaren/releases/download/v1.6.33/gpt-byggaren-engine-1.6.33.zip
+          python3 -m zipfile -e /tmp/gpt-byggaren-engine-1.6.33.zip /tmp/gpt-byggaren-engine
+      - name: Self-test canonical engine
+        run: python3 /tmp/gpt-byggaren-engine/scripts/selftest_distribution_engine.py --source /tmp/gpt-byggaren-engine
+      - name: Install canonical engine into project
+        run: python3 /tmp/gpt-byggaren-engine/scripts/install_distribution_engine.py --source /tmp/gpt-byggaren-engine --project-root .
+      - name: Canonical model lint
+        run: python3 /tmp/gpt-byggaren-engine/scripts/lint_gpt_project.py --project-root .
+      - name: Validate generated project contract
+        run: python3 /tmp/gpt-byggaren-engine/scripts/validate_generated_delivery.py --project-root .
+      - name: Build canonical six-archive delivery
+        run: python3 scripts/build_distributions.py --project-root . --version 0.0.0-ci
+      - name: Validate canonical distributions
+        run: python3 scripts/validate_distributions.py --project-root .
