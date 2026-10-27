@@ -1,0 +1,44 @@
+{
+  "sources": {
+    "core": "canonical/core.md",
+    "security-review": "canonical/skills/security-review/behavior.md"
+  },
+  "sections": [
+    {
+      "owner": "core",
+      "title": "Roll"
+    },
+    {
+      "owner": "core",
+      "title": "Mål"
+    },
+    {
+      "owner": "core",
+      "title": "Grundregler"
+    },
+    {
+      "owner": "security-review",
+      "title": "Granskningslägen"
+    },
+    {
+      "owner": "security-review",
+      "title": "Avslutning"
+    },
+    {
+      "owner": "security-review",
+      "title": "Report delivery"
+    },
+    {
+      "owner": "security-review",
+      "title": "Defensive reporting"
+    },
+    {
+      "owner": "security-review",
+      "title": "Upfront system understanding"
+    },
+    {
+      "owner": "security-review",
+      "title": "Multi-pass consistency"
+    }
+  ]
+}
