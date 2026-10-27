@@ -56,7 +56,7 @@ resume:
 
 # Parallel forward migration; legacy validated maintenance status above is retained.
 migration_1_6_33:
-  stage: canonical_release_workflow_migrated
+  stage: legacy_custom_gpt_cleanup_pending_final_verification
   status: in_progress
   architecture_decision: docs/skill-architecture-decision.md
   completed:
@@ -66,8 +66,12 @@ migration_1_6_33:
     - five_target_project_model
     - original_engine_ci_validated
     - canonical_release_workflow_migrated
+    - legacy_build_scripts_removed
+    - custom_gpt_resources_removed
+    - status_documentation_refreshed
   remaining:
-    - hygiene_and_docs
     - final_regression
+    - resource_closure_audit
+    - release_review
   release_ready: false
-  next_action: Verify amended release workflow against new CI checks, audit packaged resources and release documentation, then complete migration.
+  next_action: Verify CI on cleanup commit, inspect actual Skill resource closure and complete release review before merge.
