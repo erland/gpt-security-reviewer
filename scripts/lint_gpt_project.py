@@ -146,7 +146,6 @@ for rel in (
     "scripts/verify_reproducible_build.py",
     "runtime-parity.yaml",
     "runtime-contracts/chatgpt-chat.json",
-    "runtime-contracts/chatgpt-custom.json",
     "runtime-contracts/opencode.json",
     "runtime-contracts/openai-plugin.json",
     "PROJECT.md",
