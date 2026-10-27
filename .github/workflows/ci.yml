@@ -28,6 +28,13 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libreoffice-writer
 
+      - name: Install pinned canonical engine for workflow validation
+        run: |
+          curl --fail --location --retry 3 --output /tmp/gpt-byggaren-engine-1.6.33.zip \
+            https://github.com/erland/gpt-byggaren/releases/download/v1.6.33/gpt-byggaren-engine-1.6.33.zip
+          python3 -m zipfile -e /tmp/gpt-byggaren-engine-1.6.33.zip /tmp/gpt-byggaren-engine
+          python3 /tmp/gpt-byggaren-engine/scripts/install_distribution_engine.py --source /tmp/gpt-byggaren-engine --project-root .
+
       - name: Validate GPT Builder project model
         run: python3 scripts/lint_gpt_project.py
 
@@ -78,6 +85,13 @@ jobs:
 
       - name: Validate defensive reporting
         run: python3 scripts/validate_defensive_reporting.py
+
+      - name: Install pinned canonical engine for workflow validation
+        run: |
+          curl --fail --location --retry 3 --output /tmp/gpt-byggaren-engine-1.6.33.zip \
+            https://github.com/erland/gpt-byggaren/releases/download/v1.6.33/gpt-byggaren-engine-1.6.33.zip
+          python3 -m zipfile -e /tmp/gpt-byggaren-engine-1.6.33.zip /tmp/gpt-byggaren-engine
+          python3 /tmp/gpt-byggaren-engine/scripts/install_distribution_engine.py --source /tmp/gpt-byggaren-engine --project-root .
 
       - name: Build Chat ZIP
         run: python3 scripts/build_chat_zip.py
