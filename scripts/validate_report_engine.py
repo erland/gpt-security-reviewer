@@ -5,6 +5,7 @@ import argparse,copy,hashlib,json,subprocess,sys,tempfile,zipfile
 ROOT=Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser()
 p.add_argument("--version",required=True)
+p.add_argument("--structure-only",action="store_true")
 a=p.parse_args()
 version=a.version.removeprefix("v")
 artifact=ROOT/"dist"/f"security-reviewer-engine-{version}.zip"
@@ -29,6 +30,9 @@ with tempfile.TemporaryDirectory() as td:
             for v in value: check_refs(v)
     for schema_file in (out/"assets").glob("*.schema.json"):
         check_refs(json.loads(schema_file.read_text(encoding="utf-8")))
+    if a.structure_only:
+        print("STANDALONE REPORT ENGINE STRUCTURE PASS")
+        raise SystemExit(0)
     valid=out/"valid.json"
     valid.write_text(json.dumps(report,ensure_ascii=False),encoding="utf-8")
     results=out/"results"
