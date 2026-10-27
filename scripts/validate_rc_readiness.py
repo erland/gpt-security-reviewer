@@ -7,7 +7,7 @@ if (ROOT/'VERSION').read_text(encoding='utf-8').strip()!='0.1.0-rc.1': errors.ap
 for rel in ['README.md','START-HERE.md','CHANGELOG.md','RELEASE-NOTES.md','docs/release-checklist.md','docs/release-process.md','docs/v1-quality-review.md','.github/workflows/ci.yml','.github/workflows/release.yml']:
  if not (ROOT/rel).exists(): errors.append(f'Missing: {rel}')
 release=(ROOT/'.github/workflows/release.yml').read_text(encoding='utf-8')
-for token in ['types: [published]','GITHUB_REF_NAME','validate_release.py','generate_checksums.py','gh release upload']:
+for token in ['types: [published]','GITHUB_REF_NAME','build_distributions.py','validate_distributions.py','validate_generated_delivery.py','gh release upload']:
  if token not in release: errors.append(f'release.yml missing: {token}')
 ci=(ROOT/'.github/workflows/ci.yml').read_text(encoding='utf-8')
 if 'release-smoke' not in ci: errors.append('ci.yml missing release-smoke')
