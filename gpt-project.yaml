@@ -125,6 +125,7 @@ skills:
         - docs/pdf-table-layout.md
       scripts:
         - scripts/validate_review_integrity.py
+        - scripts/validate_report_schema.py
         - scripts/deliver_report.py
         - scripts/plan_report_delivery.py
         - scripts/render_report_markdown.py
