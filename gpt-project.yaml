@@ -42,7 +42,10 @@ model_robustness:
   instruction_adherence_evals: true
 
 instructions:
+  mode: modular_skills
   canonical: canonical/runtime-contract.md
+  core: canonical/core.md
+  assembly: canonical/assembly.json
   workflow: canonical/workflow.md
   core_contract:
     enabled: true
@@ -57,6 +60,29 @@ instructions:
       - canonical/reporting-contract.md
       - canonical/defensive-reporting-contract.md
       - schemas/review-process.schema.json
+
+skills:
+  contract_version: 1
+  mode: inferred
+  definitions:
+    - id: security-review
+      name: security-review
+      description: Evidensbaserad säkerhetsgranskning av kod, integrationer, deployment och arkitektur samt spårbar defensiv rapportleverans.
+      source: canonical/skills/security-review/behavior.md
+      references:
+        - canonical/workflow.md
+        - canonical/review-framework.md
+        - canonical/multi-pass-review-contract.md
+        - canonical/reporting-contract.md
+        - canonical/report-model.md
+        - canonical/report-modes.md
+        - canonical/report-export-contract.md
+        - canonical/report-delivery-workflow.md
+        - canonical/defensive-reporting-contract.md
+        - canonical/report-binary-export-contract.md
+      scripts:
+        - scripts/validate_review_integrity.py
+        - scripts/deliver_report.py
 
 capabilities:
   contract_version: 1
@@ -260,8 +286,8 @@ runtime_parity:
 # the original 1.6.33 engine and all legacy gates have passed together.
 migration_1_6_33:
   engine_version: 1.6.33
-  stage: project_model_assessment
-  canonical_migration_activated: false
+  stage: modular_sources_activated_pending_validation
+  canonical_migration_activated: true
   architecture_decision: docs/skill-architecture-decision.md
   proposed_skills:
     - security-review
@@ -272,4 +298,4 @@ migration_1_6_33:
     - claude_skills
     - opencode
   legacy_custom_gpt: compatibility_only_until_verified
-  next_gate: original_engine_modular_activation_and_regression
+  next_gate: engine_resource_validation_and_five_runtime_build
