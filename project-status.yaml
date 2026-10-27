@@ -56,7 +56,7 @@ resume:
 
 # Parallel forward migration; legacy validated maintenance status above is retained.
 migration_1_6_33:
-  stage: canonical_runtime_mapping_added
+  stage: canonical_release_workflow_migrated
   status: in_progress
   architecture_decision: docs/skill-architecture-decision.md
   completed:
@@ -64,10 +64,10 @@ migration_1_6_33:
     - skill_architecture_decision
     - canonical_source_transformation
     - five_target_project_model
+    - original_engine_ci_validated
+    - canonical_release_workflow_migrated
   remaining:
-    - original_engine_install_and_validation
-    - five_runtime_build_and_parity
     - hygiene_and_docs
     - final_regression
   release_ready: false
-  next_action: Verify new mapping using original engine, reconcile legacy lint, and build five target distributions.
+  next_action: Verify amended release workflow against new CI checks, audit packaged resources and release documentation, then complete migration.
