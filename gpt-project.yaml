@@ -119,6 +119,8 @@ skills:
         - canonical/report-binary-export-contract.md
       assets:
         - canonical/report-delivery-policy.json
+        - schemas/report.schema.json
+        - schemas/review-process.schema.json
       scripts:
         - scripts/validate_review_integrity.py
         - scripts/deliver_report.py

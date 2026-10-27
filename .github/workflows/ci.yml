@@ -35,6 +35,14 @@ jobs:
           python3 -m zipfile -e /tmp/gpt-byggaren-engine-1.6.33.zip /tmp/gpt-byggaren-engine
           python3 /tmp/gpt-byggaren-engine/scripts/install_distribution_engine.py --source /tmp/gpt-byggaren-engine --project-root .
 
+      - name: Build canonical test distribution for end-to-end report validation
+        run: python3 scripts/build_distributions.py --project-root . --version 0.0.0-ci
+
+      - name: Run packaged report end-to-end acceptance test
+        env:
+          RELEASE_VERSION: v0.0.0-ci
+        run: python3 scripts/validate_packaged_report_e2e.py
+
       - name: Validate GPT Builder project model
         run: python3 scripts/lint_gpt_project.py
 
