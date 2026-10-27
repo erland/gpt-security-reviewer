@@ -1,63 +1,45 @@
 #!/usr/bin/env python3
+"""Rebuild the six canonical archives twice and compare SHA-256 outputs."""
 from pathlib import Path
-import hashlib, os, shutil, subprocess, sys, tempfile
+import hashlib
+import os
+import shutil
+import subprocess
+import sys
+import tempfile
 
-ROOT=Path(__file__).resolve().parents[1]
-version=(os.environ.get("RELEASE_VERSION") or (ROOT/"VERSION").read_text(encoding="utf-8").strip()).lstrip("v")
+ROOT = Path(__file__).resolve().parents[1]
+DIST = ROOT / "dist"
+version = (os.environ.get("RELEASE_VERSION") or (ROOT / "VERSION").read_text(encoding="utf-8").strip()).lstrip("v")
+names = [f"security-reviewer-{target}-{version}.zip" for target in
+         ("project", "chat", "plugin", "claude-project", "claude-skills", "opencode")]
+names += ["SHA256SUMS.txt", "DELIVERY-MANIFEST.json"]
 
-def snapshot(dist: Path):
-    names=[
-        f"sakerhetsgranskaren-it-stod-project-{version}.zip",
-        f"sakerhetsgranskaren-it-stod-chat-{version}.zip",
-        f"sakerhetsgranskaren-it-stod-custom-gpt-{version}.zip",
-        f"sakerhetsgranskaren-it-stod-opencode-{version}.zip",
-        f"sakerhetsgranskaren-it-stod-plugin-{version}.zip",
-        f"sakerhetsgranskaren-it-stod-{version}-SHA256SUMS.txt",
-        f"sakerhetsgranskaren-it-stod-{version}-DELIVERY-MANIFEST.json",
-    ]
-    out={}
+
+def build_once():
+    if DIST.exists():
+        for path in DIST.iterdir():
+            if path.name != ".gitkeep":
+                shutil.rmtree(path) if path.is_dir() else path.unlink()
+    subprocess.run([sys.executable, str(ROOT / "scripts/build_distributions.py"),
+                    "--project-root", str(ROOT), "--version", version],
+                   cwd=ROOT, check=True)
+    hashes = {}
     for name in names:
-        p=dist/name
-        if not p.exists():
-            raise SystemExit(f"REPRODUCIBILITY FAILED\n- missing {name}")
-        out[name]=hashlib.sha256(p.read_bytes()).hexdigest()
-    return out
+        path = DIST / name
+        if not path.is_file():
+            raise RuntimeError(f"missing canonical artifact: {name}")
+        hashes[name] = hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashes
 
-def build_once(target: Path):
-    env=os.environ.copy()
-    env["RELEASE_VERSION"]=version
-    dist=ROOT/"dist"
-    if dist.exists():
-        for p in dist.iterdir():
-            if p.name!=".gitkeep":
-                if p.is_dir(): shutil.rmtree(p)
-                else: p.unlink()
-    commands=[
-        "scripts/build_chat_zip.py",
-        "scripts/build_custom_gpt.py",
-        "scripts/package_custom_gpt.py",
-        "scripts/build_opencode.py",
-        "scripts/build_openai_plugin.py",
-        "scripts/build_project_package.py",
-        "scripts/generate_checksums.py",
-        "scripts/build_delivery_manifest.py",
-    ]
-    for rel in commands:
-        subprocess.run([sys.executable,str(ROOT/rel)],cwd=ROOT,env=env,check=True)
-    target.mkdir(parents=True,exist_ok=True)
-    for p in dist.iterdir():
-        if p.is_file() and p.name!=".gitkeep":
-            shutil.copy2(p,target/p.name)
-    return snapshot(target)
 
-with tempfile.TemporaryDirectory() as td:
-    a=build_once(Path(td)/"first")
-    b=build_once(Path(td)/"second")
-    if a!=b:
-        print("REPRODUCIBILITY FAILED")
-        for name in sorted(set(a)|set(b)):
-            if a.get(name)!=b.get(name):
-                print(f"- {name}: {a.get(name)} != {b.get(name)}")
-        sys.exit(1)
-
+with tempfile.TemporaryDirectory():
+    first = build_once()
+    second = build_once()
+if first != second:
+    print("REPRODUCIBILITY FAILED")
+    for name in names:
+        if first.get(name) != second.get(name):
+            print("-", name, first.get(name), second.get(name))
+    sys.exit(1)
 print("REPRODUCIBILITY OK")
