@@ -139,6 +139,12 @@ jobs:
       - name: Validate canonical distributions
         run: python3 scripts/validate_distributions.py --project-root .
 
+      - name: Build standalone report engine
+        run: python3 scripts/build_report_engine.py --version "${RELEASE_VERSION:-v0.0.0-ci}"
+
+      - name: Verify standalone report engine
+        run: python3 scripts/validate_report_engine.py --version "${RELEASE_VERSION:-v0.0.0-ci}"
+
       - name: Run report tools from packaged runtime ZIPs
         run: python3 scripts/validate_packaged_report_tools.py
 
