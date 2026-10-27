@@ -41,6 +41,14 @@ with tempfile.TemporaryDirectory() as td:
     if run.returncode: raise SystemExit("Engine report rendering failed: "+(run.stderr or run.stdout)[-1600:])
     for ext in (".md",".docx",".pdf"):
         assert any(f.suffix==ext and f.stat().st_size>0 for f in results.iterdir()),ext
+    # Schema failure must reject before creating any output directory or file.
+    invalid_schema=copy.deepcopy(report)
+    invalid_schema["metadata"]["review_mode"]="invalid-mode"
+    schema_file=out/"invalid-schema.json"
+    schema_file.write_text(json.dumps(invalid_schema,ensure_ascii=False),encoding="utf-8")
+    schema_output=out/"schema-rejected"
+    schema_run=subprocess.run([sys.executable,str(out/"scripts/deliver_report.py"),str(schema_file),"--mode","standard","--formats","markdown","--output-dir",str(schema_output)],cwd=out,capture_output=True,text=True,timeout=30)
+    assert schema_run.returncode!=0 and not schema_output.exists(),"Invalid schema unexpectedly rendered or created output"
     bad=copy.deepcopy(report)
     for entry in bad["review_process"]["control_matrix"]:
         if entry["status"]=="reviewed": entry["evidence_refs"]=[]
