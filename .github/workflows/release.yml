@@ -134,6 +134,12 @@ jobs:
       - name: Validate workflow parity
         run: python3 scripts/validate_workflow_parity.py
 
+      - name: Rebuild and verify report engine after reproducibility checks
+        run: |
+          python3 scripts/build_report_engine.py --version "${RELEASE_VERSION#v}"
+          python3 scripts/validate_report_engine.py --version "${RELEASE_VERSION#v}" --structure-only
+          test -s "dist/security-reviewer-engine-${RELEASE_VERSION#v}.zip"
+
       - name: Upload six canonical release packages and metadata
         env:
           GH_TOKEN: ${{ github.token }}
