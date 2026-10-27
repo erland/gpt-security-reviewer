@@ -105,6 +105,15 @@ jobs:
       - name: Validate canonical delivery
         run: python3 /tmp/gpt-byggaren-engine/scripts/validate_generated_delivery.py --project-root .
 
+      - name: Validate canonical release readiness
+        run: python3 scripts/validate_release_readiness.py
+
+      - name: Verify canonical reproducible release
+        run: python3 scripts/verify_reproducible_build.py
+
+      - name: Revalidate canonical distributions after reproducibility builds
+        run: python3 scripts/validate_distributions.py --project-root .
+
       - name: Validate project hygiene
         run: python3 scripts/project_hygiene.py
 
