@@ -56,17 +56,18 @@ resume:
 
 # Parallel forward migration; legacy validated maintenance status above is retained.
 migration_1_6_33:
-  stage: project_model_assessment
+  stage: canonical_runtime_mapping_added
   status: in_progress
   architecture_decision: docs/skill-architecture-decision.md
   completed:
     - repository_inventory
     - skill_architecture_decision
-  remaining:
     - canonical_source_transformation
+    - five_target_project_model
+  remaining:
     - original_engine_install_and_validation
     - five_runtime_build_and_parity
     - hygiene_and_docs
     - final_regression
   release_ready: false
-  next_action: Activate the proposed single-skill model only after full dependency and regression validation.
+  next_action: Verify new mapping using original engine, reconcile legacy lint, and build five target distributions.
