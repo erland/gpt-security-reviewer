@@ -17,30 +17,19 @@ common=[
     "scripts/validate_tests.py",
     "scripts/validate_model_robustness_evals.py",
     "scripts/validate_defensive_reporting.py",
-    "scripts/build_chat_zip.py",
-    "scripts/build_custom_gpt.py",
-    "scripts/validate_custom_gpt.py",
-    "scripts/package_custom_gpt.py",
-    "scripts/validate_distribution.py",
-    "scripts/build_opencode.py",
-    "scripts/validate_opencode.py",
-    "scripts/build_openai_plugin.py",
-    "scripts/validate_openai_plugin.py",
+
 ]
 for token in common:
     if token not in ci: errors.append(f"CI missing common gate: {token}")
     if token not in release: errors.append(f"Release missing common gate: {token}")
 
 release_only=[
-    "scripts/build_project_package.py",
     "scripts/validate_runtime_parity.py",
-    "scripts/validate_release.py",
-    "scripts/generate_checksums.py",
-    "scripts/build_delivery_manifest.py",
-    "scripts/validate_release_readiness.py",
+    "scripts/build_distributions.py",
+    "scripts/validate_distributions.py",
+    "scripts/validate_generated_delivery.py",
     "scripts/project_hygiene.py",
     "scripts/validate_workflow_parity.py",
-    "scripts/verify_reproducible_build.py",
 ]
 for token in release_only:
     if token not in release:
@@ -64,14 +53,20 @@ for token in [
 upload=release.find("gh release upload")
 for token in [
     "scripts/validate_runtime_parity.py",
-    "scripts/validate_release_readiness.py",
+    "scripts/validate_distributions.py",
+    "scripts/validate_generated_delivery.py",
     "scripts/project_hygiene.py",
     "scripts/validate_workflow_parity.py",
-    "scripts/verify_reproducible_build.py",
 ]:
     pos=release.find(token)
     if pos<0 or pos>upload:
         errors.append(f"{token} must execute before release upload")
+for token in ["security-reviewer-project-", "security-reviewer-chat-",
+              "security-reviewer-plugin-", "security-reviewer-claude-project-",
+              "security-reviewer-claude-skills-", "security-reviewer-opencode-",
+              "SHA256SUMS.txt", "DELIVERY-MANIFEST.json"]:
+    if token not in release[upload:]:
+        errors.append(f"Release missing canonical artifact: {token}")
 
 if errors:
     print("WORKFLOW PARITY FAILED")
