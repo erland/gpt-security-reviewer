@@ -7,7 +7,7 @@ for rel in ['canonical/defensive-reporting-contract.md','knowledge/common/defens
 contract=(ROOT/'canonical/defensive-reporting-contract.md').read_text(encoding='utf-8').lower()
 for token in ['payload','poc','bypass','remediation','verification_goal','format invariance']:
  if token not in contract: errors.append('Contract missing '+token)
-instructions=(ROOT/'custom-gpt/instructions-template.md').read_text(encoding='utf-8').lower()
+instructions=(ROOT/'canonical/skills/security-review/behavior.md').read_text(encoding='utf-8').lower()
 for token in ['defensiv','payload','remediation','pdf']:
  if token not in instructions: errors.append('Instructions missing '+token)
 cases=json.loads((ROOT/'tests/fixtures/defensive-reporting-cases.json').read_text(encoding='utf-8'))['cases']
