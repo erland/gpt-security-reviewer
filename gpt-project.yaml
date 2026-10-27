@@ -97,6 +97,7 @@ instructions:
       - schemas/review-process.schema.json
 
 skills:
+  resource_policy: explicit
   contract_version: 1
   schema: schemas/skill-contract.schema.json
   mode: inferred
@@ -116,6 +117,7 @@ skills:
         - canonical/report-delivery-workflow.md
         - canonical/defensive-reporting-contract.md
         - canonical/report-binary-export-contract.md
+      assets: []
       scripts:
         - scripts/validate_review_integrity.py
         - scripts/deliver_report.py
