@@ -205,9 +205,9 @@ jobs:
         run: python3 /tmp/gpt-byggaren-engine/scripts/install_distribution_engine.py --source /tmp/gpt-byggaren-engine --project-root .
       - name: Canonical model lint
         run: python3 /tmp/gpt-byggaren-engine/scripts/lint_gpt_project.py --project-root .
-      - name: Validate generated project contract
-        run: python3 /tmp/gpt-byggaren-engine/scripts/validate_generated_delivery.py --project-root .
       - name: Build canonical six-archive delivery
         run: python3 scripts/build_distributions.py --project-root . --version 0.0.0-ci
       - name: Validate canonical distributions
         run: python3 scripts/validate_distributions.py --project-root .
+      - name: Validate generated project delivery
+        run: python3 /tmp/gpt-byggaren-engine/scripts/validate_generated_delivery.py --project-root .
