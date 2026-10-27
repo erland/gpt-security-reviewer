@@ -38,30 +38,28 @@ GPT:n är ett gransknings- och beslutsstöd. Den ersätter inte penetrationstest
 - `.github/workflows/` – CI och release
 - `tests/` – scenarier och fixtures
 
-## Distribution
+## Distributioner (GPT Byggaren 1.6.33)
 
-Både Chat ZIP och Custom GPT ska byggas från samma canonical material.
+Originalmotorn 1.6.33 installerar en gemensam byggare och tar fram sex ZIP-arkiv:
+projektpaket samt **Chat, OpenAI Plugin, Claude Project, Claude Skills och OpenCode**.
+Custom GPT är en historisk kompatibilitetsdistribution och ingår inte i denna release.
 
-Versionsnummer ska i releaseflödet tas från GitHub Release-taggen.
+Gemensam styrning finns i `canonical/core.md`; granskningsbeteendet i
+`canonical/skills/security-review/behavior.md`. Den gamla
+`canonical/runtime-contract.md` är kvar för bakåtkompatibilitet och spårbarhet.
 
-## Chat ZIP
+I CI installeras den versionslåsta originalmotorn från GitHub Release v1.6.33.
+Den installeras även i det publicerade releaseflödet, innan testning och bygge.
+Build/validation körs med originalmotorns `scripts/build_distributions.py`
+och `scripts/validate_distributions.py` samt leveranskontroll.
 
-Chat-distributionen byggs med:
+Säkerhetsgranskningens särskilda regressionskontroller för integrity gate,
+coverage, rapportmodell och Word/PDF körs fortfarande före release.
 
-```bash
-python3 scripts/build_chat_zip.py
-python3 scripts/validate_distribution.py
-```
-
-Den resulterande ZIP-filen innehåller endast runtime-relevant material och en rotplacerad `START-HERE.md`.
-
-## Custom GPT
-
-```bash
-python3 scripts/build_custom_gpt.py
-python3 scripts/validate_custom_gpt.py
-python3 scripts/package_custom_gpt.py
-```
+Claude-distributionerna har dokumenterade värdberoenden: lokal deterministisk
+integritetskontroll och Word/PDF-export kräver en kompatibel exekveringsmiljö.
+Releaseversionen härleds från GitHub Release-taggen och manifest samt SHA-256
+levereras tillsammans med paketen.
 
 ## Rapportering
 
