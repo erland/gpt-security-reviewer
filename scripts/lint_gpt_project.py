@@ -39,18 +39,21 @@ if cfg_path.is_file():
         if isinstance(item, dict)
     }
     expected = {
-        "chatgpt_chat", "chatgpt_custom", "claude_project", "opencode", "openai_plugin"
+        "chatgpt_chat", "claude_project", "claude_skills", "opencode", "openai_plugin"
     }
     check(set(candidates) == expected, "All five peer runtimes must be assessed")
-    for runtime_id in ("chatgpt_chat", "chatgpt_custom", "opencode"):
+    for runtime_id in ("chatgpt_chat", "opencode"):
         check(candidates.get(runtime_id, {}).get("suitability") == "ready",
               f"{runtime_id} must be assessed ready")
     check(candidates.get("openai_plugin", {}).get("suitability") == "equivalent_runtime_dependent",
           "openai_plugin must be assessed equivalent_runtime_dependent")
     check(candidates.get("openai_plugin", {}).get("activate_by_default") is True,
           "openai_plugin must be active")
-    check(candidates.get("claude_project", {}).get("suitability") == "reduced",
-          "claude_project must be assessed reduced")
+    for runtime_id in ("claude_project", "claude_skills"):
+        check(candidates.get(runtime_id, {}).get("suitability") == "reduced",
+              f"{runtime_id} must declare runtime-dependent limitations")
+        check(candidates.get(runtime_id, {}).get("activate_by_default") is True,
+              f"{runtime_id} must be an active distribution target")
 
     for key in ("capabilities", "artifacts", "workspace_state", "tools"):
         check(isinstance(cfg.get(key), dict), f"Missing platform-neutral contract: {key}")
@@ -65,6 +68,11 @@ if cfg_path.is_file():
     tool_ids = {item.get("id") for item in cfg.get("tools", {}).get("tools", [])}
     check({"review-integrity", "report-delivery"}.issubset(tool_ids),
           "Required deterministic review/report tools are not registered")
+
+    check(cfg.get("instructions", {}).get("mode") == "modular_skills", "Modular Skill mode must be active")
+    check((ROOT / cfg.get("instructions", {}).get("core", "")).is_file(), "Missing canonical modular core")
+    check(cfg.get("runtime", {}).get("custom_gpt", {}).get("enabled") is False, "Legacy Custom GPT must not be a sixth distribution target")
+    check(set(cfg.get("build_system", {}).get("runtime_targets", {})) == {"chat","plugin","claude_project","claude_skills","opencode"}, "Five canonical distribution targets required")
 
     plugin = cfg.get("runtime", {}).get("openai_plugin", {})
     check(plugin.get("enabled") is True, "OpenAI Plugin peer runtime must be enabled")
@@ -131,12 +139,6 @@ for rel in (
     "schemas/test-manifest.schema.json",
     "tests/test-manifest.yaml",
     "scripts/validate_model_robustness_evals.py",
-    "scripts/build_opencode.py",
-    "scripts/validate_opencode.py",
-    "scripts/build_openai_plugin.py",
-    "scripts/validate_openai_plugin.py",
-    "scripts/build_project_package.py",
-    "scripts/build_delivery_manifest.py",
     "scripts/validate_runtime_parity.py",
     "scripts/validate_release_readiness.py",
     "scripts/project_hygiene.py",
@@ -144,7 +146,6 @@ for rel in (
     "scripts/verify_reproducible_build.py",
     "runtime-parity.yaml",
     "runtime-contracts/chatgpt-chat.json",
-    "runtime-contracts/chatgpt-custom.json",
     "runtime-contracts/opencode.json",
     "runtime-contracts/openai-plugin.json",
     "PROJECT.md",

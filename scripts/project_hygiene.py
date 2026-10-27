@@ -42,7 +42,9 @@ for rel in tracked_all:
 required=[
     "gpt-project.yaml","project-status.yaml","PROJECT.md","STATUS.md",
     "runtime-parity.yaml","tests/test-manifest.yaml",
-    "canonical/runtime-contract.md","schemas/review-process.schema.json"
+    "canonical/runtime-contract.md","canonical/core.md",
+    "canonical/skills/security-review/behavior.md","canonical/assembly.json",
+    "schemas/skill-contract.schema.json","schemas/review-process.schema.json"
 ]
 for rel in required:
     if not (ROOT/rel).exists():

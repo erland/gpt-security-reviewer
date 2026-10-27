@@ -5,6 +5,41 @@ project:
   description: Evidensbaserad och defensiv säkerhetsgranskning av källkod, konfiguration, deploymentunderlag och arkitekturdokumentation.
   profile: workflow_research_heavy
 
+structure:
+  canonical_root: canonical
+  instructions:
+    path: canonical
+    required: true
+  conversation_starters:
+    path: conversation-starters
+    required: true
+  runtime_policy:
+    path: runtime-policy
+    required: false
+  knowledge:
+    path: knowledge
+    required: true
+  templates:
+    path: templates
+    required: false
+  schemas:
+    path: schemas
+    required: true
+  scripts:
+    path: scripts
+    required: true
+  tests:
+    path: tests
+    required: true
+  build:
+    path: build
+    generated: true
+    create_when_needed: true
+  dist:
+    path: dist
+    generated: true
+    create_when_needed: true
+
 analysis:
   source: existing-project-migration
   runtime:
@@ -14,14 +49,14 @@ analysis:
         suitability: ready
         activate_by_default: true
         reason: Befintlig Chat ZIP stöder uppladdade repositories och hela canonical granskningsflödet.
-      - runtime_id: chatgpt_custom
-        suitability: ready
-        activate_by_default: true
-        reason: Befintlig Custom GPT-distribution paketerar kärninstruktion och knowledge inom plattformsgränserna.
       - runtime_id: claude_project
         suitability: reduced
-        activate_by_default: false
+        activate_by_default: true
         reason: Analysbeteendet kan bäras, men den deterministiska DOCX/PDF- och integrity-pipelinen kan inte köras lokalt i runtime.
+      - runtime_id: claude_skills
+        suitability: reduced
+        activate_by_default: true
+        reason: Portabla Skills paketeras men runtimeberoende rapportexport kräver kompatibel host.
       - runtime_id: opencode
         suitability: ready
         activate_by_default: true
@@ -42,7 +77,10 @@ model_robustness:
   instruction_adherence_evals: true
 
 instructions:
+  mode: modular_skills
   canonical: canonical/runtime-contract.md
+  core: canonical/core.md
+  assembly: canonical/assembly.json
   workflow: canonical/workflow.md
   core_contract:
     enabled: true
@@ -57,6 +95,32 @@ instructions:
       - canonical/reporting-contract.md
       - canonical/defensive-reporting-contract.md
       - schemas/review-process.schema.json
+
+skills:
+  resource_policy: explicit
+  contract_version: 1
+  schema: schemas/skill-contract.schema.json
+  mode: inferred
+  definitions:
+    - id: security-review
+      name: security-review
+      description: Evidensbaserad säkerhetsgranskning av kod, integrationer, deployment och arkitektur samt spårbar defensiv rapportleverans.
+      source: canonical/skills/security-review/behavior.md
+      references:
+        - canonical/workflow.md
+        - canonical/review-framework.md
+        - canonical/multi-pass-review-contract.md
+        - canonical/reporting-contract.md
+        - canonical/report-model.md
+        - canonical/report-modes.md
+        - canonical/report-export-contract.md
+        - canonical/report-delivery-workflow.md
+        - canonical/defensive-reporting-contract.md
+        - canonical/report-binary-export-contract.md
+      assets: []
+      scripts:
+        - scripts/validate_review_integrity.py
+        - scripts/deliver_report.py
 
 capabilities:
   contract_version: 1
@@ -183,29 +247,58 @@ runtime:
   primary: none
   chat_zip:
     enabled: true
-    builder: scripts/build_chat_zip.py
+    start_here_template: templates/START-HERE.chat.md.tpl
   custom_gpt:
-    enabled: true
-    builder: scripts/build_custom_gpt.py
-    packager: scripts/package_custom_gpt.py
-  claude:
     enabled: false
-    role: assessed_reduced
+  claude:
+    enabled: true
+    role: peer_distribution
+    mode: claude_project
+    project:
+      instructions: project/instructions.md
+      knowledge: project/knowledge
+      runtime_contract: project/runtime-contract.json
+    templates:
+      readme: templates/README.claude.md.tpl
+    validation:
+      require_instructions: true
+      require_runtime_contract: true
   opencode:
     enabled: true
+    layout:
+      instructions: AGENTS.md
+      config: opencode.json
+      tools: .opencode/tools
+      runtime_scripts: scripts
+      runtime_contract: .opencode/runtime-contract.json
+      knowledge: knowledge
+    templates:
+      readme: templates/README.opencode.md.tpl
     role: peer_distribution
     mode: opencode_workspace
     instructions: AGENTS.md
     runtime_root: .opencode/security-reviewer
     state_path: .security-reviewer-state/review-process.json
-    builder: scripts/build_opencode.py
-    validator: scripts/validate_opencode.py
+  plugin:
+    enabled: true
+    layout:
+      manifest_file: plugin.json
+      skills: skills
+      references: references
+      assets: assets
+      scripts: scripts
+    templates:
+      readme: templates/README.plugin.md.tpl
+    role: peer_distribution
+    mode: openai_plugin
+    validation:
+      require_manifest: true
+      require_skill: true
+      require_skill_frontmatter: true
   openai_plugin:
     enabled: true
     role: peer_distribution
     mode: skills_first
-    builder: scripts/build_openai_plugin.py
-    validator: scripts/validate_openai_plugin.py
     artifact_name: sakerhetsgranskaren-it-stod-plugin-{version}.zip
     skill_id: security-reviewer
     state_path: .security-reviewer-state/review-process.json
@@ -218,6 +311,61 @@ runtime:
       binary_exports: host_dependency_dependent
       mcp_required_for_script_resources: false
 
+knowledge_architecture:
+  canonical_root: knowledge
+
+build_system:
+  build_script: scripts/build_distributions.py
+  validation_script: scripts/validate_distributions.py
+  targets:
+    - project
+    - chat
+    - plugin
+    - claude_project
+    - claude_skills
+    - opencode
+  runtime_targets:
+    chat:
+      runtime_id: chatgpt_chat
+      runtime_key: chat_zip
+      builder: chat
+      artifact_type: chat_zip
+      filename_pattern: security-reviewer-chat-<version>.zip
+    plugin:
+      runtime_id: openai_plugin
+      runtime_key: plugin
+      builder: plugin
+      artifact_type: plugin_zip
+      filename_pattern: security-reviewer-plugin-<version>.zip
+    claude_project:
+      runtime_id: claude_project
+      runtime_key: claude
+      builder: claude
+      artifact_type: claude_project_zip
+      filename_pattern: security-reviewer-claude-project-<version>.zip
+    claude_skills:
+      runtime_id: claude_skills
+      runtime_key: claude
+      builder: claude_skills
+      artifact_type: claude_skills_zip
+      filename_pattern: security-reviewer-claude-skills-<version>.zip
+    opencode:
+      runtime_id: opencode
+      runtime_key: opencode
+      builder: opencode
+      artifact_type: opencode_zip
+      filename_pattern: security-reviewer-opencode-<version>.zip
+  output_root: dist
+  working_root: build
+  deterministic_zip: true
+  manifest: true
+  checksums: sha256
+  project_zip_excludes:
+    - build/**
+    - dist/**
+    - .git/**
+    - '**/__pycache__/**'
+
 ci:
   enabled: true
   workflow: .github/workflows/ci.yml
@@ -229,9 +377,9 @@ release:
     version_source: release_tag
 
 migration:
-  target: gpt-builder-1.5.0
+  target: gpt-builder-1.6.33
   preserve_domain_behavior: true
-  preserve_existing_chat_custom_builds_until_replaced: true
+  preserve_existing_chat_custom_builds_until_replaced: false
 
 testing:
   manifest: tests/test-manifest.yaml
@@ -245,8 +393,8 @@ runtime_parity:
   model: runtime-parity.yaml
   registered_runtimes:
     - chatgpt_chat
-    - chatgpt_custom
     - claude_project
+    - claude_skills
     - opencode
     - openai_plugin
   compared_categories:
@@ -255,3 +403,20 @@ runtime_parity:
     - artifact
     - workspace_state
     - tool
+
+# Migration status for canonical 1.6.33 configuration.
+migration_1_6_33:
+  engine_version: 1.6.33
+  stage: canonical_ci_verified
+  canonical_migration_activated: true
+  architecture_decision: docs/skill-architecture-decision.md
+  proposed_skills:
+    - security-review
+  intended_runtime_targets:
+    - chat
+    - plugin
+    - claude_project
+    - claude_skills
+    - opencode
+  legacy_custom_gpt: retired
+  next_gate: final_resource_and_published_release_audit

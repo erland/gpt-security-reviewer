@@ -20,17 +20,24 @@ jobs:
           python-version: "3.12"
 
       - name: Resolve release version
-        run: echo "RELEASE_VERSION=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
+        run: echo "RELEASE_VERSION=${{ github.event.release.tag_name }}" >> "$GITHUB_ENV"
 
       - name: Install report dependencies
         run: |
           pip install -r requirements-reporting.txt
-          pip install pyyaml
+          pip install pyyaml jsonschema
 
       - name: Install LibreOffice for PDF tests
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libreoffice-writer
+
+      - name: Install pinned GPT Byggaren 1.6.33 engine
+        run: |
+          curl --fail --location --retry 3 --output /tmp/gpt-byggaren-engine-1.6.33.zip \
+            https://github.com/erland/gpt-byggaren/releases/download/v1.6.33/gpt-byggaren-engine-1.6.33.zip
+          python3 -m zipfile -e /tmp/gpt-byggaren-engine-1.6.33.zip /tmp/gpt-byggaren-engine
+          python3 /tmp/gpt-byggaren-engine/scripts/install_distribution_engine.py --source /tmp/gpt-byggaren-engine --project-root .
 
       - name: Validate GPT Builder project model
         run: python3 scripts/lint_gpt_project.py
@@ -83,50 +90,29 @@ jobs:
       - name: Validate defensive reporting
         run: python3 scripts/validate_defensive_reporting.py
 
-      - name: Build Chat ZIP
-        run: python3 scripts/build_chat_zip.py
-
-      - name: Build Custom GPT bundle
-        run: python3 scripts/build_custom_gpt.py
-
-      - name: Validate Custom GPT bundle
-        run: python3 scripts/validate_custom_gpt.py
-
-      - name: Package Custom GPT bundle
-        run: python3 scripts/package_custom_gpt.py
-
-      - name: Validate Chat distribution
-        run: python3 scripts/validate_distribution.py
-
-      - name: Build OpenCode distribution
-        run: python3 scripts/build_opencode.py
-
-      - name: Validate OpenCode distribution
-        run: python3 scripts/validate_opencode.py
-
-      - name: Build OpenAI Plugin distribution
-        run: python3 scripts/build_openai_plugin.py
-
-      - name: Validate OpenAI Plugin distribution
-        run: python3 scripts/validate_openai_plugin.py
-
-      - name: Build project package
-        run: python3 scripts/build_project_package.py
-
-      - name: Validate runtime parity
+      - name: Validate security runtime parity
         run: python3 scripts/validate_runtime_parity.py
 
-      - name: Validate release artifacts
-        run: python3 scripts/validate_release.py
+      - name: Validate canonical project model
+        run: python3 /tmp/gpt-byggaren-engine/scripts/lint_gpt_project.py --project-root .
 
-      - name: Generate SHA-256 checksums
-        run: python3 scripts/generate_checksums.py
+      - name: Build canonical project and five distributions
+        run: python3 scripts/build_distributions.py --project-root . --version "${RELEASE_VERSION#v}"
 
-      - name: Build delivery manifest
-        run: python3 scripts/build_delivery_manifest.py
+      - name: Validate canonical distributions
+        run: python3 scripts/validate_distributions.py --project-root .
 
-      - name: Validate release readiness
+      - name: Validate canonical delivery
+        run: python3 /tmp/gpt-byggaren-engine/scripts/validate_generated_delivery.py --project-root .
+
+      - name: Validate canonical release readiness
         run: python3 scripts/validate_release_readiness.py
+
+      - name: Verify canonical reproducible release
+        run: python3 scripts/verify_reproducible_build.py
+
+      - name: Revalidate canonical distributions after reproducibility builds
+        run: python3 scripts/validate_distributions.py --project-root .
 
       - name: Validate project hygiene
         run: python3 scripts/project_hygiene.py
@@ -134,19 +120,17 @@ jobs:
       - name: Validate workflow parity
         run: python3 scripts/validate_workflow_parity.py
 
-      - name: Verify reproducible release
-        run: python3 scripts/verify_reproducible_build.py
-
-      - name: Upload release assets
+      - name: Upload six canonical release packages and metadata
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release upload "$GITHUB_REF_NAME" \
-            "dist/sakerhetsgranskaren-it-stod-project-${RELEASE_VERSION#v}.zip" \
-            "dist/sakerhetsgranskaren-it-stod-chat-${RELEASE_VERSION#v}.zip" \
-            "dist/sakerhetsgranskaren-it-stod-custom-gpt-${RELEASE_VERSION#v}.zip" \
-            "dist/sakerhetsgranskaren-it-stod-opencode-${RELEASE_VERSION#v}.zip" \
-            "dist/sakerhetsgranskaren-it-stod-plugin-${RELEASE_VERSION#v}.zip" \
-            "dist/sakerhetsgranskaren-it-stod-${RELEASE_VERSION#v}-SHA256SUMS.txt" \
-            "dist/sakerhetsgranskaren-it-stod-${RELEASE_VERSION#v}-DELIVERY-MANIFEST.json" \
+            "dist/security-reviewer-project-${RELEASE_VERSION#v}.zip" \
+            "dist/security-reviewer-chat-${RELEASE_VERSION#v}.zip" \
+            "dist/security-reviewer-plugin-${RELEASE_VERSION#v}.zip" \
+            "dist/security-reviewer-claude-project-${RELEASE_VERSION#v}.zip" \
+            "dist/security-reviewer-claude-skills-${RELEASE_VERSION#v}.zip" \
+            "dist/security-reviewer-opencode-${RELEASE_VERSION#v}.zip" \
+            "dist/SHA256SUMS.txt" \
+            "dist/DELIVERY-MANIFEST.json" \
             --clobber

@@ -38,30 +38,28 @@ GPT:n är ett gransknings- och beslutsstöd. Den ersätter inte penetrationstest
 - `.github/workflows/` – CI och release
 - `tests/` – scenarier och fixtures
 
-## Distribution
+## Distributioner (GPT Byggaren 1.6.33)
 
-Både Chat ZIP och Custom GPT ska byggas från samma canonical material.
+Originalmotorn 1.6.33 installerar en gemensam byggare och tar fram sex ZIP-arkiv:
+projektpaket samt **Chat, OpenAI Plugin, Claude Project, Claude Skills och OpenCode**.
+Custom GPT är en historisk kompatibilitetsdistribution och ingår inte i denna release.
 
-Versionsnummer ska i releaseflödet tas från GitHub Release-taggen.
+Gemensam styrning finns i `canonical/core.md`; granskningsbeteendet i
+`canonical/skills/security-review/behavior.md`. Den gamla
+`canonical/runtime-contract.md` är kvar för bakåtkompatibilitet och spårbarhet.
 
-## Chat ZIP
+I CI installeras den versionslåsta originalmotorn från GitHub Release v1.6.33.
+Den installeras även i det publicerade releaseflödet, innan testning och bygge.
+Build/validation körs med originalmotorns `scripts/build_distributions.py`
+och `scripts/validate_distributions.py` samt leveranskontroll.
 
-Chat-distributionen byggs med:
+Säkerhetsgranskningens särskilda regressionskontroller för integrity gate,
+coverage, rapportmodell och Word/PDF körs fortfarande före release.
 
-```bash
-python3 scripts/build_chat_zip.py
-python3 scripts/validate_distribution.py
-```
-
-Den resulterande ZIP-filen innehåller endast runtime-relevant material och en rotplacerad `START-HERE.md`.
-
-## Custom GPT
-
-```bash
-python3 scripts/build_custom_gpt.py
-python3 scripts/validate_custom_gpt.py
-python3 scripts/package_custom_gpt.py
-```
+Claude-distributionerna har dokumenterade värdberoenden: lokal deterministisk
+integritetskontroll och Word/PDF-export kräver en kompatibel exekveringsmiljö.
+Releaseversionen härleds från GitHub Release-taggen och manifest samt SHA-256
+levereras tillsammans med paketen.
 
 ## Rapportering
 
@@ -107,24 +105,10 @@ Standard/Deep använder nu en obligatorisk kontrollmatris, challenge pass och co
 Standard/Deep använder nu ett beständigt kandidatregister med obligatorisk slutdisposition och en leveransgate före rapportgenerering. DOCX/PDF renderas deterministiskt från canonical JSON; texttunga tabeller begränsas till tre kolumner och åtgärds-/follow-up-sektioner använder blocklayout.
 
 
-## GPT Builder 1.5 runtime-distributioner
+## GPT Byggaren 1.6.33 – runtime-distributioner
 
-Projektet bygger aktiva peer-distributioner för ChatGPT Chat, Custom GPT, OpenCode och OpenAI Plugin från samma canonical säkerhetskontrakt. Claude Projects är fortsatt reducerad/inaktiv. OpenAI Plugin är `equivalent_runtime_dependent`: full Standard/Deep-parity kräver repository-workspace, persistent review state och kompatibel code execution.
+De fem aktiva distributionerna är Chat, OpenAI Plugin, Claude Project, Claude Skills och OpenCode. GitHub Release använder originalmotorn 1.6.33 och publicerar sex ZIP-arkiv inklusive projektpaketet, `SHA256SUMS.txt` och `DELIVERY-MANIFEST.json`.
 
-GitHub Release publicerar:
+Runtime-kontrakten är gemensamma, men verktygspariteten är värdberoende: framför allt Claude-distributionerna kräver en host som erbjuder beständigt review state och deterministisk exekvering för att kunna slutföra Standard/Deep och binär rapportexport. De två registrerade domänverktygen är `review-integrity` och `report-delivery`.
 
-- Project ZIP
-- Chat ZIP
-- Custom GPT ZIP
-- OpenCode ZIP
-- OpenAI Plugin ZIP
-- SHA-256-checksummor
-- delivery manifest
-
-
-Releaseartefakterna byggs reproducerbart med fixerad ZIP-metadata och verifieras i CI tillsammans med project hygiene, workflow parity och release readiness.
-
-
-### OpenAI Plugin
-
-Plugin-distributionen är skills-first och paketerar canonical säkerhetskontrakt, Knowledge, schemas samt den testade rapport/toolchain-closure som används av OpenCode. Endast `review-integrity` och `report-delivery` är canonical tools; övriga Pythonfiler är support-resurser. Script-resurser kräver ingen MCP-wrapper. Målrepots filer är read-only som standard, review state/output hålls separerade från source evidence och DOCX/PDF får inte kringgå den deterministiska rendererpipelinen.
+Verifiering sker i CI mot originalmotorns builder, distributionsvalidator och leveransvalidator. Säkerhets-, coverage- och rapporttester bibehålls. En faktisk publicerad GitHub Release återstår att verifiera separat.

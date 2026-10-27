@@ -4,7 +4,7 @@ import json, sys
 ROOT=Path(__file__).resolve().parents[1]
 errors=[]
 contract=(ROOT/'canonical/multi-pass-review-contract.md')
-instructions=(ROOT/'custom-gpt/instructions-template.md')
+instructions=(ROOT/'canonical/skills/security-review/behavior.md')
 runtime=(ROOT/'canonical/runtime-contract.md')
 for p in [contract,instructions,runtime]:
     if not p.exists() or not p.read_text(encoding='utf-8').strip(): errors.append(f'missing/empty {p.relative_to(ROOT)}')
