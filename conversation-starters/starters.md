@@ -1,0 +1,4 @@
+- Granska säkerheten i ett React- och Java-projekt.
+- Gör en Standard-granskning av mitt uppladdade repository.
+- Identifiera säkerhetsrisker i systemets API:er och autentisering.
+- Skapa en spårbar defensiv säkerhetsrapport från granskningsresultatet.
