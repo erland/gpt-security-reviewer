@@ -19,13 +19,12 @@ Custom GPT är inte längre en aktiv distribution. Gemensam kärna finns i `cano
 - Ursprunglig 1.6.33-motor används för sex arkiv: projektpaket och fem runtimepaket.
 - Säkerhets- och rapportregression, integrity gate, flerpasskontroller och Word/PDF-export kontrolleras fortsatt.
 - Release-smoke kontrollerar de sex arkiven, checksummor och reproducerbarhet.
-- Senast verifierade gröna CI före borttagning av kvarvarande Custom GPT-resurser: körning 40574174463.
+- Senast verifierade gröna CI efter städning av Custom GPT-resurser: körning 40574706704.
 - En verklig GitHub Release med `release.published` har **inte** verifierats.
 
 ## Kvarstående slutkontroller
 
-1. Kontrollera CI efter den sista städningen av Custom GPT-resurserna.
-2. Granska Skillens resursclosure och distributionernas faktiska verktygsförmåga/hostbegränsningar.
-3. Kontrollera slutlig releasekonfiguration och markera därefter PR redo för granskning.
+1. Granska Skillens resursclosure och distributionernas faktiska verktygsförmåga/hostbegränsningar.
+2. Kontrollera slutlig releasekonfiguration och markera därefter PR redo för granskning.
 
 PR #10 förblir draft tills samtliga dessa kontroller passerat.
