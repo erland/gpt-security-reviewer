@@ -284,6 +284,12 @@ runtime:
     validator: scripts/validate_opencode.py
   plugin:
     enabled: true
+    layout:
+      manifest_file: plugin.json
+      skills: skills
+      references: references
+      assets: assets
+      scripts: scripts
     templates:
       readme: templates/README.plugin.md.tpl
     role: peer_distribution
