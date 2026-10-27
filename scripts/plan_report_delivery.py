@@ -2,7 +2,12 @@
 from pathlib import Path
 import argparse,json
 ROOT=Path(__file__).resolve().parents[1]
-P=json.loads((ROOT/'canonical/report-delivery-policy.json').read_text(encoding='utf-8'))
+policy=ROOT/'canonical/report-delivery-policy.json'
+if not policy.is_file():
+ policy=ROOT/'assets/report-delivery-policy.json'
+if not policy.is_file():
+ raise SystemExit('Missing report-delivery-policy.json: portable engine resources are incomplete')
+P=json.loads(policy.read_text(encoding='utf-8'))
 alias={'md':'markdown','docx':'word','confluence-markup':'confluence'}
 ap=argparse.ArgumentParser(); ap.add_argument('--mode',choices=['quick','standard','deep'],required=True); ap.add_argument('--formats'); a=ap.parse_args()
 explicit=None if a.formats is None else []

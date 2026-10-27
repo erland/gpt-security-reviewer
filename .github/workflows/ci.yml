@@ -131,6 +131,9 @@ jobs:
       - name: Validate canonical distributions
         run: python3 scripts/validate_distributions.py --project-root .
 
+      - name: Run report tools from packaged runtime ZIPs
+        run: python3 scripts/validate_packaged_report_tools.py
+
       - name: Validate canonical delivery
         run: python3 /tmp/gpt-byggaren-engine/scripts/validate_generated_delivery.py --project-root .
 
