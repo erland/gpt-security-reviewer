@@ -255,3 +255,21 @@ runtime_parity:
     - artifact
     - workspace_state
     - tool
+
+# Forward migration metadata only. The active 1.5 contract remains authoritative until
+# the original 1.6.33 engine and all legacy gates have passed together.
+migration_1_6_33:
+  engine_version: 1.6.33
+  stage: project_model_assessment
+  canonical_migration_activated: false
+  architecture_decision: docs/skill-architecture-decision.md
+  proposed_skills:
+    - security-review
+  intended_runtime_targets:
+    - chat
+    - plugin
+    - claude_project
+    - claude_skills
+    - opencode
+  legacy_custom_gpt: compatibility_only_until_verified
+  next_gate: original_engine_modular_activation_and_regression
