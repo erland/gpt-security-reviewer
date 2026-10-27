@@ -156,67 +156,106 @@
       {
         "control_family": "authentication/session",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-authentication"
+        ]
       },
       {
         "control_family": "authorization/object ownership/current authorization",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-authorization"
+        ]
       },
       {
         "control_family": "input/archive/path handling",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-input"
+        ]
       },
       {
         "control_family": "injection/output/browser sinks",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-injection"
+        ]
       },
       {
         "control_family": "secrets/cryptography",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-secrets"
+        ]
       },
       {
         "control_family": "external HTTP/API integrations",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-external-HTTP"
+        ]
       },
       {
         "control_family": "local process/Git/file-system operations",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-local-process"
+        ]
       },
       {
         "control_family": "data stores",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-data-stores"
+        ]
       },
       {
         "control_family": "resource consumption/timeouts/concurrency",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-resource-consumption"
+        ]
       },
       {
         "control_family": "error handling/logging/audit",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-error-handling"
+        ]
       },
       {
         "control_family": "dependency/supply chain",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-dependency"
+        ]
       },
       {
         "control_family": "deployment/runtime/network exposure",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-deployment"
+        ]
       },
       {
         "control_family": "architecture/trust boundaries/privilege boundaries",
         "status": "reviewed",
-        "note": "Täcks av fixture för processvalidering."
+        "note": "Täcks av fixture för processvalidering.",
+        "evidence_refs": [
+          "tests/fixtures/report-standard-example.json#synthetic-architecture"
+        ]
       }
     ],
     "candidate_findings": [
