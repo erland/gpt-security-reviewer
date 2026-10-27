@@ -2,7 +2,7 @@
 from pathlib import Path
 import argparse, json, re, shutil, subprocess, sys, tempfile
 
-ROOT=Path(__file__).resolve().parents[1]
+SCRIPTS=Path(__file__).resolve().parent
 
 def clean_name(value):
     value=(value or 'it-stod').strip().lower(); value=re.sub(r'[^a-z0-9åäö]+','-',value,flags=re.I).strip('-'); return value or 'it-stod'
@@ -13,7 +13,7 @@ def main():
     output=Path(args.output) if args.output else Path(f"sakerhetsgranskning-{clean_name(report['metadata'].get('system_name'))}.pdf")
     with tempfile.TemporaryDirectory() as td:
         td=Path(td); docx=td/'report.docx'
-        r=subprocess.run([sys.executable,str(ROOT/'scripts/render_report_docx.py'),args.input_json,'-o',str(docx)],text=True,capture_output=True)
+        r=subprocess.run([sys.executable,str(SCRIPTS/'render_report_docx.py'),args.input_json,'-o',str(docx)],text=True,capture_output=True)
         if r.returncode: print(r.stderr,file=sys.stderr); sys.exit(r.returncode)
         lo=shutil.which('libreoffice') or shutil.which('soffice')
         if not lo:
