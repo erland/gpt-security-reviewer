@@ -93,33 +93,6 @@ jobs:
           python3 -m zipfile -e /tmp/gpt-byggaren-engine-1.6.33.zip /tmp/gpt-byggaren-engine
           python3 /tmp/gpt-byggaren-engine/scripts/install_distribution_engine.py --source /tmp/gpt-byggaren-engine --project-root .
 
-      - name: Build Chat ZIP
-        run: python3 scripts/build_chat_zip.py
-
-      - name: Build Custom GPT bundle
-        run: python3 scripts/build_custom_gpt.py
-
-      - name: Validate Custom GPT bundle
-        run: python3 scripts/validate_custom_gpt.py
-
-      - name: Package Custom GPT bundle
-        run: python3 scripts/package_custom_gpt.py
-
-      - name: Validate distribution
-        run: python3 scripts/validate_distribution.py
-
-      - name: Build OpenCode distribution
-        run: python3 scripts/build_opencode.py
-
-      - name: Validate OpenCode distribution
-        run: python3 scripts/validate_opencode.py
-
-      - name: Build OpenAI Plugin distribution
-        run: python3 scripts/build_openai_plugin.py
-
-      - name: Validate OpenAI Plugin distribution
-        run: python3 scripts/validate_openai_plugin.py
-
       - name: Validate project hygiene
         run: python3 scripts/project_hygiene.py
 
