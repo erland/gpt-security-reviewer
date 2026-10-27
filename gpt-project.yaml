@@ -13,6 +13,9 @@ structure:
   conversation_starters:
     path: conversation-starters
     required: true
+  runtime_policy:
+    path: runtime-policy
+    required: false
   knowledge:
     path: knowledge
     required: true
@@ -243,6 +246,7 @@ runtime:
   chat_zip:
     enabled: true
     builder: scripts/build_chat_zip.py
+    start_here_template: templates/START-HERE.chat.md.tpl
   custom_gpt:
     enabled: false
     builder: scripts/build_custom_gpt.py
@@ -251,11 +255,26 @@ runtime:
     enabled: true
     role: peer_distribution
     mode: claude_project
+    project:
+      instructions: project/instructions.md
+      knowledge: project/knowledge
+      runtime_contract: project/runtime-contract.json
+    templates:
+      readme: templates/README.claude.md.tpl
     validation:
       require_instructions: true
       require_runtime_contract: true
   opencode:
     enabled: true
+    layout:
+      instructions: AGENTS.md
+      config: opencode.json
+      tools: .opencode/tools
+      runtime_scripts: scripts
+      runtime_contract: .opencode/runtime-contract.json
+      knowledge: knowledge
+    templates:
+      readme: templates/README.opencode.md.tpl
     role: peer_distribution
     mode: opencode_workspace
     instructions: AGENTS.md
@@ -265,6 +284,8 @@ runtime:
     validator: scripts/validate_opencode.py
   plugin:
     enabled: true
+    templates:
+      readme: templates/README.plugin.md.tpl
     role: peer_distribution
     mode: openai_plugin
     validation:
@@ -288,6 +309,9 @@ runtime:
       code_execution: required_for_deterministic_gates
       binary_exports: host_dependency_dependent
       mcp_required_for_script_resources: false
+
+knowledge_architecture:
+  canonical_root: knowledge
 
 build_system:
   build_script: scripts/build_distributions.py
