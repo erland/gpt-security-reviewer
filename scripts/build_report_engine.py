@@ -28,6 +28,7 @@ with zipfile.ZipFile(plugin) as source:
             payload[relative] = source.read(member)
 required = {
     "scripts/deliver_report.py", "scripts/validate_review_integrity.py",
+    "scripts/validate_report_schema.py",
     "scripts/plan_report_delivery.py", "scripts/render_report_docx.py",
     "scripts/render_report_pdf.py", "scripts/render_report_markdown.py",
     "assets/report.schema.json", "assets/finding.schema.json",
@@ -42,7 +43,7 @@ readme = f"""# Security Reviewer standalone report engine {version}
 This is the executable companion to Security Reviewer's installed Skill.
 It is NOT needed if the host can execute installed Skill scripts directly.
 
-Prerequisites: Python 3, python-docx for Word, LibreOffice for PDF.
+Prerequisites: Python 3, jsonschema for all formats, python-docx for Word, LibreOffice for PDF.
 Extract this archive and run:
 
 python3 scripts/deliver_report.py report.json --mode standard --formats markdown,word,pdf --output-dir output
