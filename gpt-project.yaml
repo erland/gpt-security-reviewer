@@ -121,6 +121,8 @@ skills:
         - canonical/report-delivery-policy.json
         - schemas/report.schema.json
         - schemas/review-process.schema.json
+        - schemas/finding.schema.json
+        - docs/pdf-table-layout.md
       scripts:
         - scripts/validate_review_integrity.py
         - scripts/deliver_report.py
