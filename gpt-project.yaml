@@ -5,6 +5,38 @@ project:
   description: Evidensbaserad och defensiv säkerhetsgranskning av källkod, konfiguration, deploymentunderlag och arkitekturdokumentation.
   profile: workflow_research_heavy
 
+structure:
+  canonical_root: canonical
+  instructions:
+    path: canonical
+    required: true
+  conversation_starters:
+    path: conversation-starters
+    required: true
+  knowledge:
+    path: knowledge
+    required: true
+  templates:
+    path: templates
+    required: false
+  schemas:
+    path: schemas
+    required: true
+  scripts:
+    path: scripts
+    required: true
+  tests:
+    path: tests
+    required: true
+  build:
+    path: build
+    generated: true
+    create_when_needed: true
+  dist:
+    path: dist
+    generated: true
+    create_when_needed: true
+
 analysis:
   source: existing-project-migration
   runtime:
@@ -14,10 +46,6 @@ analysis:
         suitability: ready
         activate_by_default: true
         reason: Befintlig Chat ZIP stöder uppladdade repositories och hela canonical granskningsflödet.
-      - runtime_id: chatgpt_custom
-        suitability: ready
-        activate_by_default: false
-        reason: Befintlig Custom GPT-distribution paketerar kärninstruktion och knowledge inom plattformsgränserna.
       - runtime_id: claude_project
         suitability: reduced
         activate_by_default: true
