@@ -67,6 +67,7 @@ instructions:
 
 skills:
   contract_version: 1
+  schema: schemas/skill-contract.schema.json
   mode: inferred
   definitions:
     - id: security-review
