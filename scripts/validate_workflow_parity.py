@@ -37,11 +37,10 @@ for token in release_only:
 
 smoke=ci.split("release-smoke:",1)[1] if "release-smoke:" in ci else ""
 for token in [
-    "scripts/build_project_package.py",
+    "scripts/build_distributions.py",
+    "scripts/validate_distributions.py",
+    "scripts/validate_generated_delivery.py",
     "scripts/validate_runtime_parity.py",
-    "scripts/validate_release.py",
-    "scripts/generate_checksums.py",
-    "scripts/build_delivery_manifest.py",
     "scripts/validate_release_readiness.py",
     "scripts/project_hygiene.py",
     "scripts/validate_workflow_parity.py",
