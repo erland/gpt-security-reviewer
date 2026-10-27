@@ -16,12 +16,16 @@ analysis:
         reason: Befintlig Chat ZIP stöder uppladdade repositories och hela canonical granskningsflödet.
       - runtime_id: chatgpt_custom
         suitability: ready
-        activate_by_default: true
+        activate_by_default: false
         reason: Befintlig Custom GPT-distribution paketerar kärninstruktion och knowledge inom plattformsgränserna.
       - runtime_id: claude_project
         suitability: reduced
-        activate_by_default: false
+        activate_by_default: true
         reason: Analysbeteendet kan bäras, men den deterministiska DOCX/PDF- och integrity-pipelinen kan inte köras lokalt i runtime.
+      - runtime_id: claude_skills
+        suitability: reduced
+        activate_by_default: true
+        reason: Portabla Skills paketeras men runtimeberoende rapportexport kräver kompatibel host.
       - runtime_id: opencode
         suitability: ready
         activate_by_default: true
@@ -335,8 +339,8 @@ runtime_parity:
   model: runtime-parity.yaml
   registered_runtimes:
     - chatgpt_chat
-    - chatgpt_custom
     - claude_project
+    - claude_skills
     - opencode
     - openai_plugin
   compared_categories:
