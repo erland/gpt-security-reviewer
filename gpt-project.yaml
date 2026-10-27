@@ -211,12 +211,16 @@ runtime:
     enabled: true
     builder: scripts/build_chat_zip.py
   custom_gpt:
-    enabled: true
+    enabled: false
     builder: scripts/build_custom_gpt.py
     packager: scripts/package_custom_gpt.py
   claude:
-    enabled: false
-    role: assessed_reduced
+    enabled: true
+    role: peer_distribution
+    mode: claude_project
+    validation:
+      require_instructions: true
+      require_runtime_contract: true
   opencode:
     enabled: true
     role: peer_distribution
@@ -226,6 +230,14 @@ runtime:
     state_path: .security-reviewer-state/review-process.json
     builder: scripts/build_opencode.py
     validator: scripts/validate_opencode.py
+  plugin:
+    enabled: true
+    role: peer_distribution
+    mode: openai_plugin
+    validation:
+      require_manifest: true
+      require_skill: true
+      require_skill_frontmatter: true
   openai_plugin:
     enabled: true
     role: peer_distribution
@@ -244,6 +256,58 @@ runtime:
       binary_exports: host_dependency_dependent
       mcp_required_for_script_resources: false
 
+build_system:
+  build_script: scripts/build_distributions.py
+  validation_script: scripts/validate_distributions.py
+  targets:
+    - project
+    - chat
+    - plugin
+    - claude_project
+    - claude_skills
+    - opencode
+  runtime_targets:
+    chat:
+      runtime_id: chatgpt_chat
+      runtime_key: chat_zip
+      builder: chat
+      artifact_type: chat_zip
+      filename_pattern: security-reviewer-chat-<version>.zip
+    plugin:
+      runtime_id: openai_plugin
+      runtime_key: plugin
+      builder: plugin
+      artifact_type: plugin_zip
+      filename_pattern: security-reviewer-plugin-<version>.zip
+    claude_project:
+      runtime_id: claude_project
+      runtime_key: claude
+      builder: claude
+      artifact_type: claude_project_zip
+      filename_pattern: security-reviewer-claude-project-<version>.zip
+    claude_skills:
+      runtime_id: claude_skills
+      runtime_key: claude
+      builder: claude_skills
+      artifact_type: claude_skills_zip
+      filename_pattern: security-reviewer-claude-skills-<version>.zip
+    opencode:
+      runtime_id: opencode
+      runtime_key: opencode
+      builder: opencode
+      artifact_type: opencode_zip
+      filename_pattern: security-reviewer-opencode-<version>.zip
+  output_root: dist
+  working_root: build
+  deterministic_zip: true
+  manifest: true
+  checksums: sha256
+  project_zip_excludes:
+    - build/**
+    - dist/**
+    - .git/**
+    - '**/__pycache__/**'
+
 ci:
   enabled: true
   workflow: .github/workflows/ci.yml
@@ -255,7 +319,7 @@ release:
     version_source: release_tag
 
 migration:
-  target: gpt-builder-1.5.0
+  target: gpt-builder-1.6.33
   preserve_domain_behavior: true
   preserve_existing_chat_custom_builds_until_replaced: true
 
