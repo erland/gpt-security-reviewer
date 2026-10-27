@@ -39,14 +39,13 @@ for target in ("chat", "plugin", "claude-skills", "opencode"):
             ERRORS.append(f"{target}: missing packaged report runner")
             continue
         for runner in runners:
-            if "skills" not in runner.parts:
-                continue
-            scripts = runner.parent
-            missing = REQUIRED - {p.name for p in scripts.glob("*.py")}
-            policy = scripts.parent / "assets" / "report-delivery-policy.json"
-            if missing or not policy.is_file():
-                ERRORS.append(f"{target}: missing Skill dependencies {sorted(missing)}; policy={policy.is_file()}")
-                continue
+            if "skills" in runner.parts:
+                scripts = runner.parent
+                missing = REQUIRED - {p.name for p in scripts.glob("*.py")}
+                policy = scripts.parent / "assets" / "report-delivery-policy.json"
+                if missing or not policy.is_file():
+                    ERRORS.append(f"{target}: missing Skill dependencies {sorted(missing)}; policy={policy.is_file()}")
+                    continue
             output = folder / ("out-" + str(len(ERRORS)))
             result = subprocess.run(
                 [sys.executable, str(runner), str(FIXTURE), "--mode", "quick",
