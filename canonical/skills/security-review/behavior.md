@@ -34,7 +34,7 @@ Standard och Deep använder internt: inventering/säkerhetsmodell -> obligatoris
 För Standard/Deep ska canonical rapportdata innehålla `review_process`. Word/PDF får endast levereras via den deterministiska renderer-pipelinen efter godkänd review-integrity gate; fri dokumentlayout är inte tillåten.
 
 
-## Portable resources and engine fallback
+### Portable resources and engine fallback
 
 I installerad Skill ligger distribuerade referenser under `references/<canonical-filnamn>.md`, scheman och styrdokument under `assets/` samt verktyg under `scripts/`. Exempel: `schemas/report.schema.json` i källprojektet motsvaras av `assets/report.schema.json`; `schemas/finding.schema.json` av `assets/finding.schema.json`; `docs/pdf-table-layout.md` av `assets/pdf-table-layout.md`. Använd installerade URI:er när sådana finns, inte källprojektets sökvägar.
 
