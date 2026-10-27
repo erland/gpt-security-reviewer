@@ -37,13 +37,10 @@ for token in [
     "contents: write",
     "GITHUB_REF_NAME",
     "libreoffice-writer",
-    "validate_release.py",
-    "generate_checksums.py",
-    "build_project_package.py",
-    "build_opencode.py",
+    "build_distributions.py",
+    "validate_distributions.py",
+    "validate_generated_delivery.py",
     "validate_runtime_parity.py",
-    "validate_release_readiness.py",
-    "build_delivery_manifest.py",
     "gh release upload",
     "--clobber",
 ]:
@@ -51,7 +48,7 @@ for token in [
         errors.append(f"release: missing {token}")
 
 upload=release.find("gh release upload")
-for token in ["validate_release.py","generate_checksums.py","validate_runtime_parity.py","validate_release_readiness.py","build_delivery_manifest.py"]:
+for token in ["build_distributions.py","validate_distributions.py","validate_generated_delivery.py","validate_runtime_parity.py"]:
     pos=release.find(token)
     if pos < 0 or pos > upload:
         errors.append(f"release: {token} must run before upload")
