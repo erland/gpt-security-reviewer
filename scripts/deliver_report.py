@@ -15,6 +15,12 @@ if not (SCRIPTS/'plan_report_delivery.py').is_file():
  raise SystemExit('Report engine incomplete: plan_report_delivery.py missing; use a compatible execution environment')
 M={'markdown':'render_report_markdown.py','confluence':'render_report_confluence.py','word':'render_report_docx.py','pdf':'render_report_pdf.py'}
 ap=argparse.ArgumentParser(); ap.add_argument('input_json'); ap.add_argument('--mode',choices=['quick','standard','deep'],required=True); ap.add_argument('--formats'); ap.add_argument('--output-dir',default='.'); a=ap.parse_args()
+input_file=Path(a.input_json).resolve()
+# Validate schema before creating output directories or starting any renderer.
+schema_check=subprocess.run([sys.executable,str(SCRIPTS/'validate_report_schema.py'),str(input_file)],text=True,capture_output=True)
+if schema_check.returncode:
+ print(schema_check.stderr or schema_check.stdout,file=sys.stderr)
+ raise SystemExit(schema_check.returncode)
 out=Path(a.output_dir); out.mkdir(parents=True,exist_ok=True)
 # Gate Standard/Deep delivery on the canonical structured review state. This prevents
 # ad-hoc rendering before candidate disposition and coverage are complete.

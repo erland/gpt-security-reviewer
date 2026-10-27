@@ -27,6 +27,10 @@ Rapporten ska även kunna ge slutsatsen **Ingen ytterligare djupgranskning** nä
 ## Residual risk
 Rapporten ska uttryckligen beskriva kvarvarande risk och hur stor del som beror på identifierade fynd, ej verifierbara kontroller och utanför-scope-områden.
 
+## Mandatory schema validation
+
+All modes must validate canonical report JSON against the bundled report, finding and review-process schemas before creating an output directory or invoking a renderer. Missing schemas, unresolved local references or invalid data must stop delivery; Standard/Deep additionally require a successful review-integrity gate. The standalone engine and the packaged Skill must apply the same checks without accessing network resources.
+
 ## Format neutrality
 Markdown är canonical mänskligt läsbart format. Confluence markup, PDF och Word ska genereras från samma rapportmodell och får inte ändra severity, confidence, fynd, granskningsluckor eller rekommenderad fortsatt granskning.
 

@@ -38,6 +38,14 @@ with tempfile.TemporaryDirectory() as temp:
         found=list(out.glob("*."+suffix))
         if not found or any(p.stat().st_size==0 for p in found):
             raise SystemExit(f"Missing rendered {suffix}")
+    invalid_schema=copy.deepcopy(fixture)
+    invalid_schema["metadata"]["review_mode"]="invalid-mode"
+    schema_path=root/"invalid-schema.json"
+    schema_path.write_text(json.dumps(invalid_schema,ensure_ascii=False),encoding="utf-8")
+    schema_output=root/"schema-rejected"
+    schema_run=subprocess.run([sys.executable,str(runner),str(schema_path),"--mode","standard","--formats","markdown","--output-dir",str(schema_output)],cwd=root,capture_output=True,text=True,timeout=30)
+    if schema_run.returncode==0 or schema_output.exists():
+        raise SystemExit("Invalid report schema created output or passed gate")
     bad=copy.deepcopy(fixture)
     for control in bad["review_process"]["control_matrix"]:
         if control["status"]=="reviewed":
