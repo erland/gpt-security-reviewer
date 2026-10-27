@@ -34,12 +34,13 @@ release:
   artifacts:
     - project_zip
     - chat_zip
-    - custom_gpt_zip
+    - claude_project_zip
+    - claude_skills_zip
     - opencode_zip
     - plugin_zip
     - sha256_checksums
     - delivery_manifest
-  note: GPT Builder 1.5 migration is complete with OpenAI Plugin as an equivalent_runtime_dependent active peer runtime.
+  note: Historical maintenance release has been superseded by canonical 1.6.33; published release still requires verification.
 next_step:
   recommended: null
   title: Maintenance
@@ -56,7 +57,7 @@ resume:
 
 # Parallel forward migration; legacy validated maintenance status above is retained.
 migration_1_6_33:
-  stage: legacy_custom_gpt_cleanup_pending_final_verification
+  stage: canonical_ci_green_release_pending
   status: in_progress
   architecture_decision: docs/skill-architecture-decision.md
   completed:
@@ -69,9 +70,9 @@ migration_1_6_33:
     - legacy_build_scripts_removed
     - custom_gpt_resources_removed
     - status_documentation_refreshed
+    - final_ci_green_40574706704
   remaining:
-    - final_regression
     - resource_closure_audit
     - release_review
   release_ready: false
-  next_action: Verify CI on cleanup commit, inspect actual Skill resource closure and complete release review before merge.
+  next_action: Inspect generated Skill resource closure and validate the published release workflow before merging.
