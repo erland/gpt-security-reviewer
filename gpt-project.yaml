@@ -247,7 +247,6 @@ runtime:
   primary: none
   chat_zip:
     enabled: true
-    builder: scripts/build_chat_zip.py
     start_here_template: templates/START-HERE.chat.md.tpl
   custom_gpt:
     enabled: false
@@ -280,8 +279,6 @@ runtime:
     instructions: AGENTS.md
     runtime_root: .opencode/security-reviewer
     state_path: .security-reviewer-state/review-process.json
-    builder: scripts/build_opencode.py
-    validator: scripts/validate_opencode.py
   plugin:
     enabled: true
     layout:
@@ -302,8 +299,6 @@ runtime:
     enabled: true
     role: peer_distribution
     mode: skills_first
-    builder: scripts/build_openai_plugin.py
-    validator: scripts/validate_openai_plugin.py
     artifact_name: sakerhetsgranskaren-it-stod-plugin-{version}.zip
     skill_id: security-reviewer
     state_path: .security-reviewer-state/review-process.json
