@@ -110,6 +110,9 @@ jobs:
       - name: Validate canonical delivery
         run: python3 /tmp/gpt-byggaren-engine/scripts/validate_generated_delivery.py --project-root .
 
+      - name: Run packaged report end-to-end acceptance test
+        run: python3 scripts/validate_packaged_report_e2e.py
+
       - name: Validate canonical release readiness
         run: python3 scripts/validate_release_readiness.py
 
