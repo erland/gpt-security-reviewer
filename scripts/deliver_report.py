@@ -1,7 +1,19 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import argparse,json,subprocess,sys
-SCRIPTS=Path(__file__).resolve().parent; M={'markdown':'render_report_markdown.py','confluence':'render_report_confluence.py','word':'render_report_docx.py','pdf':'render_report_pdf.py'}
+SCRIPTS=Path(__file__).resolve().parent
+# Root-level Chat/OpenCode tools delegate to the complete Skill engine.
+if not (SCRIPTS/'plan_report_delivery.py').is_file():
+ root=SCRIPTS.parent
+ for candidate in (root/'.opencode/skills/security-review/scripts',
+                   root/'assistant/skills/security-review/scripts',
+                   root/'skills/security-review/scripts'):
+  if (candidate/'plan_report_delivery.py').is_file():
+   SCRIPTS=candidate
+   break
+if not (SCRIPTS/'plan_report_delivery.py').is_file():
+ raise SystemExit('Report engine incomplete: plan_report_delivery.py missing; use a compatible execution environment')
+M={'markdown':'render_report_markdown.py','confluence':'render_report_confluence.py','word':'render_report_docx.py','pdf':'render_report_pdf.py'}
 ap=argparse.ArgumentParser(); ap.add_argument('input_json'); ap.add_argument('--mode',choices=['quick','standard','deep'],required=True); ap.add_argument('--formats'); ap.add_argument('--output-dir',default='.'); a=ap.parse_args()
 out=Path(a.output_dir); out.mkdir(parents=True,exist_ok=True)
 # Gate Standard/Deep delivery on the canonical structured review state. This prevents
