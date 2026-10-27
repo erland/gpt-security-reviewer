@@ -251,8 +251,6 @@ runtime:
     start_here_template: templates/START-HERE.chat.md.tpl
   custom_gpt:
     enabled: false
-    builder: scripts/build_custom_gpt.py
-    packager: scripts/package_custom_gpt.py
   claude:
     enabled: true
     role: peer_distribution
