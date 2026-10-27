@@ -379,7 +379,7 @@ release:
 migration:
   target: gpt-builder-1.6.33
   preserve_domain_behavior: true
-  preserve_existing_chat_custom_builds_until_replaced: true
+  preserve_existing_chat_custom_builds_until_replaced: false
 
 testing:
   manifest: tests/test-manifest.yaml
@@ -404,11 +404,10 @@ runtime_parity:
     - workspace_state
     - tool
 
-# Forward migration metadata only. The active 1.5 contract remains authoritative until
-# the original 1.6.33 engine and all legacy gates have passed together.
+# Migration status for canonical 1.6.33 configuration.
 migration_1_6_33:
   engine_version: 1.6.33
-  stage: modular_sources_activated_pending_validation
+  stage: canonical_ci_verified
   canonical_migration_activated: true
   architecture_decision: docs/skill-architecture-decision.md
   proposed_skills:
@@ -419,5 +418,5 @@ migration_1_6_33:
     - claude_project
     - claude_skills
     - opencode
-  legacy_custom_gpt: compatibility_only_until_verified
-  next_gate: engine_resource_validation_and_five_runtime_build
+  legacy_custom_gpt: retired
+  next_gate: final_resource_and_published_release_audit
